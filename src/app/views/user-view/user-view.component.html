@@ -1,0 +1,11 @@
+<div *ngIf="user">
+
+  <div>{{user.data.displayName}}</div>
+  <div>{{user.data.email}}</div>
+  <img class="avatar" [src]="user.data.photoURL ? user.data.photoURL : '/assets/images/default_user.png'"
+    alt="">
+  <div>
+    <a *ngIf="currentUser && user.id === currentUser.id" [routerLink]="['/', 'user-edit']">Edit</a>
+  </div>
+
+</div>

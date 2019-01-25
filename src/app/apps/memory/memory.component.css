@@ -1,0 +1,21 @@
+
+.app {
+  width: 200px;
+}
+
+.app .card {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin: 0 10px 10px 0;
+  background-color: #eee;
+  cursor: pointer;
+  text-align: center;
+  line-height: 40px;
+}
+.app .card:hover {
+  background-color: #ddd;
+}
+.card.confirmed {
+  background-color: #cfc !important;
+}

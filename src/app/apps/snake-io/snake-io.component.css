@@ -1,0 +1,23 @@
+.board {
+  box-shadow: 0 0 15px -5px #333;
+}
+
+.board .case {
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+
+.case { background-image: url('assets/template.default.png'); }
+.case.kappu { background-image: url('assets/template.kappu.png'); }
+.case.clorus { background-image: url('assets/template.clorus.png'); }
+.case.mala { background-image: url('assets/template.mala.png'); }
+
+.case.c-1 { background-position-x: -20px; }
+.case.c-2 { background-position-x: -40px; }
+.case.c-3 { background-position-x: -60px; }
+.case.c-4 { background-position-x: -80px; }
+
+.case.d-1 { transform: rotate(90deg); }
+.case.d-2 { transform: rotate(180deg); }
+.case.d-3 { transform: rotate(270deg); }

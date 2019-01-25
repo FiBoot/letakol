@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-xl-6 col-lg-7">
+    <canvas #codewarCanvas width="500" height="500" (click)="onClick($event)"></canvas>
+  </div>
+  <div class="col-xl-6 col-lg-5">
+
+    <div class="row mb-2">
+
+      <div class="col-6">
+        <button type="button" class="btn" [ngClass]="{'btn-success': !started, 'btn-warning': started}"
+          (click)="start()">
+          {{AICount > 1 ? started ? 'PAUSE' : 'START' : 'STEP'}}
+        </button>
+        <button type="button" class="btn btn-danger ml-2" (click)="reset()">Reset</button>
+      </div>
+
+      <div class="col-6">
+        <div class="input-group ">
+          <select class="custom-select" #AISelect>
+            <option *ngFor="let ai of AIList; index as i" [value]="i">{{ai.name}}</option>
+          </select>
+          <div class="input-group-append">
+            <button type="button" class="btn btn-primary" (click)="addAI(AISelect.value)">Add AI</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pt-2" [ngClass]="{'d-none': doc.visible}">
+      <div class="cm-header">
+        <button type="button" class="btn btn-secondary float-right" (click)="seeDoc()">Documentation</button>
+      </div>
+      <div class="cm-wrap">
+        <codemirror [(ngModel)]="code.value" [config]="code.config"></codemirror>
+      </div>
+    </div>
+
+    <div class="pt-2" [ngClass]="{'d-none': !doc.visible}">
+      <div class="cm-header">
+        <button type="button" class="btn btn-secondary" (click)="seeDoc()">Code</button>
+      </div>
+      <div class="cm-wrap documentation">
+        <p>Map is a donut lol</p>
+        <img src="/assets/images/tore.png" alt="donut">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div #codewarLogs class="logs mt-2">
+  <div *ngFor="let log of Codewar.Logs.list" [ngClass]="['log', 'info', 'warn', 'error'][log.level]">
+    {{['LOG', 'INFO', 'WARN', 'ERROR'][log.level]}}: {{log.message}}
+  </div>
+</div>

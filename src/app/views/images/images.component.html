@@ -1,0 +1,49 @@
+<div *ngIf="mutex.error" class="alert alert-danger">{{mutex.error}}</div>
+
+
+<div *ngIf="id" class="image-view mt-3">
+  <div class="row">
+    <div class="col-3">
+      <a class="btn btn-info default-size" [routerLink]="['/', 'images']">Back</a>
+    </div>
+    <div class="col-6 text-center">
+      <h2 *ngIf="image">{{image.data.name}}</h2>
+    </div>
+    <div class="col-3">
+      <app-mutex-button *ngIf="image" [lock]="mutex.lock" [btnClass]="'btn-danger float-right default-size'"
+        [btnValue]="'Delete'" (clicked)="delete(image)"></app-mutex-button>
+    </div>
+  </div>
+  <div class="mt-3 text-center">
+    <img *ngIf="image" [src]="image.data.url" [alt]="image.data.name">
+  </div>
+</div>
+
+
+<div *ngIf="!id">
+  <div class="row">
+    <div class="col-sm-3">
+      <button *ngIf="currentUser" type="button" class="btn btn-outline-info" (click)="openModal()">
+        <span>Upload image</span>
+      </button>
+    </div>
+    <div class="col-sm-6">
+      <app-pagination *ngIf="images" [items]="images" [perPage]="IMAGE_PER_PAGE" [(currentPage)]="page"></app-pagination>
+    </div>
+  </div>
+
+  <div *ngIf="images">
+    <div class="row mt-3">
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3" *ngFor="let image of displayedImages">
+        <a [routerLink]="['/', 'image', image.id]">
+          <div class="image-warp link">
+            <img [src]="image.data.preview" [alt]="image.data.name">
+            <div class="title">{{image.data.name}}</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <app-pagination [items]="images" [perPage]="IMAGE_PER_PAGE" [(currentPage)]="page" (displayedItemsChange)="pageChange($event)"></app-pagination>
+  </div>
+
+</div>

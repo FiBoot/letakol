@@ -1,0 +1,5 @@
+<a class="user-link" [ngClass]="{'light': light}" [routerLink]="['/', 'user', user.id]">
+  <img class="avatar" [src]="user.data.photoURL ? user.data.photoURL : '/assets/images/default_user.png'"
+    alt="">
+  <div class="name mx-2 d-none d-sm-inline-block">{{(user.data.displayName ? user.data.displayName : user.name)}}</div>
+</a>

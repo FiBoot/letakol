@@ -1,0 +1,23 @@
+.board {
+  position: relative;
+  box-shadow: 0 0 15px -5px #333;
+  height: 400px;
+  overflow: hidden;
+}
+
+.board .person {
+  position: absolute;
+}
+.person .name {
+  display: inline;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+}
+.person .last-message {
+  position: absolute;
+  top: -30px;
+  background-color: #eee;
+  padding: 2px 4px;
+  white-space: nowrap;
+}

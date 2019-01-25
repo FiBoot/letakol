@@ -1,0 +1,16 @@
+<h3>Real Time Chat</h3>
+<span class="badge">{{getUTCFullDate()}}</span>
+
+<div class="chat-wrap my-3">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let message of (messages | async)">
+      <!-- <div>{{message.from}}</div> -->
+      <span>{{message.value}}</span>
+      <div class="text-right">
+        <span class="badge text-right">le {{displayDate(message.date)}}</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<app-input-form (formSubmit)="newMessage($event)" resetInput="true" [inputPlaceholder]="'Your message..'" [submitBtnClass]="'btn-success'"></app-input-form>

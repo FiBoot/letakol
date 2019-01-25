@@ -1,0 +1,19 @@
+<app-input-form (keyPress)="filterApp($event)" (formSubmit)="resetSearch()" [inputModel]="search"
+  [inputPlaceholder]="'Search app'" [submitBtnValue]="'X'"></app-input-form>
+
+<div class="card-deck my-3">
+
+  <div class="col-12 col-md-6 col-lg-4 p-0 mb-3" *ngFor="let app of apps">
+    <div class="card link" (click)="nav(app)">
+      <img class="card-img-top" src="/assets/images/appcardimage.svg" alt="App card image">
+      <div class="card-body">
+        <h5 class="card-title">{{app.name}}</h5>
+        <p class="card-text">{{app.description}}</p>
+      </div>
+      <div class="card-footer">
+        <!-- <small class="text-muted">By {{app.author}}</small> -->
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,17 @@
+<nav class="navbar navbar-dark bg-dark sticky-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Index</a>
+
+    <div class="nav-right">
+
+      <app-login-modal *ngIf="!currentUser"></app-login-modal>
+
+      <div *ngIf="currentUser">
+        <app-user-link [user]="currentUser" [light]="true"></app-user-link>
+        <button type="button" class="btn btn-outline-danger default-size ml-2" (click)="logout()">Logout</button>
+      </div>
+
+    </div>
+
+  </div>
+</nav>

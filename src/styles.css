@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+html, body {
+  margin: 0;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.link:hover {
+  box-shadow: 0 0 15px -5px #333;
+}
+
+.default-size {
+  width: 100px;
+}
+
+/* CODE MIRROR */
+
+.CodeMirror {
+  height: 400px !important;
+}
+
+/* DROP FILE */
+
+file-drop .drop-zone {
+  border-radius: 10px !important;
+  border: 1px dashed #0782d0 !important;
+}
+file-drop .drop-zone:hover {
+  background-color: #eee;
+}
+
+file-drop .drop-zone .content {
+  position: relative;
+}
+
+/* AVATAR */
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  box-shadow: 0 0 1px 0px #333;
+}
+
+/* ORANGE BTN */
+
+.btn-orange {
+  color: #fff;
+  background-color: orange;
+  border-color: orange;
+}
+
+.btn-orange:hover {
+  background-color: darkorange;
+  border-color: darkorange;
+}
+
+.btn-outline-orange {
+  color: orange;
+  background-color: transparent;
+  border-color: orange;
+}
+
+.btn-outline-orange:hover {
+  color: #fff;
+  background-color: orange;
+  border-color: orange
+}

@@ -1,0 +1,10 @@
+<button class="btn" (click)="reset()">Reset</button>
+<span class="ml-3"><label>Moves: </label> {{moves}}</span>
+
+<div class="mt-3"></div>
+
+<div class="app mt-2">
+  <div class="card" *ngFor="let card of cards" [ngClass]="{'confirmed': card.confirmed}" (click)="checkCard(card)">
+    <span *ngIf="card.show || card.confirmed">{{card.type}}</span>
+  </div>
+</div>

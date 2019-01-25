@@ -1,0 +1,33 @@
+.image-view img {
+  max-width: 100%;
+}
+
+.image-view h2 {
+  margin: 0;
+}
+
+.image-warp {
+  position: relative;
+  min-height: 320px;
+  padding: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  background: url(/assets/images/default.jpg) no-repeat center;
+  text-align: center;
+}
+
+.image-warp img {
+  width: 220px;
+  height: 300px;
+  background-color: #fff;
+}
+
+.image-warp .title {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  background-color: rgba(51, 51, 51, 0.5);
+  color: #fff;
+  text-align: center;
+}

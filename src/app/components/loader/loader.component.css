@@ -1,0 +1,35 @@
+.presentron {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  transition: opacity .5s cubic-bezier(.5, 0, 1, .5);
+  opacity: 1;
+  z-index: 10000;
+}
+
+.presentron.hidding {
+  opacity: 0;
+}
+
+.presentron td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.presentron .loading {
+  height: 50%;
+  background-image: url('/assets/images/loading.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.presentron .loading-2 {
+  background-image: url('/assets/images/loading2.gif');
+}
+
+.presentron .loading-3 {
+  background-image: url('/assets/images/loading3.gif');
+}

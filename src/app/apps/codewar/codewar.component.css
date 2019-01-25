@@ -1,0 +1,46 @@
+canvas {
+  border: 1px solid #28a745;
+}
+
+.cm-wrap {
+  border: 1px solid #333;
+}
+
+.cm-header {
+  height: 38px;
+}
+
+.cm-header button {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.documentation {
+  padding: 5px 15px;
+}
+
+.documentation img {
+  width: 300px;
+  padding: 15px;
+}
+
+.logs {
+  height: 250px;
+  padding-left: 10px;
+  overflow-y: scroll;
+  font-size: 14px;
+  color: #111;
+  background: linear-gradient(#e0e0e0, #efefef);
+}
+
+.logs .info {
+  color: #666;
+}
+
+.logs .warn {
+  color: goldenrod;
+}
+
+.logs .error {
+  color: firebrick;
+}

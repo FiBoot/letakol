@@ -1,0 +1,19 @@
+<form class="form-inline">
+
+  <button class="btn" (click)="reset()">Reset</button>
+  <button class="ml-2 btn btn-success" [ngClass]="{'btn-warning': isRunning()}" (click)="start()">{{(isRunning() ?
+    'Pause' : 'Start')}}</button>
+
+  <label class="ml-3">Score</label>
+  <input type="text" name="score" class="ml-2 form-control" [(ngModel)]="score" disabled="disabled">
+
+  <label class="ml-3">Template</label>
+  <select class="form-control ml-2" name="template" [(ngModel)]="template">
+    <option *ngFor="let name of templates" [ngValue]="name.toLowerCase()">{{name}}</option>
+  </select>
+
+</form>
+
+<div class="board mt-3" [ngStyle]="{'width': boardSize(), 'height': boardSize()}">
+  <div *ngFor="let case of grid" class="case c-{{case.value}} d-{{case.dir}} {{case.value ? template : ''}}"></div>
+</div>
