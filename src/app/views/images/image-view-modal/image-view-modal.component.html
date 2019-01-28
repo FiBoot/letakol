@@ -15,16 +15,13 @@
     <div class="text-center" (click)="openImage(image)">
       <img class="link" [src]="image.data.url" [alt]="image.data.name" title="Full size">
     </div>
-    <!-- <a class="text-center" [href]="image.data.url">
-      <img [src]="image.data.url" [alt]="image.data.name" title="Full size">
-    </a> -->
   </div>
 
   <div class="modal-footer" *ngIf="user">
     <div class="row row-size">
       <div class="col-9">
         <app-user-link [user]="user" (click)="closeModal()"></app-user-link>
-        <span class="ml-2">le {{convertDate(image)}}</span>
+        <span class="ml-2">le <app-item-date [item]="image"></app-item-date></span>
       </div>
       <div class="col-3">
         <app-mutex-button *ngIf="currentUser && currentUser.id === image.uid" [lock]="mutex.lock"

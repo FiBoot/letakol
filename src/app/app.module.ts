@@ -1,3 +1,4 @@
+import { ItemDateComponent } from './components/item-date/item-date.component';
 import { ImageViewModalComponent } from './views/images/image-view-modal/image-view-modal.component';
 import { ImageUploadModalComponent } from './views/images/image-upload-modal/image-upload-modal.component';
 import { NgModule } from '@angular/core';
@@ -66,7 +67,8 @@ import { PaginationComponent } from './components/pagination/pagination/paginati
     NumGridComponent,
     SnakeIoComponent,
     PetComponent,
-    CodewarComponent
+    CodewarComponent,
+    ItemDateComponent
   ],
   imports: [
     BrowserModule,
