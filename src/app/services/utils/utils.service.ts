@@ -100,7 +100,6 @@ export class Utils {
 
 
   public static timestampToLocaleDate(timestamp: number): string {
-    console.log('TimestampToLocale called', timestamp);
     return new Date(timestamp).toLocaleDateString();
   }
 
