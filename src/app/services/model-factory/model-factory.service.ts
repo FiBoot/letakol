@@ -9,7 +9,7 @@ import { IUser, IUserData } from 'src/app/models/user.model';
 export class ModelFactoryService {
 
   private static genereItem(name: string, data: Object, type: EItemType): IFireBaseItem {
-    const date = new Date;
+    const date = Date.now();
     return <IFireBaseItem>{
       name: name,
       data: data,

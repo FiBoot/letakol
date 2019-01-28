@@ -110,7 +110,7 @@ export class FireStoreService {
 
   public update(item: IFireBaseItem): Promise<IFireBaseItem> {
     if (!this.checkItemProperty(item, item.type === EItemType.User)) { return Promise.reject(new ItemPropertyError); }
-    item.lastUpdateDate = new Date;
+    item.lastUpdateDate = Date.now();
     return Promise.all([
       this.getDoc(this.itemTable(item), item.id).then(doc => doc.update(this.format(item))),
       this.getDoc(this.TABLE, item.id).then(doc => doc.update(this.format(item))),

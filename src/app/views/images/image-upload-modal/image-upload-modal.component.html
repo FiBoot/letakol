@@ -1,5 +1,12 @@
 <div class="modal-header">
-  <h3 class="modal-title" id="modal-basic-title">Upload image</h3>
+  <div class="row row-size">
+    <div class="col-9">
+      <h3 class="modal-title" id="modal-basic-title">Upload image</h3>
+    </div>
+    <div class="col-3">
+      <button type="button" class="btn btn-outline-dark float-right" (click)="closeModal()" [disabled]="status.inProgress">Close</button>
+    </div>
+  </div>
 </div>
 
 <div class="modal-body">
@@ -22,8 +29,4 @@
     <app-mutex-button [btnClass]="'btn-success btn-block'" [btnValue]="'Upload'" [lock]="status.inProgress"></app-mutex-button>
 
   </form>
-</div>
-
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="closeModal()" [disabled]="status.inProgress">Close</button>
 </div>

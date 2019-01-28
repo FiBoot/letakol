@@ -23,6 +23,14 @@ html, body {
   width: 100px;
 }
 
+.row-size {
+  width: 130%;
+}
+
+.full-width {
+  width: 100%;
+}
+
 /* CODE MIRROR */
 
 .CodeMirror {
@@ -35,6 +43,7 @@ file-drop .drop-zone {
   border-radius: 10px !important;
   border: 1px dashed #0782d0 !important;
 }
+
 file-drop .drop-zone:hover {
   background-color: #eee;
 }

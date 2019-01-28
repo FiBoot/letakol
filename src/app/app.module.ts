@@ -1,9 +1,11 @@
-import { FIREBASE_CONFIG } from './../environments/firebase.token';
+import { ImageViewModalComponent } from './views/images/image-view-modal/image-view-modal.component';
+import { ImageUploadModalComponent } from './views/images/image-upload-modal/image-upload-modal.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app.routes.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FIREBASE_CONFIG } from 'src/environments/firebase.token';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -34,7 +36,6 @@ import { CodewarComponent } from './apps/codewar/codewar.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
 import { MutexButtonComponent } from './components/mutex-button/mutex-button.component';
-import { ImageUploadModalComponent } from './components/image-upload-modal/image-upload-modal.component';
 import { PaginationComponent } from './components/pagination/pagination/pagination.component';
 
 
@@ -48,22 +49,24 @@ import { PaginationComponent } from './components/pagination/pagination/paginati
     LoaderComponent,
     UserLinkComponent,
     MutexButtonComponent,
-    ImageUploadModalComponent,
+    PaginationComponent,
 
     DefaultComponent,
+    AdminComponent,
     UserViewComponent,
     ListViewComponent,
+    UserEditComponent,
+    ImagesComponent,
+    ImageViewModalComponent,
+    ImageUploadModalComponent,
+
     ChatComponent,
     ChatRoomComponent,
     MemoryComponent,
     NumGridComponent,
     SnakeIoComponent,
-    UserEditComponent,
     PetComponent,
-    CodewarComponent,
-    AdminComponent,
-    ImagesComponent,
-    PaginationComponent
+    CodewarComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,10 @@ import { PaginationComponent } from './components/pagination/pagination/paginati
     InputFormComponent,
     LoaderComponent
   ],
-  entryComponents: [ImageUploadModalComponent],
+  entryComponents: [
+    ImageViewModalComponent,
+    ImageUploadModalComponent
+  ],
   providers: [FireStoreService],
   bootstrap: [AppComponent]
 })

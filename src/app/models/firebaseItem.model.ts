@@ -10,7 +10,7 @@ export interface IFireBaseItem {
   name: string;
   type: EItemType;
   data: any;
-  creationDate: Date;
-  lastUpdateDate: Date;
+  creationDate: number;
+  lastUpdateDate: number;
   public: boolean;
 }

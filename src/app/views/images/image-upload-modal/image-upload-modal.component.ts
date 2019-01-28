@@ -1,8 +1,8 @@
 import { Component, Renderer, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { UploadStatus, StorageService } from 'src/app/services/upload/storage.service';
 import { Utils } from 'src/app/services/utils/utils.service';
-import { UploadEvent, FileSystemFileEntry } from 'ngx-file-drop';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UploadEvent, FileSystemFileEntry } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-image-upload-modal.component',
@@ -15,7 +15,7 @@ export class ImageUploadModalComponent {
 
   readonly DEFAULT_TEXT = 'Drop File';
   private _file: File;
-  private event = new EventEmitter<boolean>();
+  public imageUploaded = new EventEmitter();
   public title: string;
   public status: UploadStatus;
 
@@ -64,7 +64,7 @@ export class ImageUploadModalComponent {
         (err) => { },
         () => {
           this.status.inProgress = false;
-          this.event.emit(true);
+          this.imageUploaded.emit();
         }
       );
     } else {

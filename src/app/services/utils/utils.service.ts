@@ -97,4 +97,11 @@ export class Utils {
   public static sign(num: number): number {
     return num > 0 ? 1 : num < 0 ? -1 : 0;
   }
+
+
+  public static timestampToLocaleDate(timestamp: number): string {
+    console.log('TimestampToLocale called', timestamp);
+    return new Date(timestamp).toLocaleDateString();
+  }
+
 }
