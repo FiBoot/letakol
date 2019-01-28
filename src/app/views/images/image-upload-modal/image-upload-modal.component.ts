@@ -14,6 +14,8 @@ export class ImageUploadModalComponent {
   @ViewChild('imageFileInput') imageFileInput: ElementRef;
 
   readonly DEFAULT_TEXT = 'Drop File';
+  readonly EXTENTIONS = ['image/png', 'image/gif', 'image/jpeg', 'image/tiff', 'image/webp', 'image/svg+xml'];
+
   private _file: File;
   public imageUploaded = new EventEmitter();
   public title: string;
@@ -54,21 +56,23 @@ export class ImageUploadModalComponent {
     this.status.message = `${file.name} (${Utils.fixed(file.size / 1000, 2)}Ko)`;
   }
 
-  private async uploadFile(file: File, title: string = '') {
+  private uploadFile(file: File, title: string = '') {
     this.status.message = 'Checking file';
-    if (!this.status.inProgress && file) {
+    if (!this.status.inProgress && file && this.EXTENTIONS.includes(file.type)) {
       this.status.message = 'Generating image preview';
-      const preview = await this.genereImagePreview();
-      this._storage.uploadImage(file, preview, title).subscribe(
-        (newStatus) => this.status = newStatus,
-        (err) => { },
-        () => {
-          this.status.inProgress = false;
-          this.imageUploaded.emit();
-        }
-      );
+      this.genereImagePreview().then(preview => {
+        this._storage.uploadImage(file, preview, title).subscribe(
+          (newStatus) => this.status = newStatus,
+          (err) => { console.warn(err); },
+          () => {
+            this.status.inProgress = false;
+            this.imageUploaded.emit();
+          }
+        );
+      }).catch(err => this.status.message = 'Error while creating preview');
     } else {
-      this.status.message = 'Error while selecting file';
+      const exts = this.EXTENTIONS.map(ext => ext.replace('image/', '.')).join(', ');
+      this.status.message = `Error while selecting file (Image must be ${exts})`;
     }
   }
 
@@ -77,10 +81,9 @@ export class ImageUploadModalComponent {
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageHandle = new Image();
+        imageHandle.onload = () => { resolve(this.resizeWithCanvas(imageHandle)); };
+        imageHandle.onerror = (e) => { reject(e); };
         imageHandle.src = (<FileReader>event.target).result.toString();
-        imageHandle.onload = () => {
-          resolve(this.resizeWithCanvas(imageHandle));
-        };
       };
       reader.readAsDataURL(this._file);
     });

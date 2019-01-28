@@ -16,7 +16,7 @@ export class ModelFactoryService {
       type: type,
       creationDate: date,
       lastUpdateDate: date,
-      public: false
+      public: true
     };
   }
 

@@ -45,7 +45,10 @@ export class ImageViewModalComponent extends ViewComponent {
 
   public delete(image: IImage): void {
     this.mutex.exec(this._storage.deleteImage.bind(this._storage), image)
-      .then(() => this.imageDeleted.emit());
+      .then(() => {
+        this.closeModal();
+        this.imageDeleted.emit();
+      });
   }
 
 }
