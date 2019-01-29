@@ -13,8 +13,26 @@
       <button type="button" class="btn btn-warning">Edit</button>
     </a>
 
-    <a *ngIf="currentUser && currentUser.admin" class="ml-2" [routerLink]="['/', 'admin']">
+    <a *ngIf="currentUser && user.id === currentUser.id && currentUser.admin" class="ml-2"
+      [routerLink]="['/', 'admin']">
       <button type="button" class="btn btn-info">Admin</button>
     </a>
   </div>
+
+  <div class="mt-4">
+    <div class="row">
+      <div class="col-md-4">
+        <h4>Associated items:</h4>
+      </div>
+      <div class="col-md-4">
+        <app-pagination [items]="items" (displayedItemsChange)="displayItems = $event"></app-pagination>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3" *ngFor="let item of displayItems">
+        <app-item [item]="item"></app-item>
+      </div>
+    </div>
+  </div>
+
 </div>

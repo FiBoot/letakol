@@ -6,7 +6,7 @@ html, body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.btn {
+.ellipsis, .btn {
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -21,8 +21,6 @@ html, body {
 
 .default-size {
   width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .row-size {
@@ -31,6 +29,25 @@ html, body {
 
 .full-width {
   width: 100%;
+}
+
+/* AVATAR */
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  box-shadow: 0 0 1px 0px #333;
+}
+
+/* CARD */
+
+.card {
+  margin: 0 !important;
+}
+
+.card-title {
+  white-space: nowrap;
 }
 
 /* CODE MIRROR */
@@ -54,16 +71,7 @@ file-drop .drop-zone .content {
   position: relative;
 }
 
-/* AVATAR */
-
-.avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 4px;
-  box-shadow: 0 0 1px 0px #333;
-}
-
-/* ORANGE BTN */
+/* ORAnGE BTN */
 
 .btn-orange {
   color: #fff;

@@ -4,26 +4,31 @@
     <div class="alert alert-danger" *ngIf="mutex.error">{{mutex.error}}</div>
   </div>
 
-  <app-pagination [items]="items" [perPage]="8" (displayedItemsChange)="pageChange($event)"></app-pagination>
+  <app-pagination [items]="items" [perPage]="10" (displayedItemsChange)="displayedItems = $event"></app-pagination>
 
   <table class="table">
     <thead>
       <tr>
         <th scope="col">
-          <button type="button" class="btn btn-light" (click)="sort('uid')"><b>uid</b></button>
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'uid'}"
+            (click)="sort('uid')"><b>uid</b></button>
         </th>
         <th scope="col">
-          <button type="button" class="btn btn-light" (click)="sort('name')"><b>name</b></button>
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'name'}"
+            (click)="sort('name')"><b>name</b></button>
         </th>
         <th scope="col">
-          <button type="button" class="btn btn-light" (click)="sort('type')"><b>type</b></button>
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'type'}"
+            (click)="sort('type')"><b>type</b></button>
         </th>
         <!-- <th scope="col">data</th> -->
         <th scope="col">
-          <button type="button" class="btn btn-light" (click)="sort('cd')"><b>creationDate</b></button>
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'cd'}"
+            (click)="sort('cd')"><b>creationDate</b></button>
         </th>
         <th scope="col">
-          <button type="button" class="btn btn-light" (click)="sort('lud')"><b>lastUpdateDate</b></button>
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'lud'}"
+            (click)="sort('lud')"><b>lastUpdateDate</b></button>
         </th>
         <th scope="col">public</th>
         <th scope="col"></th>

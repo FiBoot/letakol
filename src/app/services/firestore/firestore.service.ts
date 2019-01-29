@@ -76,10 +76,8 @@ export class FireStoreService {
   }
 
   public search<T>(table: string, attribute: string, compare: ECompare, value: string | number): Promise<Array<T>> {
-    return (attribute
-      ? this._firestore.collection(table, ref => ref.where(attribute, <firebase.firestore.WhereFilterOp>compare, value))
-      : this._firestore.collection(table)).get().toPromise()
-      .then(querySnapshot => querySnapshot.docs.map(doc => <T>doc.data()));
+    return this._firestore.collection(table, ref => ref.where(attribute, <firebase.firestore.WhereFilterOp>compare, value))
+      .get().toPromise().then(querySnapshot => querySnapshot.docs.map(doc => <T>doc.data()));
   }
 
   public searchOne<T>(table: string, attribute: string, compare: ECompare, value: string | number): Promise<T> {
