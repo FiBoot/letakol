@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { DefaultComponent } from './views/default/default.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
@@ -16,7 +15,7 @@ import { CodewarComponent } from './apps/codewar/codewar.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: DefaultComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserViewComponent },
@@ -39,8 +38,3 @@ const routes: Routes = [
   { path: '**', redirectTo: '' }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

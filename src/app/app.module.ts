@@ -3,9 +3,9 @@ import { ImageViewModalComponent } from './views/images/image-view-modal/image-v
 import { ImageUploadModalComponent } from './views/images/image-upload-modal/image-upload-modal.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app.routes.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { routes } from './app.routes.module';
 import { FIREBASE_CONFIG } from 'src/environments/firebase.token';
 
 import { AngularFireModule } from 'angularfire2';
@@ -38,6 +38,7 @@ import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
 import { MutexButtonComponent } from './components/mutex-button/mutex-button.component';
 import { PaginationComponent } from './components/pagination/pagination/pagination.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -72,7 +73,7 @@ import { PaginationComponent } from './components/pagination/pagination/paginati
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    RouterModule.forRoot(routes, { useHash: true }),
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
