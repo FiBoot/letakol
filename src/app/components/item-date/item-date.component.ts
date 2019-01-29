@@ -9,11 +9,11 @@ import { Utils } from 'src/app/services/utils/utils.service';
 })
 export class ItemDateComponent implements OnChanges {
 
-  @Input() item: IFireBaseItem;
+  @Input() date: number;
 
   public creationDate: string;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.creationDate = Utils.timestampToLocaleDate(this.item.creationDate);
+    this.creationDate = Utils.timestampToLocaleDate(this.date);
   }
 }

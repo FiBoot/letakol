@@ -27,11 +27,11 @@ export class UserService {
   constructor(private _fireAuth: AngularFireAuth, private _firestore: FireStoreService) {
     this._fireAuth.authState.subscribe(firebaseUser => {
       if (firebaseUser) {
-        this._firestore.searchOne<IUser>(this.TABLE_NAME, 'uid', ECompare.Equal, firebaseUser.uid)
+        this._firestore.searchOne<IUser>(this.TABLE_NAME, 'data.uid', ECompare.Equal, firebaseUser.uid)
           .then(user => this.updateUser(user))
           // a la connection google le compte auth est créé avant l'enregistrement en base
           // l'evenement de changement d'utilisateur est donc trigger avant la sauvegarde
-          .catch(() => { });
+          .catch(e => { });
       } else {
         this.updateUser(null);
       }
@@ -86,7 +86,7 @@ export class UserService {
 
   public signInWithGoogle(): Promise<void> {
     return this._fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(userCredential => {
-      this._firestore.searchOne<IUser>(this.TABLE_NAME, 'uid', ECompare.Equal, userCredential.user.uid)
+      this._firestore.searchOne<IUser>(this.TABLE_NAME, 'data.uid', ECompare.Equal, userCredential.user.uid)
         // si l'utilisateur n'existe pas en base on l'ajoute en plus
         .catch(err => this.newUser(userCredential.user).then(user => this.updateUser(user)));
     });
@@ -101,7 +101,7 @@ export class UserService {
       return this._firestore.searchOne<IUser>(this.TABLE_NAME, 'id', ECompare.Equal, this.user.id).then(user => {
         user.data.displayName = profile.displayName;
         user.data.photoURL = profile.photoURL;
-        return this._firestore.update( user).then(() => this.updateUser(user));
+        return this._firestore.update(user).then(() => this.updateUser(user));
       });
     });
   }

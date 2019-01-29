@@ -2,10 +2,19 @@
 
   <div>{{user.data.displayName}}</div>
   <div>{{user.data.email}}</div>
-  <img class="avatar" [src]="user.data.photoURL ? user.data.photoURL : '/assets/images/default_user.png'"
-    alt="">
-  <div>
-    <a *ngIf="currentUser && user.id === currentUser.id" [routerLink]="['/', 'user-edit']">Edit</a>
+  <app-item-date [date]="user.creationDate"></app-item-date>
+  <div class="mt-2">
+    <img class="avatar" [src]="user.data.photoURL ? user.data.photoURL : '/assets/images/default_user.png'"
+      alt="avatar">
   </div>
 
+  <div class="mt-3">
+    <a *ngIf="currentUser && user.id === currentUser.id" [routerLink]="['/', 'user-edit']">
+      <button type="button" class="btn btn-warning">Edit</button>
+    </a>
+
+    <a *ngIf="currentUser && currentUser.admin" class="ml-2" [routerLink]="['/', 'admin']">
+      <button type="button" class="btn btn-info">Admin</button>
+    </a>
+  </div>
 </div>

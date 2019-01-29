@@ -9,5 +9,6 @@ export interface IUserData {
 }
 
 export interface IUser extends IFireBaseItem {
+  admin: boolean; // special property
   data: IUserData;
 }

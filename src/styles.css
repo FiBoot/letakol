@@ -21,6 +21,8 @@ html, body {
 
 .default-size {
   width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .row-size {

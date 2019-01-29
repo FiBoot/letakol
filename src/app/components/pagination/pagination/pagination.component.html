@@ -1,4 +1,4 @@
-<nav aria-label="Page navigation">
+<nav aria-label="Page navigation" *ngIf="items">
   <ul class="pagination justify-content-center">
     <li class="page-item" [ngClass]="{'disabled': currentPage <= 1}">
       <a class="page-link" tabindex="1000" (click)="changePage(1)">First</a>

@@ -21,7 +21,7 @@
     <div class="row row-size">
       <div class="col-9">
         <app-user-link [user]="user" (click)="closeModal()"></app-user-link>
-        <span class="ml-2">le <app-item-date [item]="image"></app-item-date></span>
+        <span class="ml-2">le <app-item-date [date]="image.creationDate"></app-item-date></span>
       </div>
       <div class="col-3">
         <app-mutex-button *ngIf="currentUser && currentUser.id === image.uid" [lock]="mutex.lock"
