@@ -63,7 +63,10 @@ export class ImageUploadModalComponent {
       this.genereImagePreview().then(preview => {
         this._storage.uploadImage(file, preview, title).subscribe(
           (newStatus) => this.status = newStatus,
-          (err) => { console.warn(err); },
+          (err) => {
+            this.status.inProgress = false;
+            console.warn(err);
+          },
           () => {
             this.status.inProgress = false;
             this.imageUploaded.emit();
