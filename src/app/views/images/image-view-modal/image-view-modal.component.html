@@ -1,14 +1,8 @@
 <div *ngIf="image">
 
   <div class="modal-header">
-    <div class="row row-size">
-      <div class="col-9">
-        <h4 class="modal-title" id="modal-basic-title">{{image.name || 'No title'}}</h4>
-      </div>
-      <div class="col-3">
-        <button class="btn btn-outline-dark float-right ml-2" (click)="closeModal()" [disabled]="mutex.lock">Close</button>
-      </div>
-    </div>
+    <h4 class="modal-title ellipsis" id="modal-basic-title">{{image.name || 'No title'}}</h4>
+    <button class="btn btn-outline-dark float-right" (click)="closeModal()" [disabled]="mutex.lock">Close</button>
   </div>
 
   <div class="modal-body" *ngIf="image">
@@ -18,16 +12,12 @@
   </div>
 
   <div class="modal-footer" *ngIf="user">
-    <div class="row row-size">
-      <div class="col-9">
-        <app-user-link [user]="user" (click)="closeModal()"></app-user-link>
-        <span class="ml-2">le <app-item-date [item]="image"></app-item-date></span>
-      </div>
-      <div class="col-3">
-        <app-mutex-button *ngIf="currentUser && currentUser.id === image.uid" [lock]="mutex.lock"
-          [btnClass]="'btn-danger float-right default-size'" [btnValue]="'Delete'" (clicked)="delete(image)"></app-mutex-button>
-      </div>
+    <div class="full-width">
+      <app-user-link [user]="user" (click)="closeModal()"></app-user-link>
+      <app-item-date class="ml-2" [date]="image.creationDate"></app-item-date>
     </div>
+    <app-mutex-button *ngIf="currentUser && currentUser.id === image.uid" [lock]="mutex.lock"
+      [btnClass]="'btn-danger default-size float-right'" [btnValue]="'Delete'" (clicked)="delete(image)"></app-mutex-button>
   </div>
 
 </div>

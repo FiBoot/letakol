@@ -1,46 +1,62 @@
-<div class="form-group">
-  <div class="alert alert-danger" *ngIf="mutex.error">{{mutex.error}}</div>
-</div>
+<div *ngIf="currentUser && currentUser.admin" class="container">
 
-<div class="row">
-
-  <div class="col-6">
-    <form name="adminForm" [formGroup]="adminForm" (ngSubmit)="submit()">
-      <div class="form-group row">
-        <label for="name" class="col-sm-4 col-form-label">name</label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" id="name" name="name" formControlName="name">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="creationDate" class="col-sm-4 col-form-label">creationDate</label>
-        <div class="col-sm-8">
-          <input type="date" class="form-control" id="creationDate" name="creationDate"
-            formControlName="creationDate">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="lastUpdateDate" class="col-sm-4 col-form-label">lastUpdateDate</label>
-        <div class="col-sm-8">
-          <input type="date" class="form-control" id="lastUpdateDate" name="lastUpdateDate"
-            formControlName="lastUpdateDate">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="public" class="col-sm-4 col-form-label">public</label>
-        <div class="col-sm-8">
-          <input type="checkbox" id="public" name="public" formControlName="public">
-        </div>
-      </div>
-      <app-mutex-button [btnClass]="'btn-info'" [btnValue]="'Send'" [lock]="mutex.lock" (clicked)="submit()"></app-mutex-button>
-    </form>
+  <div class="form-group">
+    <div class="alert alert-danger" *ngIf="mutex.error">{{mutex.error}}</div>
   </div>
 
-  <div class="col-6">
-    <div *ngFor="let row of list; index as i">
-      <button type="button" class="btn btn-sm btn-danger" (click)="delete(row)">X</button>
-      <p>[{{i}}] id:{{row.id}} udi:{{row.uid}}</p>
-    </div>
-  </div>
+  <app-pagination [items]="items" [perPage]="10" (displayedItemsChange)="displayedItems = $event"></app-pagination>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'uid'}"
+            (click)="sort('uid')"><b>uid</b></button>
+        </th>
+        <th scope="col">
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'name'}"
+            (click)="sort('name')"><b>name</b></button>
+        </th>
+        <th scope="col">
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'type'}"
+            (click)="sort('type')"><b>type</b></button>
+        </th>
+        <!-- <th scope="col">data</th> -->
+        <th scope="col">
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'cd'}"
+            (click)="sort('cd')"><b>creationDate</b></button>
+        </th>
+        <th scope="col">
+          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'lud'}"
+            (click)="sort('lud')"><b>lastUpdateDate</b></button>
+        </th>
+        <th scope="col">public</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of displayedItems">
+        <td>
+          <app-user-link [userId]="(item.type === 'user') ? item.id : item.uid"></app-user-link>
+        </td>
+        <td>
+          <div class="cell">{{item.name}}</div>
+        </td>
+        <td>{{item.type}}</td>
+        <!-- <td>{{item.data}}</td> -->
+        <td>
+          <app-item-date [date]="item.creationDate"></app-item-date>
+        </td>
+        <td>
+          <app-item-date [date]="item.lastUpdateDate"></app-item-date>
+        </td>
+        <td>{{item.public}}</td>
+        <td>
+          <app-mutex-button [lock]="mutex.lock" [btnClass]="'btn-outline-info'"
+            [btnValue]="'Link'" (click)="goTo(item)"></app-mutex-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
 </div>

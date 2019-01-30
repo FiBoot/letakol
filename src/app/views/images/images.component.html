@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="col-sm-3">
+
+  <div class="col-md-4">
     <button *ngIf="currentUser" type="button" class="btn btn-outline-info" (click)="openUploadModal()">
       <span>Upload image</span>
     </button>
   </div>
-  <div class="col-sm-6">
-    <app-pagination *ngIf="images" [items]="images" [perPage]="IMAGE_PER_PAGE" [(currentPage)]="page"></app-pagination>
+  <div class="col-md-4">
+    <app-pagination *ngIf="images" [items]="images" [(currentPage)]="page"></app-pagination>
   </div>
 </div>
 
@@ -14,10 +15,11 @@
     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3" *ngFor="let image of displayedImages">
       <div class="image-warp link" (click)="openImageModal(image)">
         <img [src]="image.data.preview" [alt]="image.data.name">
-        <div class="title">{{image.data.name}}</div>
+        <div class="title ellipsis">{{image.data.name}}</div>
       </div>
     </div>
   </div>
-  <app-pagination [items]="images" [perPage]="IMAGE_PER_PAGE" [(currentPage)]="page"
-    (displayedItemsChange)="pageChange($event)"></app-pagination>
+
+  <app-pagination [items]="images" [(currentPage)]="page" (displayedItemsChange)="displayedImages = $event"></app-pagination>
+
 </div>

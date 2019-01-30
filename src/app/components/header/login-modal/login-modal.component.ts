@@ -23,10 +23,6 @@ export class LoginModalComponent {
     });
   }
 
-  public open(content): void {
-    this._modalService.open(content);
-  }
-
   public register(form): void {
     this.mutex.exec(this._userService.register.bind(this._userService), form);
   }
@@ -37,6 +33,10 @@ export class LoginModalComponent {
 
   public googleLogin(): void {
     this.mutex.exec(this._userService.signInWithGoogle.bind(this._userService));
+  }
+
+  public close(): void {
+    this._modalService.dismissAll();
   }
 
 }
