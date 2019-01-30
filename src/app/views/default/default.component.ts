@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AppList, IApp } from 'src/app/apps/app-list';
+import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { FireStoreService } from 'src/app/services/firestore/firestore.service';
 
 
 @Component({
@@ -10,25 +10,12 @@ import { AppList, IApp } from 'src/app/apps/app-list';
 })
 export class DefaultComponent {
 
+  public items: Array<IFireBaseItem>;
+  public displayedItems: Array<IFireBaseItem>;
   public search: string;
-  private appList: Array<IApp> = AppList;
-  public apps: Array<IApp>;
+  public page = 1;
 
-  constructor(private router: Router) {
-    this.filterApp();
-  }
-
-  public filterApp(search: string = null): void {
-    this.apps = search
-      ? this.appList.filter(app => app.name.toLowerCase().search(search.toLowerCase()) !== -1)
-      : this.appList;
-  }
-
-  public resetSearch(): void {
-    this.filterApp(this.search = null);
-  }
-
-  public nav(app: IApp): void {
-    this.router.navigate([`/${app.path}`]);
+  constructor(private _firestore: FireStoreService) {
+    this._firestore.getList<IFireBaseItem>(this._firestore.TABLE, 'lastUpdateDate').then(result => this.items = result);
   }
 }

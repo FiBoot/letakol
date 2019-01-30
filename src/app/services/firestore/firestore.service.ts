@@ -65,13 +65,11 @@ export class FireStoreService {
   }
 
   public getItem<T>(table: string, id: string): Promise<T> {
-    return this.getDoc(table, id)
-      .then(doc => doc.get().toPromise()
-        .then(snapshot => <T>snapshot.data()));
+    return this.getDoc(table, id).then(doc => doc.get().toPromise().then(snapshot => <T>snapshot.data()));
   }
 
-  public getList<T>(table: string): Promise<Array<T>> {
-    return this._firestore.collection(table).get().toPromise()
+  public getList<T>(table: string, orderBy: string = 'lastUpdateDate', limit: number = 9999): Promise<Array<T>> {
+    return this._firestore.collection(table, ref => ref.orderBy(orderBy, 'desc').limit(limit)).get().toPromise()
       .then(col => col.docs.map(doc => <T>doc.data()));
   }
 
