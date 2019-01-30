@@ -45,9 +45,9 @@ export class ImagesComponent extends ViewComponent implements AfterViewInit {
   }
 
   public openImageModal(image: IImage): void {
-    const componentInstance = this._modalService.open(ImageViewModalComponent, { size: 'lg' }).componentInstance;
-    componentInstance.imageDeleted.subscribe(() => this.fetchData());
-    componentInstance.setImage(image);
+    const modal = this._modalService.open(ImageViewModalComponent, { size: 'lg' }).componentInstance;
+    modal.imageDeleted.subscribe(() => this.fetchData());
+    modal.setImage(image);
   }
 
 }

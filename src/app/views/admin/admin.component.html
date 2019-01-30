@@ -52,8 +52,8 @@
         </td>
         <td>{{item.public}}</td>
         <td>
-          <app-mutex-button [lock]="mutex.lock" [btnClass]="'btn-danger btn-sm'" [btnValue]="'X'"
-            (click)="delete(item)"></app-mutex-button>
+          <app-mutex-button [lock]="mutex.lock" [btnClass]="'btn-outline-info'"
+            [btnValue]="'Link'" (click)="goTo(item)"></app-mutex-button>
         </td>
       </tr>
     </tbody>

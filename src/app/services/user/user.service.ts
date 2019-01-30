@@ -6,6 +6,9 @@ import { auth } from 'firebase/app';
 import { ModelFactoryService } from '../model-factory/model-factory.service';
 import { UserStaticService } from './user.static-service';
 import { UnexpectedError } from 'src/app/models/error/unexpected-error.error';
+import { Observable } from 'rxjs';
+import { IFireBaseItem, EItemType } from 'src/app/models/firebaseItem.model';
+import { StorageService } from '../upload/storage.service';
 
 interface ILoginForm {
   email: string;
@@ -21,10 +24,10 @@ interface IProfileForm {
 })
 export class UserService {
 
-  private readonly TABLE_NAME = 'users';
+  readonly TABLE_NAME = 'users';
   public userChange = new EventEmitter<IUser>();
 
-  constructor(private _fireAuth: AngularFireAuth, private _firestore: FireStoreService) {
+  constructor(private _fireAuth: AngularFireAuth, private _firestore: FireStoreService, private _storage: StorageService) {
     this._fireAuth.authState.subscribe(firebaseUser => {
       if (firebaseUser) {
         this._firestore.searchOne<IUser>(this.TABLE_NAME, 'data.uid', ECompare.Equal, firebaseUser.uid)

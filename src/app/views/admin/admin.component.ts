@@ -4,6 +4,10 @@ import { Mutex } from 'src/app/classes/mutex.class';
 import { ViewComponent } from '../view.component';
 import { UserService } from 'src/app/services/user/user.service';
 import { FireStoreService } from 'src/app/services/firestore/firestore.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-modal.component';
+import { IUser } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -15,15 +19,18 @@ export class AdminComponent extends ViewComponent {
   public items: Array<IFireBaseItem>;
   public displayedItems: Array<IFireBaseItem>;
   public mutex = new Mutex;
-  public sortBy: string;
+  public sortBy = 'lud';
 
-  constructor(userService: UserService, private _firestore: FireStoreService) {
+  constructor(userService: UserService, private _firestore: FireStoreService, private _router: Router) {
     super(userService);
-    this.fetchData().then((() => this.sort('lud')));
+    this.fetchData();
   }
 
-  public fetchData(): Promise<Array<IFireBaseItem>> {
-    return this._firestore.getList<IFireBaseItem>('blob').then(items => this.items = items);
+  public fetchData(): void {
+    this._firestore.getList<IFireBaseItem>('blob').then(items => {
+      this.items = items;
+      this.sort(this.sortBy);
+    });
   }
 
   public sort(by: string): void {
@@ -40,8 +47,8 @@ export class AdminComponent extends ViewComponent {
     this.items = items;
   }
 
-  public delete(item: IFireBaseItem): void {
-    console.log(item);
+  public goTo(item: IFireBaseItem): void {
+    this._router.navigate(['/', item.type, item.id]);
   }
 
 }

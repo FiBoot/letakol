@@ -26,7 +26,7 @@ import { MemoryComponent } from './apps/memory/memory.component';
 import { NumGridComponent } from './apps/num-grid/num-grid.component';
 import { SnakeIoComponent } from './apps/snake-io/snake-io.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { LoginModalComponent } from './components/login-modal/login-modal.component';
+import { LoginModalComponent } from './components/header/login-modal/login-modal.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
 import { UserLinkComponent } from './components/user-link/user-link.component';
 import { FireStoreService } from './services/firestore/firestore.service';
@@ -40,6 +40,7 @@ import { MutexButtonComponent } from './components/mutex-button/mutex-button.com
 import { PaginationComponent } from './components/pagination/pagination/pagination.component';
 import { RouterModule } from '@angular/router';
 import { ItemComponent } from './components/item/item.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { ItemComponent } from './components/item/item.component';
     PetComponent,
     CodewarComponent,
     ItemDateComponent,
-    ItemComponent
+    ItemComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,
@@ -94,6 +96,8 @@ import { ItemComponent } from './components/item/item.component';
     LoaderComponent
   ],
   entryComponents: [
+    ConfirmModalComponent,
+    LoginModalComponent,
     ImageViewModalComponent,
     ImageUploadModalComponent
   ],

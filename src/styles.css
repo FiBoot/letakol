@@ -9,6 +9,7 @@ html, body {
 .ellipsis, .btn {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .link {
@@ -29,6 +30,12 @@ html, body {
 
 .full-width {
   width: 100%;
+}
+
+/* MODAL TITLE */
+
+.modal-title {
+  width: 80%;
 }
 
 /* AVATAR */
@@ -71,7 +78,7 @@ file-drop .drop-zone .content {
   position: relative;
 }
 
-/* ORAnGE BTN */
+/* ORANGE BTN */
 
 .btn-orange {
   color: #fff;

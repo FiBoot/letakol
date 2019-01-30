@@ -17,7 +17,7 @@ export enum ECompare {
 @Injectable()
 export class FireStoreService {
 
-  private readonly TABLE = 'blob';
+  readonly TABLE = 'blob';
 
   constructor(private _firestore: AngularFirestore) { }
 

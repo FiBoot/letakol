@@ -4,7 +4,7 @@
 
     <div class="nav-right">
 
-      <app-login-modal *ngIf="!currentUser"></app-login-modal>
+      <button *ngIf="!currentUser" class="btn btn-primary default-size" (click)="openLoginModal()">Login</button>
 
       <div *ngIf="currentUser">
         <app-user-link [user]="currentUser" [light]="true"></app-user-link>
