@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { routes } from './app.routes.module';
+import { routes } from './app.routes';
 import { FIREBASE_CONFIG } from 'src/environments/firebase.token';
 
 import { AngularFireModule } from 'angularfire2';
@@ -41,6 +41,7 @@ import { PaginationComponent } from './components/pagination/pagination/paginati
 import { RouterModule } from '@angular/router';
 import { ItemComponent } from './components/item/item.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { TimelineComponent } from './views/timeline/timeline.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     CodewarComponent,
     ItemDateComponent,
     ItemComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

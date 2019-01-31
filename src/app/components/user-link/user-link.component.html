@@ -1,6 +1,6 @@
 <button type="button" class="default-size invisible" *ngIf="!user"></button>
 
-<div *ngIf="user" class="user-link" [ngClass]="{'light': light}" (click)="click()">
+<div *ngIf="user" class="user-link" [ngClass]="{'light': light}" (click)="click()" [title]="(user.data.displayName ? user.data.displayName : user.name)">
   <img class="avatar" [src]="user.data.photoURL ? user.data.photoURL : '/assets/images/default_user.png'"
     alt="">
   <div class="name ellipsis">{{(user.data.displayName ? user.data.displayName : user.name)}}</div>

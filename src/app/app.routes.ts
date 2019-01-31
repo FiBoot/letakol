@@ -14,6 +14,7 @@ import { PetComponent } from './apps/pet/pet.component';
 import { CodewarComponent } from './apps/codewar/codewar.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
+import { TimelineComponent } from './views/timeline/timeline.component';
 
 export const routes: Routes = [
   { path: '', component: DefaultComponent },
@@ -25,6 +26,7 @@ export const routes: Routes = [
 
   { path: 'images', component: ImagesComponent },
   { path: 'image/:id', component: ImagesComponent },
+  { path: 'timeline', component: TimelineComponent },
 
   // APPS
   { path: 'codewar', component: CodewarComponent },
