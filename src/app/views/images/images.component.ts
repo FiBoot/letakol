@@ -7,7 +7,6 @@ import { UserService } from 'src/app/services/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageUploadModalComponent } from './image-upload-modal/image-upload-modal.component';
 import { ImageViewModalComponent } from './image-view-modal/image-view-modal.component';
-import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-images',
@@ -22,13 +21,13 @@ export class ImagesComponent extends ViewComponent implements AfterViewInit {
 
   public image: IImage;
 
-  constructor(userService: UserService, private _route: ActivatedRoute,
+  constructor(userService: UserService, private _activatedRoute: ActivatedRoute,
     private _firestore: FireStoreService, private _modalService: NgbModal) {
     super(userService);
   }
 
   ngAfterViewInit(): void {
-    const id = this._route.snapshot.paramMap.get('id');
+    const id = this._activatedRoute.snapshot.paramMap.get('id');
     this.fetchData().then(images => {
       const image = images.find(i => i.id === id);
       if (image) { this.openImageModal(image); }

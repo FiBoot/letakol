@@ -22,6 +22,10 @@ export class UserLinkComponent implements OnChanges {
     }
   }
 
+  public get displayName() {
+    return this.user ? this.user.data.displayName ? this.user.data.displayName : this.user.name : null;
+  }
+
   public click(): void {
     if (this.user) {
       this._router.navigate(['/', 'user', this.user.id]);

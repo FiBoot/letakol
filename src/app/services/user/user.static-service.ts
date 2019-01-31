@@ -8,7 +8,12 @@ export class UserStaticService {
   public static set user(user: IUser) {
     this._user = user;
   }
+
   public static get user(): IUser {
     return this._user;
+  }
+
+  public static get uid(): string {
+    return this._user ? this._user.uid : null;
   }
 }

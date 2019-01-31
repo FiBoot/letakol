@@ -27,7 +27,7 @@ export class AdminComponent extends ViewComponent {
   }
 
   public fetchData(): void {
-    this._firestore.getList<IFireBaseItem>('blob').then(items => {
+    this._firestore.getList<IFireBaseItem>(this._firestore.TABLE).then(items => {
       this.items = items;
       this.sort(this.sortBy);
     });

@@ -17,11 +17,13 @@ export class UserViewComponent extends ViewComponent {
   public items: Array<IFireBaseItem>;
   public displayItems: Array<IFireBaseItem>;
 
-  constructor(router: ActivatedRoute, userService: UserService, firestore: FireStoreService) {
+  constructor(userService: UserService, activatedRoute: ActivatedRoute, firestore: FireStoreService) {
     super(userService);
-    const id = router.snapshot.paramMap.get('id');
-    firestore.getItem<IUser>('users', id).then(user => this.user = user);
-    firestore.search<IFireBaseItem>('blob', 'uid', ECompare.Equal, id).then(result => this.items = result);
+
+    activatedRoute.params.subscribe(p => {
+      firestore.getItem<IUser>('users', p.id).then(user => this.user = user);
+      firestore.search<IFireBaseItem>('blob', 'uid', ECompare.Equal, p.id).then(result => this.items = result);
+    });
   }
 
 }

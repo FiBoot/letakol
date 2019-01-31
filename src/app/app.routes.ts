@@ -27,6 +27,7 @@ export const routes: Routes = [
   { path: 'images', component: ImagesComponent },
   { path: 'image/:id', component: ImagesComponent },
   { path: 'timeline', component: TimelineComponent },
+  { path: 'timeline-event/:id', component: TimelineComponent },
 
   // APPS
   { path: 'codewar', component: CodewarComponent },

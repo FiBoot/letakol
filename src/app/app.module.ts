@@ -79,7 +79,7 @@ import { TimelineComponent } from './views/timeline/timeline.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes),
     FormsModule,
     ReactiveFormsModule,
     NgbModule,

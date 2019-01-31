@@ -1,3 +1,16 @@
-<p>
-  timeline works!
-</p>
+<div class="container">
+
+  <div #visTimeline></div>
+
+  <div class="mt-3">
+    <button type="button" class="btn btn-outline-success" (click)="addItem()">New Event</button>
+  </div>
+
+  <div *ngIf="selectedItem">
+    <p>id: {{selectedItem.id}}</p>
+    <p>saved: {{saved ? 'true':'false'}}</p>
+    <div *ngIf="mutex.error" class="alert alert-warning">{{mutex.error}}</div>
+    <app-mutex-button [lock]="mutex.lock" [btnValue]="'Save'" [btnClass]="'btn-success'" (clicked)="saveItem()"></app-mutex-button>
+  </div>
+
+</div>
