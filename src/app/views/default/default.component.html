@@ -1,25 +1,18 @@
 <div class="content">
 
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-sm-6">
       <h4>Latest items:</h4>
     </div>
-    <div class="col-md-4">
-      <app-pagination [items]="items" [currentPage]="page" (currentPageChange)="page = $event"
-        (displayedItemsChange)="displayItems = $event"></app-pagination>
-    </div>
-    <div class="col-md-4">
-      <app-input-form (keyPress)="null" [inputModel]="search" [inputPlaceholder]="'Search'"
-        [submitBtnValue]="'X'"></app-input-form>
+    <div class="col-sm-6">
+      <app-input-form class="float-right" (keyPress)="search($event)" [inputPlaceholder]="'Search'" [submitBtnValue]="'X'"></app-input-form>
     </div>
   </div>
 
   <div class="row mt-3">
-    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3" *ngFor="let item of displayItems">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3" *ngFor="let item of displayedItems">
       <app-item [item]="item"></app-item>
     </div>
   </div>
-  <app-pagination [items]="items" [currentPage]="page" (currentPageChange)="page = $event"
-    (displayedItemsChange)="displayItems = $event"></app-pagination>
 
 </div>

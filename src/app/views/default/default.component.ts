@@ -12,10 +12,17 @@ export class DefaultComponent {
 
   public items: Array<IFireBaseItem>;
   public displayedItems: Array<IFireBaseItem>;
-  public search: string;
-  public page = 1;
 
   constructor(private _firestore: FireStoreService) {
-    this._firestore.getList<IFireBaseItem>(this._firestore.TABLE, 'lastUpdateDate').then(result => this.items = result);
+    this._firestore.getList<IFireBaseItem>(this._firestore.TABLE, 'lastUpdateDate', 8).then(result => {
+      this.items = result;
+      this.displayedItems = this.items;
+    });
+  }
+
+  public search(string: string): void {
+    this.displayedItems = this.items.filter(item =>
+      item.name.includes(string) || item.type.includes(string)
+    );
   }
 }

@@ -3,7 +3,7 @@
     <input type="text" class="form-control" name="input" [(ngModel)]="inputModel" [ngClass]="inputClass"
       [placeholder]="inputPlaceholder || ''" (keyup)="onKey()">
     <div class="input-group-append">
-      <input type="submit" class="btn" [ngClass]="submitBtnClass" [value]="submitBtnValue || 'Send'">
+      <input type="submit" class="btn btn-secondary" [ngClass]="submitBtnClass" [value]="submitBtnValue || 'Send'">
     </div>
   </div>
 </form>
