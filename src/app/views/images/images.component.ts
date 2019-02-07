@@ -27,8 +27,8 @@ export class ImagesComponent extends ViewComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const id = this._activatedRoute.snapshot.paramMap.get('id');
     this.fetchData().then(images => {
+      const id = this._activatedRoute.snapshot.paramMap.get('id');
       const image = images.find(i => i.id === id);
       if (image) { this.openImageModal(image); }
     });

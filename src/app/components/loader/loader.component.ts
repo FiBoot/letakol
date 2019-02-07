@@ -14,13 +14,11 @@ export class LoaderComponent implements OnChanges {
 
   public hidding: boolean;
   public hidden: boolean;
-  public readonly randClass: string;
 
   constructor() {
     this.timeout = environment.transitionTimeout * 2;
     this.hidding = false;
     this.hidden = false;
-    this.randClass = `loading-${Utils.random(3) + 1}`;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

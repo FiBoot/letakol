@@ -25,11 +25,3 @@
   background-position: center;
   background-size: contain;
 }
-
-.presentron .loading-2 {
-  background-image: url('/assets/images/loading2.gif');
-}
-
-.presentron .loading-3 {
-  background-image: url('/assets/images/loading3.gif');
-}

@@ -1,6 +1,7 @@
 import { IFireBaseItem } from './firebaseItem.model';
 
 export interface ITimelineEventData {
+  title: string;
   startDate: number;
   endDate: number;
 }

@@ -98,6 +98,8 @@ export class FireStoreService {
     if (item.type !== EItemType.User && !UserStaticService.user) { return Promise.reject(new ItemPropertyError); }
     item.id = Utils.generateId();
     item.uid = (item.type === EItemType.User) ? item.id : UserStaticService.user.id;
+    item.creationDate = Date.now();
+    item.lastUpdateDate = item.creationDate;
     return Promise.all([
       this.getDoc(this.itemTable(item), item.id, true).then(doc => doc.set(this.format(item))),
       this.getDoc(this.TABLE, item.id, true).then(doc => doc.set(this.format(item))),
