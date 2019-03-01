@@ -15,7 +15,7 @@ import { CodewarComponent } from './apps/codewar/codewar.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
 
-export const routes: Routes = [
+export const ROUTES: Routes = [
   { path: '', component: DefaultComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserViewComponent },

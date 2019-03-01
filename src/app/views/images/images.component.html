@@ -13,7 +13,7 @@
 <div *ngIf="images">
   <div class="row mt-3">
     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3" *ngFor="let image of displayedImages">
-      <div class="image-warp link" (click)="openImageModal(image)">
+      <div class="image-wrap link" (click)="openImageModal(image)">
         <img [src]="image.data.preview" [alt]="image.data.name">
         <div class="title ellipsis">{{image.data.name}}</div>
       </div>

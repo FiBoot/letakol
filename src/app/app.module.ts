@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { routes } from './app.routes.module';
+import { ROUTES } from './app.routes';
 import { FIREBASE_CONFIG } from 'src/environments/firebase.token';
 
 import { AngularFireModule } from 'angularfire2';
@@ -37,11 +37,12 @@ import { CodewarComponent } from './apps/codewar/codewar.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
 import { MutexButtonComponent } from './components/mutex-button/mutex-button.component';
-import { PaginationComponent } from './components/pagination/pagination/pagination.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 import { RouterModule } from '@angular/router';
 import { ItemComponent } from './components/item/item.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
-
+import { ScreensaverComponent } from './components/screensaver/screensaver.component';
+import { ScreensaverDirective } from './components/screensaver/screensaver.directive';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,8 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     ImagesComponent,
     ImageViewModalComponent,
     ImageUploadModalComponent,
+    ScreensaverComponent,
+    ScreensaverDirective,
 
     ChatComponent,
     ChatRoomComponent,
@@ -77,7 +80,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(ROUTES, { useHash: true }),
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
@@ -96,6 +99,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     LoaderComponent
   ],
   entryComponents: [
+    ScreensaverComponent,
     ConfirmModalComponent,
     LoginModalComponent,
     ImageViewModalComponent,
@@ -104,4 +108,4 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
   providers: [FireStoreService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
