@@ -37,7 +37,7 @@ import { CodewarComponent } from './apps/codewar/codewar.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
 import { MutexButtonComponent } from './components/mutex-button/mutex-button.component';
-import { PaginationComponent } from './components/pagination/pagination/pagination.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 import { RouterModule } from '@angular/router';
 import { ItemComponent } from './components/item/item.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
