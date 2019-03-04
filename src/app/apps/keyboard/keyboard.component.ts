@@ -7,7 +7,14 @@ const enum ENote {
   D = 'D',
   E = 'E',
   F = 'F',
-  G = 'G'
+  G = 'G',
+  As = 'A^',
+  Bs = 'B^',
+  Cs = 'C^',
+  Ds = 'D^',
+  Es = 'E^',
+  Fs = 'F^',
+  Gs = 'G^'
 }
 const keys = [
   { note: ENote.A, bind: 'q', sharped: false },
@@ -22,11 +29,19 @@ const keys = [
   { note: ENote.F, bind: 'y', sharped: false },
   { note: ENote.F, bind: '7', sharped: true },
   { note: ENote.G, bind: 'u', sharped: false },
-  { note: ENote.A, bind: 'i', sharped: false },
-  { note: ENote.A, bind: '9', sharped: true },
-  { note: ENote.B, bind: 'o', sharped: false },
-  { note: ENote.B, bind: '0', sharped: true },
-  { note: ENote.C, bind: 'p', sharped: false }
+
+  { note: ENote.As, bind: 'i', sharped: false },
+  { note: ENote.As, bind: '9', sharped: true },
+  { note: ENote.Bs, bind: 'o', sharped: false },
+  { note: ENote.Bs, bind: '0', sharped: true },
+  { note: ENote.Cs, bind: 'p', sharped: false },
+  { note: ENote.Ds, bind: '[', sharped: false },
+  { note: ENote.Ds, bind: '=', sharped: true },
+  { note: ENote.Es, bind: ']', sharped: false },
+  { note: ENote.Es, bind: '?', sharped: true },
+  { note: ENote.Fs, bind: '?', sharped: false },
+  { note: ENote.Fs, bind: '?', sharped: true },
+  { note: ENote.Gs, bind: '?', sharped: false }
 ];
 const ESCPAE_KEY = 'Escape';
 
@@ -39,7 +54,9 @@ class Key {
   constructor(note: ENote, public keyBind: string, readonly sharped: boolean = false) {
     this.note = sharped ? `${note}#` : note;
     this.audio = new Audio();
-    this.audio.src = `/assets/keyboard-notes/${this.note.replace('#', 'sharp')}.mp3`;
+    this.audio.src = `/assets/keyboard-notes/${this.note
+      .replace('^', 'superior')
+      .replace('#', 'sharp')}.mp3`;
     this.audio.loop = true;
     this.audio.load();
   }
