@@ -1,0 +1,17 @@
+<div class="content" *ngIf="!currentApp; else appOutlet">
+  <div class="row mt-3">
+    <div
+      class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3"
+      *ngFor="let app of apps"
+    >
+      <a href="#" [routerLink]="['/', 'apps', app.path]">{{ app.name }}</a>
+    </div>
+  </div>
+</div>
+
+<ng-template #appOutlet>
+  <div class="mb-2">
+    <a href="#" [routerLink]="['/', 'apps']">Apps</a>
+  </div>
+  <router-outlet></router-outlet>
+</ng-template>

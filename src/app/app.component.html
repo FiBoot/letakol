@@ -1,7 +1,9 @@
-<app-loader [show]="!loaded" [timeout]="500"></app-loader>
+<div appScreensaver>
+  <app-loader [show]="!loaded"></app-loader>
 
-<app-header></app-header>
+  <app-header></app-header>
 
-<div class="container mt-3">
-  <router-outlet></router-outlet>
+  <div class="container mt-3">
+    <router-outlet></router-outlet>
+  </div>
 </div>
