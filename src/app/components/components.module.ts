@@ -1,4 +1,5 @@
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ScreensaverDirective } from './screensaver/screensaver.directive';
+import { ScreensaverComponent } from './screensaver/screensaver.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { ItemComponent } from './item/item.component';
@@ -25,7 +26,9 @@ import { RouterModule } from '@angular/router';
     PaginationComponent,
     ConfirmModalComponent,
     ItemDateComponent,
-    ItemComponent
+    ItemComponent,
+    ScreensaverComponent,
+    ScreensaverDirective
   ],
   exports: [
     HeaderComponent,
@@ -37,13 +40,10 @@ import { RouterModule } from '@angular/router';
     PaginationComponent,
     ConfirmModalComponent,
     ItemDateComponent,
-    ItemComponent
+    ItemComponent,
+    ScreensaverDirective
   ],
-  imports: [
-    RouterModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+  imports: [RouterModule, BrowserModule, FormsModule, ReactiveFormsModule],
+  entryComponents: [ScreensaverComponent]
 })
 export class ComponentsModule {}

@@ -39,9 +39,7 @@ export class ScreensaverDirective {
     clearInterval(this.interval);
     this.interval = setTimeout(
       this.showScreensaver.bind(this),
-      // TODO: test
-      2000
-      // environment.transitionTimeout * 100
+      environment.transitionTimeout * 100
     );
   }
 
