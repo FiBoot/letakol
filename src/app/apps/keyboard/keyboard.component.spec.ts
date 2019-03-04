@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NumGridComponent } from './num-grid.component';
+import { KeyboardComponent } from './keyboard.component';
 
-describe('NumGridComponent', () => {
-  let component: NumGridComponent;
-  let fixture: ComponentFixture<NumGridComponent>;
+describe('KeyboardComponent', () => {
+  let component: KeyboardComponent;
+  let fixture: ComponentFixture<KeyboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NumGridComponent ]
+      declarations: [ KeyboardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NumGridComponent);
+    fixture = TestBed.createComponent(KeyboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
