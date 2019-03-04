@@ -4,16 +4,10 @@ import { DefaultComponent } from './views/default/default.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
 import { ListViewComponent } from './views/list-view/list-view.component';
 
-import { MemoryComponent } from './apps/memory/memory.component';
-import { ChatComponent } from './apps/chat/chat.component';
-import { ChatRoomComponent } from './apps/chat-room/chat-room.component';
-import { NumGridComponent } from './apps/num-grid/num-grid.component';
-import { SnakeIoComponent } from './apps/snake-io/snake-io.component';
 import { UserEditComponent } from './views/user-edit/user-edit.component';
-import { PetComponent } from './apps/pet/pet.component';
-import { CodewarComponent } from './apps/codewar/codewar.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
+import { AppsComponent } from './apps/apps.component';
 
 export const ROUTES: Routes = [
   { path: '', component: DefaultComponent },
@@ -26,15 +20,7 @@ export const ROUTES: Routes = [
   { path: 'images', component: ImagesComponent },
   { path: 'image/:id', component: ImagesComponent },
 
-  // APPS
-  { path: 'codewar', component: CodewarComponent },
-  { path: 'pet', component: PetComponent },
-  { path: 'memory', component: MemoryComponent },
-  { path: 'chat', component: ChatComponent },
-  { path: 'chat-room', component: ChatRoomComponent },
-  { path: 'num-grid', component: NumGridComponent },
-  { path: 'snake', component: SnakeIoComponent },
+  { path: 'app/:name', component: AppsComponent },
 
   { path: '**', redirectTo: '' }
 ];
-
