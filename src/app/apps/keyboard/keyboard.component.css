@@ -1,0 +1,101 @@
+/* .key-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.key {
+  width: 50px;
+  height: 200px;
+  border: 1px solid #111;
+  cursor: pointer;
+}
+.key:hover {
+  background-color: #eee;
+}
+.key.active,
+.black-key.active {
+  background-color: dodgerblue;
+}
+
+.note,
+.bind {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  color: #666;
+}
+.bind {
+  bottom: 25px;
+  color: #111;
+  font-weight: bold;
+}
+
+.black-key {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  width: 40px;
+  height: 100px;
+  border: 1px solid #111;
+  background-color: #333;
+  cursor: pointer;
+  z-index: 1;
+}
+.black-key:hover {
+  background-color: #666;
+}
+.black-key .note {
+  color: #ccc !important;
+}
+.black-key .bind {
+  color: #eee !important;
+} */
+
+.key {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 200px;
+  border: 1px solid #111;
+  background-color: #fff;
+  cursor: pointer;
+  z-index: 1;
+}
+.key.sharped {
+  margin: 0 -20px 100px;
+  width: 40px;
+  height: 100px;
+  background-color: #333;
+  z-index: 10;
+}
+.key.active {
+  background-color: dodgerblue;
+}
+.key.binding {
+  background-color: darkorange;
+}
+
+.key .note,
+.key .bind {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 17px;
+  color: #666;
+}
+.key .bind {
+  bottom: 25px;
+  color: #111;
+  font-weight: bold;
+}
+
+.key.sharped .note,
+.key.sharped .bind {
+  font-size: 15px;
+  color: #ccc;
+}
+.key.sharped .bind {
+  color: #eee;
+}

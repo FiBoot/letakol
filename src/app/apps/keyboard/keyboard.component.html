@@ -1,3 +1,21 @@
-<p>
-  keyboard works!
-</p>
+<div class="content">
+  <div class="keyboard mb-3">
+    <div
+      *ngFor="let key of keys"
+      class="key"
+      [ngClass]="{ sharped: key.sharped, active: key.active, binding: key.binding }"
+      (click)="bind(key)"
+    >
+      <div class="bind">{{ key.keyBind }}</div>
+      <div class="note">{{ key.note }}</div>
+    </div>
+  </div>
+
+  <h4>How to:</h4>
+  <ul>
+    <li>Press key below note to play</li>
+    <li>Click on a key to change the binding</li>
+    <li>You cannot bind a key already used</li>
+    <li>Press Escape to cancel bind</li>
+  </ul>
+</div>

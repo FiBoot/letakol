@@ -1,6 +1,5 @@
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import { ItemComponent } from './item/item.component';
 import { ItemDateComponent } from './item-date/item-date.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
@@ -41,7 +40,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     RouterModule,
-    BrowserModule,
+    CommonModule,
     FormsModule,
     ReactiveFormsModule
   ]
