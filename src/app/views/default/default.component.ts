@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
 import { FireStoreService } from 'src/app/services/firestore/firestore.service';
 
-
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
