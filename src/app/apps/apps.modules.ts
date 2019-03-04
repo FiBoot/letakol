@@ -1,6 +1,5 @@
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from 'ng2-codemirror';
-import { BrowserModule } from '@angular/platform-browser';
 import { ComponentsModule } from './../components/components.module';
 import { AppsComponent } from './apps.component';
 import { RouterModule } from '@angular/router';
@@ -12,6 +11,7 @@ import { ChatComponent } from './chat/chat.component';
 import { NgModule } from '@angular/core';
 import { SnakeIoComponent } from './snake-io/snake-io.component';
 import { APPS_ROUTES } from './apps.routes';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,10 +25,14 @@ import { APPS_ROUTES } from './apps.routes';
   ],
   imports: [
     RouterModule.forChild(APPS_ROUTES),
-    BrowserModule,
+    CommonModule,
     FormsModule,
     CodemirrorModule,
     ComponentsModule
   ]
 })
 export class AppsModule {}
+
+export function loadAppsRouteModule() {
+  return AppsModule;
+}

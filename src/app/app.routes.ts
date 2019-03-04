@@ -7,7 +7,7 @@ import { ListViewComponent } from './views/list-view/list-view.component';
 import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { AdminComponent } from './views/admin/admin.component';
 import { ImagesComponent } from './views/images/images.component';
-import { AppsComponent } from './apps/apps.component';
+import { loadAppsRouteModule } from './apps/apps.modules';
 
 export const ROUTES: Routes = [
   { path: '', component: DefaultComponent },
@@ -20,7 +20,7 @@ export const ROUTES: Routes = [
   { path: 'images', component: ImagesComponent },
   { path: 'image/:id', component: ImagesComponent },
 
-  { path: 'app/:name', component: AppsComponent },
+  { path: 'apps', loadChildren: loadAppsRouteModule },
 
   { path: '**', redirectTo: '' }
 ];

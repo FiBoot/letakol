@@ -1,7 +1,13 @@
+import { Utils } from 'src/app/services/utils/utils.service';
+import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 
 class App {
-  constructor(readonly path: string, readonly name: string, readonly description: string = '') { }
+  constructor(
+    readonly path: string,
+    readonly name: string,
+    readonly description: string = ''
+  ) {}
 }
 
 @Component({
@@ -9,19 +15,23 @@ class App {
   templateUrl: './apps.component.html',
   styleUrls: ['./apps.component.css']
 })
-export class AppsComponent  {
+export class AppsComponent {
+  apps: Array<App>;
+  currentApp: string;
 
-  constructor() {
+  constructor(activatedRoute: ActivatedRoute) {
+    activatedRoute.url.subscribe(url => {
+      const path = Utils.first(activatedRoute.snapshot.children).routeConfig.path;
+      this.currentApp = path !== '**' ? path : null;
+    });
 
-    const AppList: Array<App> = [
-      new App('images', 'Images'),
-      new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),
-      new App('snake', 'Snake', '<::::::::::::::::c'),
+    this.apps = [
       new App('chat', 'Chat'),
-      new App('chat-room', 'Chat room'),
-      new App('memory', 'memory'),
-      new App('list/users', 'User list'),
+      new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),
+      new App('keyboard', 'Keyboard'),
+      new App('memory', 'Memory game (turtle)', 'c::::::::::::::::<'),
+      new App('pet', 'Pet test'),
+      new App('snake', 'Snake', 'c::::::::::::::::<')
     ];
   }
-
 }
