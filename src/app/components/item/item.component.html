@@ -1,5 +1,5 @@
 <div *ngIf="item" class="card link" (click)="click(item)">
-  <img class="card-img-top" [src]="'/assets/images/' + item.type + '-titlecard.png'" [alt]="item.type">
+  <img class="card-img-top" [src]="'/assets/images/titlecards/' + item.type + '-titlecard.png'" [alt]="item.type">
   <div class="card-body">
     <h5 class="card-title ellipsis">{{item.name || 'No title'}}</h5>
     <p class="card-text">
