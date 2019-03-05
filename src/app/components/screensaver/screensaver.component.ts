@@ -86,6 +86,5 @@ export class ScreensaverComponent implements AfterViewInit, OnDestroy {
       top: `${this.logoVerticalPosition}px`,
       left: `${this.logoHorizontalPosition}px`
     };
-    console.log(this.logoStyle);
   }
 }
