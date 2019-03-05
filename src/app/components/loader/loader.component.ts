@@ -8,15 +8,12 @@ import { Utils } from 'src/app/services/utils/utils.service';
   styleUrls: ['./loader.component.css']
 })
 export class LoaderComponent implements OnChanges {
-
   @Input() show: boolean;
-  @Input() timeout: number;
 
   public hidding: boolean;
   public hidden: boolean;
 
   constructor() {
-    this.timeout = environment.transitionTimeout * 2;
     this.hidding = false;
     this.hidden = false;
   }
@@ -25,9 +22,10 @@ export class LoaderComponent implements OnChanges {
     if (changes.hasOwnProperty('show') && changes.show) {
       setTimeout(() => {
         this.hidding = true;
-        setTimeout(() => { this.hidden = true; }, environment.transitionTimeout);
-      }, this.timeout);
+        setTimeout(() => {
+          this.hidden = true;
+        }, environment.transitionTimeout);
+      }, environment.transitionTimeout);
     }
   }
-
 }
