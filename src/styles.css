@@ -32,6 +32,31 @@ html, body {
   width: 100%;
 }
 
+/* ORANGE BTN */
+
+.btn-orange {
+  color: #fff;
+  background-color: orange;
+  border-color: orange;
+}
+
+.btn-orange:hover {
+  background-color: darkorange;
+  border-color: darkorange;
+}
+
+.btn-outline-orange {
+  color: orange;
+  background-color: transparent;
+  border-color: orange;
+}
+
+.btn-outline-orange:hover {
+  color: #fff;
+  background-color: orange;
+  border-color: orange
+}
+
 /* MODAL TITLE */
 
 .modal-title {
@@ -69,27 +94,12 @@ file-drop .drop-zone .content {
   position: relative;
 }
 
-/* ORANGE BTN */
+/* VIS TIMELINE */
 
-.btn-orange {
-  color: #fff;
-  background-color: orange;
-  border-color: orange;
+.vis-item.vis-range {
+  min-width: 50px;
 }
 
-.btn-orange:hover {
-  background-color: darkorange;
-  border-color: darkorange;
-}
-
-.btn-outline-orange {
-  color: orange;
-  background-color: transparent;
-  border-color: orange;
-}
-
-.btn-outline-orange:hover {
-  color: #fff;
-  background-color: orange;
-  border-color: orange
+.vis-delete {
+  display: none;
 }

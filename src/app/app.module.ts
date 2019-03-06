@@ -27,6 +27,7 @@ import { ImagesComponent } from './views/images/images.component';
 import { RouterModule } from '@angular/router';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { AppsModule } from './apps/apps.modules';
+import { TimelineComponent } from './views/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AppsModule } from './apps/apps.modules';
     UserEditComponent,
     ImagesComponent,
     ImageViewModalComponent,
-    ImageUploadModalComponent
+    ImageUploadModalComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,

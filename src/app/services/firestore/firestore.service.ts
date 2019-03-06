@@ -18,6 +18,7 @@ export enum ECompare {
 export class FireStoreService {
 
   readonly TABLE = 'blob';
+  readonly LIMIT = 1000;
 
   constructor(private _firestore: AngularFirestore) { }
 
@@ -45,21 +46,6 @@ export class FireStoreService {
     });
   }
 
-  // private genereUniqueId(): Promise<string> {
-  //   return new Promise<string>(async (resolve, reject) => {
-  //     let id: string, unique = false, tries = 0;
-  //     do {
-  //       id = Utils.generateId();
-  //       unique = (await this.count(this.TABLE, 'id', CompareEnum.Equal, id)) === 0;
-  //     } while (!unique && tries++ < environment.maxGenereIdTries);
-  //     if (tries < environment.maxGenereIdTries) {
-  //       resolve(id);
-  //     } else {
-  //       reject(new Error(`[genereUniqueId] max tries reached: ${environment.maxGenereIdTries}`));
-  //     }
-  //   });
-  // }
-
   public checkItemProperty(item: IFireBaseItem, isUserItem: boolean = false): boolean {
     return UserStaticService.user && (isUserItem ? item.id : item.uid) === UserStaticService.user.id;
   }
@@ -68,7 +54,7 @@ export class FireStoreService {
     return this.getDoc(table, id).then(doc => doc.get().toPromise().then(snapshot => <T>snapshot.data()));
   }
 
-  public getList<T>(table: string, orderBy: string = 'lastUpdateDate', limit: number = 9999): Promise<Array<T>> {
+  public getList<T>(table: string, orderBy: string = 'lastUpdateDate', limit: number = this.LIMIT): Promise<Array<T>> {
     return this._firestore.collection(table, ref => ref.orderBy(orderBy, 'desc').limit(limit)).get().toPromise()
       .then(col => col.docs.map(doc => <T>doc.data()));
   }
@@ -98,6 +84,8 @@ export class FireStoreService {
     if (item.type !== EItemType.User && !UserStaticService.user) { return Promise.reject(new ItemPropertyError); }
     item.id = Utils.generateId();
     item.uid = (item.type === EItemType.User) ? item.id : UserStaticService.user.id;
+    item.creationDate = Date.now();
+    item.lastUpdateDate = item.creationDate;
     return Promise.all([
       this.getDoc(this.itemTable(item), item.id, true).then(doc => doc.set(this.format(item))),
       this.getDoc(this.TABLE, item.id, true).then(doc => doc.set(this.format(item))),

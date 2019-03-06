@@ -1,7 +1,8 @@
 
 export enum EItemType {
   User = 'user',
-  Image = 'image'
+  Image = 'image',
+  TimelineEvent = 'timeline-event'
 }
 
 export interface IFireBaseItem {

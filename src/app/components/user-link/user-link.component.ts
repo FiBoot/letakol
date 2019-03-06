@@ -18,8 +18,16 @@ export class UserLinkComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.userId) {
-      this._firestore.getItem<IUser>('users', this.userId).then(user => this.user = user);
+      this.user = null;
+      this._firestore.getItem<IUser>('users', this.userId).then(user => {
+        if (!user) { console.warn(`no user found for ${this.userId}`); }
+        this.user = user;
+      });
     }
+  }
+
+  public get displayName() {
+    return this.user ? this.user.data.displayName ? this.user.data.displayName : this.user.name : null;
   }
 
   public click(): void {
