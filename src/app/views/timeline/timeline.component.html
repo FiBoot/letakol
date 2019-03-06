@@ -1,4 +1,10 @@
 <div class="container">
+  <select class="form-control mb-3" (change)="selectChange($event.target.value)">
+    <option value="">Public</option>
+    <optgroup label="Users">
+      <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+    </optgroup>
+  </select>
 
   <div #visTimeline></div>
 
@@ -7,15 +13,19 @@
   </div>
 
   <div *ngIf="selectedItem" class="mt-3">
-
     <div *ngIf="currentUser && selectedItem.event.uid === currentUser.uid; else info">
       <div class="row my-2">
-        <div class="col-md-6">
-          <input type="text" class="form-control" [value]="selectedItem.content" (input)="contentChange($event.target.value)">
+        <div class="col-7">
+          <input
+            type="text"
+            class="form-control"
+            [value]="selectedItem.content"
+            (input)="contentChange($event.target.value)"
+          />
         </div>
-        <div class="col-md-6">
+        <div class="col">
           <button type="button" class="btn btn-info default-size" (click)="switchEvent()">
-            {{selectedItem.type}}
+            {{ selectedItem.type }}
           </button>
         </div>
       </div>
@@ -25,25 +35,35 @@
       </div>
 
       <div class="mt-3">
-        <div *ngIf="mutex.error" class="alert alert-warning">{{mutex.error}}</div>
-        <app-mutex-button [lock]="mutex.lock" [btnValue]="'Save'" [btnClass]="'btn-success default-size'"
-          (clicked)="saveItem()"></app-mutex-button>
-        <app-mutex-button [lock]="mutex.lock" [btnValue]="'Delete'" [btnClass]="'btn-danger default-size ml-2'"
-          (clicked)="deleteItem()"></app-mutex-button>
-        <button *ngIf="!selectedItem.synchronised" type="button" class="btn btn-secondary default-size ml-2"
-          (click)="cancel()">Cancel</button>
+        <div *ngIf="mutex.error" class="alert alert-warning">{{ mutex.error }}</div>
+        <app-mutex-button
+          [lock]="mutex.lock"
+          [btnValue]="'Save'"
+          [btnClass]="'btn-success default-size'"
+          (clicked)="saveItem()"
+        ></app-mutex-button>
+        <app-mutex-button
+          [lock]="mutex.lock"
+          [btnValue]="'Delete'"
+          [btnClass]="'btn-danger default-size ml-2'"
+          (clicked)="deleteItem()"
+        ></app-mutex-button>
+        <button
+          *ngIf="!selectedItem.synchronised"
+          type="button"
+          class="btn btn-secondary default-size ml-2"
+          (click)="cancel()"
+        >
+          Cancel
+        </button>
       </div>
-
     </div>
 
     <ng-template #info>
-      <h4>{{selectedItem.content}}</h4>
+      <h4>{{ selectedItem.content }}</h4>
       <div class="my-2">
         <app-user-link [userId]="selectedItem.event.uid"></app-user-link>
       </div>
     </ng-template>
-
   </div>
-
-
 </div>

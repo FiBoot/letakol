@@ -5,7 +5,7 @@
   box-shadow: 0 0 1px 0px #333;
   color: #333;
   text-decoration: none;
-  transition: ease-in-out, background-color .15s;
+  transition: ease-in-out, background-color 0.15s;
   cursor: pointer;
 }
 
@@ -31,7 +31,8 @@
 }
 
 .user-link .name {
-  max-width: 200px;
+  /* from smallest card possible */
+  max-width: 180px;
   margin: 0 10px;
   padding-left: 38px;
   line-height: 38px;

@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageUploadModalComponent } from './image-upload-modal/image-upload-modal.component';
 import { ImageViewModalComponent } from './image-view-modal/image-view-modal.component';
+import { EItemType } from 'src/app/models/firebaseItem.model';
 
 @Component({
   selector: 'app-images',
@@ -35,7 +36,7 @@ export class ImagesComponent extends ViewComponent implements AfterViewInit {
   }
 
   private fetchData(): Promise<Array<IImage>> {
-    return this._firestore.getList<IImage>('images').then(images => this.images = images);
+    return this._firestore.getList<IImage>(`${EItemType.Image}s`).then(images => this.images = images);
   }
 
   public openUploadModal(): void {
