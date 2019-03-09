@@ -4,9 +4,6 @@ import { Mutex } from 'src/app/classes/mutex.class';
 import { ViewComponent } from '../view.component';
 import { UserService } from 'src/app/services/user/user.service';
 import { FireStoreService } from 'src/app/services/firestore/firestore.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmModalComponent } from 'src/app/components/confirm-modal/confirm-modal.component';
-import { IUser } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,7 +24,7 @@ export class AdminComponent extends ViewComponent {
   }
 
   public fetchData(): void {
-    this._firestore.getList<IFireBaseItem>('blob').then(items => {
+    this._firestore.getList<IFireBaseItem>(this._firestore.TABLE).then(items => {
       this.items = items;
       this.sort(this.sortBy);
     });

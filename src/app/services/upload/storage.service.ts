@@ -57,9 +57,8 @@ export class StorageService {
           const item = ModelFactoryService.genereImage({
             fileId: fileId,
             url: url,
-            name: title,
             preview: preview
-          });
+          }, title);
 
           this._firestore.add(item).then(image => {
             timer.stop();
