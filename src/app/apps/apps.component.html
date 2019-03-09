@@ -1,0 +1,21 @@
+<div class="content" *ngIf="!currentApp; else appOutlet">
+  <div class="row mt-3">
+    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-3" *ngFor="let app of apps">
+      <div class="card link" (click)="click(app)">
+        <img
+          class="card-img-top"
+          [src]="'/assets/images/titlecards/app-titlecard.png'"
+          [alt]="'app'"
+        />
+        <div class="card-body">
+          <h5 class="card-title ellipsis">{{ app.name }}</h5>
+        </div>
+        <div class="card-footer" *ngIf="app.description">{{ app.description }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #appOutlet>
+  <router-outlet></router-outlet>
+</ng-template>

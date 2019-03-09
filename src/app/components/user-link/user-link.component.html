@@ -1,5 +1,7 @@
-<a class="user-link" [ngClass]="{'light': light}" [routerLink]="['/', 'user', user.id]">
+<button type="button" class="default-size invisible" *ngIf="!user"></button>
+
+<div *ngIf="user" class="user-link" [ngClass]="{'light': light}" (click)="click()" [title]="displayName">
   <img class="avatar" [src]="user.data.photoURL ? user.data.photoURL : '/assets/images/default_user.png'"
     alt="">
-  <div class="name mx-2 d-none d-sm-inline-block">{{(user.data.displayName ? user.data.displayName : user.name)}}</div>
-</a>
+  <div class="name ellipsis">{{displayName}}</div>
+</div>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { AppList, IApp } from 'src/app/apps/app-list';
-
+import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { FireStoreService } from 'src/app/services/firestore/firestore.service';
 
 @Component({
   selector: 'app-default',
@@ -10,25 +9,19 @@ import { AppList, IApp } from 'src/app/apps/app-list';
 })
 export class DefaultComponent {
 
-  public search: string;
-  private appList: Array<IApp> = AppList;
-  public apps: Array<IApp>;
+  public items: Array<IFireBaseItem>;
+  public displayedItems: Array<IFireBaseItem>;
 
-  constructor(private router: Router) {
-    this.filterApp();
+  constructor(private _firestore: FireStoreService) {
+    this._firestore.getList<IFireBaseItem>(this._firestore.TABLE, 'lastUpdateDate', 8).then(result => {
+      this.items = result;
+      this.displayedItems = this.items;
+    });
   }
 
-  public filterApp(search: string = null): void {
-    this.apps = search
-      ? this.appList.filter(app => app.name.toLowerCase().search(search.toLowerCase()) !== -1)
-      : this.appList;
-  }
-
-  public resetSearch(): void {
-    this.filterApp(this.search = null);
-  }
-
-  public nav(app: IApp): void {
-    this.router.navigate([`/${app.path}`]);
+  public search(string: string): void {
+    this.displayedItems = this.items.filter(item =>
+      item.name.includes(string) || item.type.includes(string)
+    );
   }
 }

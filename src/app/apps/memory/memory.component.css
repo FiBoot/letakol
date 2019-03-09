@@ -3,7 +3,7 @@
   width: 200px;
 }
 
-.app .card {
+.app .tile {
   float: left;
   width: 40px;
   height: 40px;
@@ -13,9 +13,9 @@
   text-align: center;
   line-height: 40px;
 }
-.app .card:hover {
+.app .tile:hover {
   background-color: #ddd;
 }
-.card.confirmed {
+.tile.confirmed {
   background-color: #cfc !important;
 }

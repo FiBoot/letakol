@@ -66,12 +66,11 @@ export class Utils {
     return Math.floor(Math.random() * max);
   }
 
-
   /**
    * Format decimal number, work as decimal truncate
    *
    * @param num number to format
-   * @param [decimal=0] number of digit after decimal
+   * @param decimal [=0] number of digit after decimal
    * @returns rounded number
    */
   public static fixed(num: number, decimal: number = 0): number {
@@ -97,4 +96,15 @@ export class Utils {
   public static sign(num: number): number {
     return num > 0 ? 1 : num < 0 ? -1 : 0;
   }
+
+  /**
+   * Return locale date string of a timestamp
+   *
+   * @param timestamp date timestamp
+   * @returns locale string
+   */
+  public static timestampToLocaleDate(timestamp: number): string {
+    return new Date(timestamp).toLocaleString();
+  }
+
 }

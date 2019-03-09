@@ -6,9 +6,10 @@ html, body {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-.btn {
+.ellipsis, .btn {
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .link {
@@ -23,33 +24,12 @@ html, body {
   width: 100px;
 }
 
-/* CODE MIRROR */
-
-.CodeMirror {
-  height: 400px !important;
+.row-size {
+  width: 130%;
 }
 
-/* DROP FILE */
-
-file-drop .drop-zone {
-  border-radius: 10px !important;
-  border: 1px dashed #0782d0 !important;
-}
-file-drop .drop-zone:hover {
-  background-color: #eee;
-}
-
-file-drop .drop-zone .content {
-  position: relative;
-}
-
-/* AVATAR */
-
-.avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 4px;
-  box-shadow: 0 0 1px 0px #333;
+.full-width {
+  width: 100%;
 }
 
 /* ORANGE BTN */
@@ -75,4 +55,51 @@ file-drop .drop-zone .content {
   color: #fff;
   background-color: orange;
   border-color: orange
+}
+
+/* MODAL TITLE */
+
+.modal-title {
+  width: 80%;
+}
+
+/* CARD */
+
+.card {
+  margin: 0 !important;
+}
+
+.card-title {
+  white-space: nowrap;
+}
+
+/* CODE MIRROR */
+
+.CodeMirror {
+  height: 400px !important;
+}
+
+/* DROP FILE */
+
+file-drop .drop-zone {
+  border-radius: 10px !important;
+  border: 1px dashed #0782d0 !important;
+}
+
+file-drop .drop-zone:hover {
+  background-color: #eee;
+}
+
+file-drop .drop-zone .content {
+  position: relative;
+}
+
+/* VIS TIMELINE */
+
+.vis-item.vis-range {
+  min-width: 50px;
+}
+
+.vis-delete {
+  display: none;
 }

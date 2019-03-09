@@ -1,5 +1,5 @@
 {
-  "html.format.wrapLineLength": 100,
   "javascript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.quoteStyle": "single"
+  "typescript.preferences.quoteStyle": "single",
+  "prettier.printWidth": 100
 }

@@ -6,6 +6,9 @@ import { auth } from 'firebase/app';
 import { ModelFactoryService } from '../model-factory/model-factory.service';
 import { UserStaticService } from './user.static-service';
 import { UnexpectedError } from 'src/app/models/error/unexpected-error.error';
+import { Observable } from 'rxjs';
+import { IFireBaseItem, EItemType } from 'src/app/models/firebaseItem.model';
+import { StorageService } from '../upload/storage.service';
 
 interface ILoginForm {
   email: string;
@@ -21,17 +24,17 @@ interface IProfileForm {
 })
 export class UserService {
 
-  private readonly TABLE_NAME = 'users';
+  readonly TABLE_NAME = 'users';
   public userChange = new EventEmitter<IUser>();
 
-  constructor(private _fireAuth: AngularFireAuth, private _firestore: FireStoreService) {
+  constructor(private _fireAuth: AngularFireAuth, private _firestore: FireStoreService, private _storage: StorageService) {
     this._fireAuth.authState.subscribe(firebaseUser => {
       if (firebaseUser) {
-        this._firestore.searchOne<IUser>(this.TABLE_NAME, 'uid', ECompare.Equal, firebaseUser.uid)
+        this._firestore.searchOne<IUser>(this.TABLE_NAME, 'data.uid', ECompare.Equal, firebaseUser.uid)
           .then(user => this.updateUser(user))
           // a la connection google le compte auth est créé avant l'enregistrement en base
           // l'evenement de changement d'utilisateur est donc trigger avant la sauvegarde
-          .catch(() => { });
+          .catch(e => { });
       } else {
         this.updateUser(null);
       }
@@ -86,7 +89,7 @@ export class UserService {
 
   public signInWithGoogle(): Promise<void> {
     return this._fireAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(userCredential => {
-      this._firestore.searchOne<IUser>(this.TABLE_NAME, 'uid', ECompare.Equal, userCredential.user.uid)
+      this._firestore.searchOne<IUser>(this.TABLE_NAME, 'data.uid', ECompare.Equal, userCredential.user.uid)
         // si l'utilisateur n'existe pas en base on l'ajoute en plus
         .catch(err => this.newUser(userCredential.user).then(user => this.updateUser(user)));
     });
@@ -101,7 +104,7 @@ export class UserService {
       return this._firestore.searchOne<IUser>(this.TABLE_NAME, 'id', ECompare.Equal, this.user.id).then(user => {
         user.data.displayName = profile.displayName;
         user.data.photoURL = profile.photoURL;
-        return this._firestore.update( user).then(() => this.updateUser(user));
+        return this._firestore.update(user).then(() => this.updateUser(user));
       });
     });
   }

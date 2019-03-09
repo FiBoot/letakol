@@ -1,7 +1,8 @@
 
 export enum EItemType {
   User = 'user',
-  Image = 'image'
+  Image = 'image',
+  TimelineEvent = 'timeline-event'
 }
 
 export interface IFireBaseItem {
@@ -10,7 +11,7 @@ export interface IFireBaseItem {
   name: string;
   type: EItemType;
   data: any;
-  creationDate: Date;
-  lastUpdateDate: Date;
+  creationDate: number;
+  lastUpdateDate: number;
   public: boolean;
 }

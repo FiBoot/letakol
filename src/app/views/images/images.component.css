@@ -1,12 +1,5 @@
-.image-view img {
-  max-width: 100%;
-}
 
-.image-view h2 {
-  margin: 0;
-}
-
-.image-warp {
+.image-wrap {
   position: relative;
   min-height: 320px;
   padding: 10px 0;
@@ -16,13 +9,13 @@
   text-align: center;
 }
 
-.image-warp img {
+.image-wrap img {
   width: 220px;
   height: 300px;
   background-color: #fff;
 }
 
-.image-warp .title {
+.image-wrap .title {
   position: absolute;
   bottom: 0;
   width: 100%;

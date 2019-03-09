@@ -1,0 +1,11 @@
+file-drop .text {
+  padding: 0 15px;
+}
+
+file-drop .progress {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  margin-top: 25px;
+  border-radius: 0;
+}
