@@ -28,6 +28,7 @@ import { RouterModule } from '@angular/router';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { AppsModule } from './apps/apps.modules';
 import { TimelineComponent } from './views/timeline/timeline.component';
+import { ClorusComponent } from './apps/clorus/clorus.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TimelineComponent } from './views/timeline/timeline.component';
     ImagesComponent,
     ImageViewModalComponent,
     ImageUploadModalComponent,
-    TimelineComponent
+    TimelineComponent,
+    ClorusComponent
   ],
   imports: [
     BrowserModule,
