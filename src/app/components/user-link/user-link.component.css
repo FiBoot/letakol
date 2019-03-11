@@ -2,7 +2,7 @@
   display: inline-flex;
   position: relative;
   border-radius: 4px;
-  box-shadow: 0 0 1px 0px #333;
+  box-shadow: 0 0 2px 0px #333;
   color: #333;
   text-decoration: none;
   transition: ease-in-out, background-color 0.15s;
