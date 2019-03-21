@@ -1,21 +1,7 @@
 import { Component } from '@angular/core';
+import { ENote, Key } from './classes/key.class';
+import { Track } from './classes/track.class';
 
-const enum ENote {
-  A = 'A',
-  B = 'B',
-  C = 'C',
-  D = 'D',
-  E = 'E',
-  F = 'F',
-  G = 'G',
-  As = 'A^',
-  Bs = 'B^',
-  Cs = 'C^',
-  Ds = 'D^',
-  Es = 'E^',
-  Fs = 'F^',
-  Gs = 'G^'
-}
 const keys = [
   { note: ENote.A, bind: 'q', sharped: false },
   { note: ENote.A, bind: '2', sharped: true },
@@ -45,31 +31,6 @@ const keys = [
 ];
 const ESCPAE_KEY = 'Escape';
 
-class Key {
-  readonly note: string;
-  private audio: HTMLAudioElement;
-  public active = false;
-  public binding = false;
-
-  constructor(note: ENote, public keyBind: string, readonly sharped: boolean = false) {
-    this.note = sharped ? `${note}#` : note;
-    this.audio = new Audio();
-    this.audio.src = `/assets/keyboard-notes/${this.note
-      .replace('^', 'superior')
-      .replace('#', 'sharp')}.mp3`;
-    this.audio.loop = true;
-    this.audio.load();
-  }
-
-  public play(): void {
-    this.audio.currentTime = 0;
-    this.audio.play();
-  }
-  public stop(): void {
-    this.audio.pause();
-  }
-}
-
 @Component({
   selector: 'app-keyboard',
   templateUrl: './keyboard.component.html',
@@ -79,8 +40,11 @@ export class KeyboardComponent {
   keys: Array<Key>;
   binds: Array<string>;
   currentKey: Key;
+  tracks: Array<Track>;
+  currentTrack: Track;
 
   constructor() {
+    this.tracks = [];
     window.addEventListener('keydown', event => this.onKey(event, true));
     window.addEventListener('keyup', event => this.onKey(event, false));
     this.initKeyboard();
@@ -119,6 +83,9 @@ export class KeyboardComponent {
       if (findKey) {
         if (pressed && !findKey.active) {
           findKey.play();
+          if (this.currentTrack && this.currentTrack.isRecording()) {
+            this.currentTrack.regiserKey(findKey);
+          }
         }
         if (!pressed && findKey.active) {
           findKey.stop();
@@ -138,5 +105,10 @@ export class KeyboardComponent {
       currentKey.binding = true;
       this.currentKey = currentKey;
     }
+  }
+
+  public startTrack(): void {
+    this.currentTrack = new Track();
+    this.currentTrack.start();
   }
 }
