@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
 import { ENote, Key } from './classes/key.class';
 import { Track } from './classes/track.class';
+import { TrackPlayer } from './classes/trackPlayer.class';
+import { Component } from '@angular/core';
 
 const keys = [
   { note: ENote.A, bind: 'q', sharped: false },
@@ -40,11 +41,11 @@ export class KeyboardComponent {
   keys: Array<Key>;
   binds: Array<string>;
   currentKey: Key;
-  tracks: Array<Track>;
+  tracks: Array<Track> = [];
   currentTrack: Track;
+  private player: TrackPlayer = new TrackPlayer();
 
   constructor() {
-    this.tracks = [];
     window.addEventListener('keydown', event => this.onKey(event, true));
     window.addEventListener('keyup', event => this.onKey(event, false));
     this.initKeyboard();
@@ -57,6 +58,19 @@ export class KeyboardComponent {
 
   private saveBinds(): void {
     this.binds = this.keys.map(key => key.keyBind);
+  }
+
+  private endTrack(): void {
+    this.tracks.push(this.currentTrack);
+    this.currentTrack = null;
+  }
+
+  public isTrackRecording(): boolean {
+    return this.currentTrack && this.currentTrack.isPlaying();
+  }
+
+  public isPlayerRunning(): boolean {
+    return this.player.isPlaying();
   }
 
   public onKey(event: KeyboardEvent, pressed: boolean): void {
@@ -88,7 +102,7 @@ export class KeyboardComponent {
           findKey.stop();
         }
         // save key to track
-        if (this.currentTrack && this.currentTrack.isRecording()) {
+        if (this.isTrackRecording()) {
           this.currentTrack.regiserKey(findKey, pressed);
         }
         findKey.active = pressed;
@@ -109,7 +123,30 @@ export class KeyboardComponent {
   }
 
   public startTrack(): void {
-    this.currentTrack = new Track();
-    this.currentTrack.start();
+    if (this.isTrackRecording()) {
+      this.currentTrack.stop();
+    } else {
+      this.currentTrack = new Track();
+      this.currentTrack.stops.subscribe(() => this.endTrack());
+      this.currentTrack.start();
+    }
+  }
+
+  public editTrack(track: Track): void {
+    this.deleteTrack(track);
+    this.startTrack();
+  }
+
+  public deleteTrack(track: Track): void {
+    this.tracks.splice(this.tracks.indexOf(track), 1);
+  }
+
+  public startPlayer(): void {
+    if (!this.isPlayerRunning()) {
+      this.player.setTracks(this.tracks);
+      this.player.start();
+    } else {
+      this.player.stop();
+    }
   }
 }

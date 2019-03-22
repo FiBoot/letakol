@@ -12,14 +12,59 @@
   </div>
 
   <div>
-    <button type="button" class="btn btn-secondary" (click)="startTrack()">track</button>
+    <button
+      type="button"
+      class="btn"
+      [ngClass]="{ 'btn-success': !isTrackRecording(), 'btn-secondary': isTrackRecording() }"
+      (click)="startTrack()"
+    >
+      {{ isTrackRecording() ? 'Stop' : 'Add' }} track
+    </button>
+    <button
+      *ngIf="tracks?.length"
+      type="button"
+      class="btn btn-secondary ml-3"
+      [ngClass]="{ 'btn-primary': !isPlayerRunning(), 'btn-secondary': isPlayerRunning() }"
+      (click)="startPlayer()"
+    >
+      {{ isPlayerRunning() ? 'Stop' : 'Play' }}
+    </button>
+
+    <table class="mt-3" *ngIf="tracks?.length || currentTrack">
+      <thead>
+        <tr>
+          <th scope="col">actions</th>
+          <th scope="col">track?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let track of tracks">
+          <td>
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true" (click)="editTrack(track)"
+              >E
+            </span>
+            <span class="glyphicon glyphicon-volume-up" aria-hidden="true">M </span>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="deleteTrack(track)"
+              >D
+            </span>
+          </td>
+          <td>duration: {{ track.cycle }} keys: {{ track.recordedKeys.length }}</td>
+        </tr>
+        <tr *ngIf="currentTrack">
+          <td></td>
+          <td>duration: {{ currentTrack.cycle }} keys: {{ currentTrack.recordedKeys.length }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <h4>How to:</h4>
-  <ul>
-    <li>Press key below note to play</li>
-    <li>Click on a key to change the binding</li>
-    <li>You cannot bind a key already used</li>
-    <li>Press Escape to cancel bind</li>
-  </ul>
+  <div class="mt-3">
+    <h4>How to:</h4>
+    <ul>
+      <li>Press key below note to play</li>
+      <li>Click on a key to change the binding</li>
+      <li>You cannot bind a key already used</li>
+      <li>Press Escape to cancel bind</li>
+    </ul>
+  </div>
 </div>
