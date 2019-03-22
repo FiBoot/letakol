@@ -83,12 +83,13 @@ export class KeyboardComponent {
       if (findKey) {
         if (pressed && !findKey.active) {
           findKey.play();
-          if (this.currentTrack && this.currentTrack.isRecording()) {
-            this.currentTrack.regiserKey(findKey);
-          }
         }
         if (!pressed && findKey.active) {
           findKey.stop();
+        }
+        // save key to track
+        if (this.currentTrack && this.currentTrack.isRecording()) {
+          this.currentTrack.regiserKey(findKey, pressed);
         }
         findKey.active = pressed;
       }
