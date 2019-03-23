@@ -1,3 +1,5 @@
+import { Utils } from 'src/app/services/utils/utils.service';
+
 export const enum ENote {
   A = 'A',
   B = 'B',
@@ -15,27 +17,48 @@ export const enum ENote {
   Gs = 'G^'
 }
 
+const TIMESPAN = 10;
+const VOLUME_TICK = 0.05;
+
 export class Key {
   readonly note: string;
   private audio: HTMLAudioElement;
-  public active = false;
-  public binding = false;
+  private lowering: boolean = false;
+
+  public active: boolean = false;
+  public binding: boolean = false;
 
   constructor(note: ENote, public keyBind: string, readonly sharped: boolean = false) {
     this.note = sharped ? `${note}#` : note;
     this.audio = new Audio();
     this.audio.src = `/assets/keyboard-notes/${this.note
-      .replace('^', 'superior')
-      .replace('#', 'sharp')}.mp3`;
+      .replace('^', 'sup')
+      .replace('#', 'sharp')}.wav`;
     this.audio.loop = true;
     this.audio.load();
   }
 
   public play(): void {
+    this.lowering = false;
+    this.audio.volume = 1;
     this.audio.currentTime = 0;
     this.audio.play();
   }
+
   public stop(): void {
-    this.audio.pause();
+    this.lowering = true;
+    this.lower();
+  }
+
+  private lower(): void {
+    if (this.lowering) {
+      if (this.audio.volume > 0) {
+        this.audio.volume = Utils.fixed(this.audio.volume - VOLUME_TICK, 2);
+        setTimeout(() => this.lower(), TIMESPAN);
+      } else {
+        this.lowering = false;
+        this.audio.pause();
+      }
+    }
   }
 }
