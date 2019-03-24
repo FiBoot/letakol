@@ -17,8 +17,8 @@ export const enum ENote {
   Gs = 'G^'
 }
 
-const TIMESPAN = 10;
-const VOLUME_TICK = 0.05;
+const TIMESPAN = 5;
+const VOLUME_TICK = 0.01;
 
 export class Key {
   readonly note: string;
