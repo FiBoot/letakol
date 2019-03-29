@@ -39,6 +39,12 @@ export class KeyboardComponent {
     this.currentTrack = null;
   }
 
+  private addKeyToTrack(key: Key, pressed: boolean): void {
+    if (this.currentTrack) {
+      this.currentTrack.regiserKey(key, pressed);
+    }
+  }
+
   public isTrackRecording(): boolean {
     return this.currentTrack && this.currentTrack.isPlaying();
   }
@@ -71,13 +77,13 @@ export class KeyboardComponent {
       if (findKey) {
         if (pressed && !findKey.active) {
           findKey.play();
+          // add key to track
+          this.addKeyToTrack(findKey, true);
         }
         if (!pressed && findKey.active) {
           findKey.stop();
-        }
-        // save key to track
-        if (this.isTrackRecording()) {
-          this.currentTrack.regiserKey(findKey, pressed);
+          // save key to track
+          this.addKeyToTrack(findKey, false);
         }
         findKey.active = pressed;
       }

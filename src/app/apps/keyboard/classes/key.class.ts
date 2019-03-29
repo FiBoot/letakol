@@ -13,13 +13,13 @@ export class Key {
     this._sound = new Pizzicato.Sound({
       source: 'wave',
       options: {
-        volume: 0.5,
+        volume: 0.25,
         frequency: note.frequency
       }
     });
     this._sound.addEffect(
       new Pizzicato.Effects.Distortion({
-        gain: 0.5
+        gain: 0.25
       })
     );
   }
