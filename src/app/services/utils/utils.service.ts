@@ -31,7 +31,7 @@ export class Utils {
    * @param arr array
    * @returns first element or null
    */
-  public static first<T>(arr: Array<T>): T {
+  public static first<T>(arr: Array<T>): T | null {
     return arr && arr.length > 0 ? arr[0] : null;
   }
 
@@ -41,7 +41,7 @@ export class Utils {
    * @param arr array
    * @returns last element or null
    */
-  public static last<T>(arr: Array<T>): T {
+  public static last<T>(arr: Array<T>): T | null {
     return arr && arr.length > 0 ? arr[arr.length - 1] : null;
   }
 
@@ -52,7 +52,7 @@ export class Utils {
    * @param elem element to remove
    * @returns removed element
    */
-  public static remove<T>(arr: Array<T>, elem: T): T {
+  public static remove<T>(arr: Array<T>, elem: T): T | null {
     return arr && arr.includes(elem) ? arr.splice(arr.indexOf(elem), 1)[0] : null;
   }
 
