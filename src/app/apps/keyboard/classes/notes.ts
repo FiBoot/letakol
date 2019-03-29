@@ -20,7 +20,7 @@ export const notes = [
   new Note('D5', 587.33, 'o'),
   new Note('D5#', 622.25, '0'),
   new Note('E5', 659.25, 'p'),
-  new Note('F5', 698.46, ''),
+  new Note('F5', 698.46, '['),
   new Note('F5#', 739.99, ''),
   new Note('G5', 783.99, ''),
   new Note('G5#', 830.61, ''),
