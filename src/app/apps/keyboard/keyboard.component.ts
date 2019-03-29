@@ -41,7 +41,7 @@ export class KeyboardComponent {
 
   private addKeyToTrack(key: Key, pressed: boolean): void {
     if (this.currentTrack) {
-      this.currentTrack.regiserKey(key, pressed);
+      this.currentTrack.regiserKey(new Key(key.note), pressed);
     }
   }
 

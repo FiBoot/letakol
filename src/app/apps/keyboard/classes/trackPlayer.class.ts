@@ -14,7 +14,7 @@ export class TrackPlayer extends Player {
   }
 
   startCB() {
-    this.stops.subscribe(() => this.noteList.forEach(note => note.key.stop()));
+    this.stops.subscribe(() => this.notePlayed.forEach(note => note.key.stop()));
   }
 
   loopCB() {

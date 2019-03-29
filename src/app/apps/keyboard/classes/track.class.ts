@@ -23,8 +23,10 @@ export class Track extends Player {
         const recordedKey = Utils.first(
           this.keys.splice(this.keys.findIndex(k => k.key.note === key.note), 1)
         );
-        recordedKey.end = this.cycle;
-        this.recordedKeys.push(recordedKey);
+        if (recordedKey) {
+          recordedKey.end = this.cycle;
+          this.recordedKeys.push(recordedKey);
+        }
       }
     }
   }
