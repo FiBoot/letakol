@@ -12,17 +12,14 @@ export class Key {
     this.sharped = Boolean(note.name.search('#') > -1);
     this._sound = new Pizzicato.Sound({
       source: 'wave',
-      attack: 0.25,
-      release: 0.5,
       options: {
         volume: 0.5,
         frequency: note.frequency
       }
     });
-    this._sound.volume =
     this._sound.addEffect(
       new Pizzicato.Effects.Distortion({
-        gain: 0.25
+        gain: 0.5
       })
     );
   }
