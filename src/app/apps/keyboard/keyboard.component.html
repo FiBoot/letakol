@@ -6,8 +6,8 @@
       [ngClass]="{ sharped: key.sharped, active: key.active, binding: key.binding }"
       (click)="bind(key)"
     >
-      <div class="bind">{{ key.keyBind }}</div>
-      <div class="note">{{ key.note }}</div>
+      <div class="bind">{{ key.note.bind }}</div>
+      <div class="name">{{ key.note.name }}</div>
     </div>
   </div>
 

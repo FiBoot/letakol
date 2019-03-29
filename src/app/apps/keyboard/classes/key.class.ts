@@ -1,64 +1,57 @@
+import { Note } from './notes';
 import { Utils } from 'src/app/services/utils/utils.service';
-
-export const enum ENote {
-  A = 'A',
-  B = 'B',
-  C = 'C',
-  D = 'D',
-  E = 'E',
-  F = 'F',
-  G = 'G',
-  As = 'A^',
-  Bs = 'B^',
-  Cs = 'C^',
-  Ds = 'D^',
-  Es = 'E^',
-  Fs = 'F^',
-  Gs = 'G^'
-}
 
 const TIMESPAN = 5;
 const VOLUME_TICK = 0.01;
 
 export class Key {
-  readonly note: string;
-  private audio: HTMLAudioElement;
-  private lowering: boolean = false;
+  private _audioCtx: AudioContext = new AudioContext();
+  private _oscilator: OscillatorNode;
+  // private _lowering: boolean = false;
+  readonly sharped: boolean;
 
-  public active: boolean = false;
-  public binding: boolean = false;
+  // style states
+  active: boolean = false;
+  binding: boolean = false;
 
-  constructor(note: ENote, public keyBind: string, readonly sharped: boolean = false) {
-    this.note = sharped ? `${note}#` : note;
-    this.audio = new Audio();
-    this.audio.src = `/assets/keyboard-notes/${this.note
-      .replace('^', 'sup')
-      .replace('#', 'sharp')}.wav`;
-    this.audio.loop = true;
-    this.audio.load();
+  constructor(public note: Note) {
+    this.sharped = Boolean(note.name.search('#') > -1);
+
+    this._oscilator = this._audioCtx.createOscillator();
+    this._oscilator.frequency.value = note.frequency;
+    this._oscilator.start(0);
   }
 
-  public play(): void {
-    this.lowering = false;
-    this.audio.volume = 1;
-    this.audio.currentTime = 0;
-    this.audio.play();
+  play(type: OscillatorType = 'triangle'): void {
+    this._oscilator.type = type;
+    this._oscilator.connect(this._audioCtx.destination);
   }
 
-  public stop(): void {
-    this.lowering = true;
-    this.lower();
+  stop(): void {
+    this._oscilator.disconnect();
   }
 
-  private lower(): void {
-    if (this.lowering) {
-      if (this.audio.volume > 0) {
-        this.audio.volume = Utils.fixed(this.audio.volume - VOLUME_TICK, 2);
-        setTimeout(() => this.lower(), TIMESPAN);
-      } else {
-        this.lowering = false;
-        this.audio.pause();
-      }
-    }
-  }
+  // public play(): void {
+  //   this._lowering = false;
+  //   this.audio.volume = 1;
+  //   this.audio.currentTime = 0;
+  //   this.audio.play();
+  // }
+
+  // public stop(): void {
+  //   this._lowering = true;
+  //   this.lower();
+  // }
+
+  // private lower(): void {
+  //   if (this._lowering) {
+  //     if (this.audio.volume > 0) {
+  //       this.audio.volume = Utils.fixed(this.audio.volume - VOLUME_TICK, 2);
+  //       setTimeout(() => this.lower(), TIMESPAN);
+  //     } else {
+  //       this._lowering = false;
+  //       this.audio.pause();
+  //     }
+  //   }
+  // }
 }

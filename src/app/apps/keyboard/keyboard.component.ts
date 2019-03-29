@@ -1,35 +1,9 @@
-import { ENote, Key } from './classes/key.class';
+import { Key } from './classes/key.class';
+import { notes } from './classes/notes';
 import { Track } from './classes/track.class';
 import { TrackPlayer } from './classes/trackPlayer.class';
 import { Component } from '@angular/core';
 
-const keys = [
-  { note: ENote.A, bind: 'q', sharped: false },
-  { note: ENote.A, bind: '2', sharped: true },
-  { note: ENote.B, bind: 'w', sharped: false },
-  { note: ENote.B, bind: '3', sharped: true },
-  { note: ENote.C, bind: 'e', sharped: false },
-  { note: ENote.D, bind: 'r', sharped: false },
-  { note: ENote.D, bind: '5', sharped: true },
-  { note: ENote.E, bind: 't', sharped: false },
-  { note: ENote.E, bind: '6', sharped: true },
-  { note: ENote.F, bind: 'y', sharped: false },
-  { note: ENote.F, bind: '7', sharped: true },
-  { note: ENote.G, bind: 'u', sharped: false },
-
-  { note: ENote.As, bind: 'i', sharped: false },
-  { note: ENote.As, bind: '9', sharped: true },
-  { note: ENote.Bs, bind: 'o', sharped: false },
-  { note: ENote.Bs, bind: '0', sharped: true },
-  { note: ENote.Cs, bind: 'p', sharped: false },
-  { note: ENote.Ds, bind: '[', sharped: false },
-  { note: ENote.Ds, bind: '=', sharped: true },
-  { note: ENote.Es, bind: ']', sharped: false },
-  { note: ENote.Es, bind: '?', sharped: true },
-  { note: ENote.Fs, bind: '?', sharped: false },
-  { note: ENote.Fs, bind: '?', sharped: true },
-  { note: ENote.Gs, bind: '?', sharped: false }
-];
 const ESCPAE_KEY = 'Escape';
 
 @Component({
@@ -52,12 +26,12 @@ export class KeyboardComponent {
   }
 
   private initKeyboard(): void {
-    this.keys = keys.map(key => new Key(key.note, key.bind, key.sharped));
+    this.keys = notes.map(note => new Key(note));
     this.saveBinds();
   }
 
   private saveBinds(): void {
-    this.binds = this.keys.map(key => key.keyBind);
+    this.binds = this.keys.map(key => key.note.bind);
   }
 
   private endTrack(): void {
@@ -82,7 +56,7 @@ export class KeyboardComponent {
     // binding a key
     if (pressed && this.currentKey) {
       if (!this.binds.includes(event.key)) {
-        this.currentKey.keyBind = event.key;
+        this.currentKey.note.bind = event.key;
         this.saveBinds();
       } else {
         console.warn('already bind');
@@ -93,7 +67,7 @@ export class KeyboardComponent {
     }
     // pressing a key
     if (this.binds.includes(event.key)) {
-      const findKey = this.keys.find(key => key.keyBind === event.key);
+      const findKey = this.keys.find(key => key.note.bind === event.key);
       if (findKey) {
         if (pressed && !findKey.active) {
           findKey.play();

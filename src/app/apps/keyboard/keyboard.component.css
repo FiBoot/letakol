@@ -22,7 +22,7 @@
   background-color: darkorange;
 }
 
-.key .note,
+.key .name,
 .key .bind {
   position: absolute;
   bottom: 0;
