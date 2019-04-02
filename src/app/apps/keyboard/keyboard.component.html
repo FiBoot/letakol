@@ -1,32 +1,52 @@
 <div class="content">
-  <div class="keyboard mb-3">
-    <div
-      *ngFor="let key of keys"
-      class="key"
-      [ngClass]="{ sharped: key.sharped, active: key.active, binding: key.binding }"
-      (click)="bind(key)"
-    >
-      <div class="bind">{{ key.note.bind }}</div>
-      <div class="name">{{ key.note.name }}</div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="keyboard mb-3">
+        <div *ngFor="let key of keys" class="key"
+          [ngClass]="{ sharped: key.sharped, active: key.active, binding: key.binding }" (click)="bind(key)">
+          <div class="bind">{{ key.note.bind }}</div>
+          <div class="name">{{ key.note.name }}</div>
+        </div>
+      </div>
     </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-9">
+          <select class="form-control" [(ngModel)]="selectedEffect">
+            <option *ngFor="let effect of effects" [ngValue]="effect">{{effect.name}}</option>
+          </select>
+        </div>
+        <div class="col-3">
+          <input type="button" class="btn" *ngIf="selectedEffect"
+            [ngClass]="{'btn-success': selectedEffect.active, 'btn-danger': !selectedEffect.active}"
+            [value]="selectedEffect.active ? 'ON' : 'OFF'" (click)="toggleEffect(selectedEffect)">
+        </div>
+      </div>
+      <div *ngIf="selectedEffect" class="mt-2">
+        <div *ngFor="let param of selectedEffect.params" class="mt-2">
+          <label [for]="param.name">{{param.name}}</label>
+          <ng5-slider [(value)]="param.value" [options]="{floor: param.min, ceil: param.max, step: param.tick}" (userChangeEnd)="applyEffects()">
+          </ng5-slider>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <button class="btn btn-secondary" (click)="resetEffects()">Reset</button>
+      </div>
+    </div>
+
   </div>
 
-  <div>
-    <button
-      type="button"
-      class="btn"
-      [ngClass]="{ 'btn-success': !isTrackRecording(), 'btn-secondary': isTrackRecording() }"
-      (click)="startTrack()"
-    >
+  <div class="mt-3">
+    <button type="button" class="btn"
+      [ngClass]="{ 'btn-success': !isTrackRecording(), 'btn-secondary': isTrackRecording() }" (click)="startTrack()">
       {{ isTrackRecording() ? 'Stop' : 'Add' }} track
     </button>
-    <button
-      *ngIf="tracks?.length"
-      type="button"
-      class="btn btn-secondary ml-3"
-      [ngClass]="{ 'btn-primary': !isPlayerRunning(), 'btn-secondary': isPlayerRunning() }"
-      (click)="startPlayer()"
-    >
+    <button *ngIf="tracks?.length" type="button" class="btn btn-secondary ml-2"
+      [ngClass]="{ 'btn-primary': !isPlayerRunning(), 'btn-secondary': isPlayerRunning() }" (click)="startPlayer()">
       {{ isPlayerRunning() ? 'Stop' : 'Play' }}
     </button>
 
@@ -34,25 +54,28 @@
       <thead>
         <tr>
           <th scope="col">actions</th>
-          <th scope="col">track?</th>
+          <th scope="col">track</th>
+          <th scope="col">details</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let track of tracks">
           <td>
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true" (click)="editTrack(track)"
-              >E
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true" (click)="editTrack(track)">E
             </span>
             <span class="glyphicon glyphicon-volume-up" aria-hidden="true">M </span>
-            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="deleteTrack(track)"
-              >D
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" (click)="deleteTrack(track)">D
             </span>
           </td>
           <td>duration: {{ track.cycle }} keys: {{ track.recordedKeys.length }}</td>
+          <td>
+            <span *ngFor="let rkey of track.recordedKeys">{{ rkey.key.note.name }}</span>
+          </td>
         </tr>
         <tr *ngIf="currentTrack">
           <td></td>
           <td>duration: {{ currentTrack.cycle }} keys: {{ currentTrack.recordedKeys.length }}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>

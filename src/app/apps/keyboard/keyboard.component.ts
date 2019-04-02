@@ -1,8 +1,10 @@
+import { Effect, effects } from './classes/effects';
 import { Key } from './classes/key.class';
 import { notes } from './classes/notes';
 import { Track } from './classes/track.class';
 import { TrackPlayer } from './classes/trackPlayer.class';
 import { Component } from '@angular/core';
+import { Utils } from 'src/app/services/utils/utils.service';
 
 const ESCPAE_KEY = 'Escape';
 
@@ -12,9 +14,17 @@ const ESCPAE_KEY = 'Escape';
   styleUrls: ['./keyboard.component.css']
 })
 export class KeyboardComponent {
+  // keys
   keys: Array<Key>;
-  binds: Array<string>;
   currentKey: Key;
+  binds: Array<string>;
+
+  // effects
+  effects: Array<Effect>;
+  selectedEffect: Effect;
+  appliedEffects: Array<Effect> = [];
+
+  // tracks
   tracks: Array<Track> = [];
   currentTrack: Track;
   private player: TrackPlayer = new TrackPlayer();
@@ -23,11 +33,17 @@ export class KeyboardComponent {
     window.addEventListener('keydown', event => this.onKey(event, true));
     window.addEventListener('keyup', event => this.onKey(event, false));
     this.initKeyboard();
+    this.initEffects();
   }
 
   private initKeyboard(): void {
     this.keys = notes.map(note => new Key(note));
     this.saveBinds();
+  }
+
+  private initEffects(): void {
+    this.effects = effects.map(e => Object.create(e));
+    this.selectedEffect = Utils.first(this.effects);
   }
 
   private saveBinds(): void {
@@ -41,8 +57,28 @@ export class KeyboardComponent {
 
   private addKeyToTrack(key: Key, pressed: boolean): void {
     if (this.currentTrack) {
-      this.currentTrack.regiserKey(new Key(key.note), pressed);
+      this.currentTrack.regiserKey(new Key(key.note, this.effects.filter(effect => effect.active)), pressed);
     }
+  }
+
+  private compareEffects(oldEffects: Array<Effect>, newEffects: Array<Effect>): boolean {
+    // check basics
+    if (!oldEffects.length || !newEffects.length || oldEffects.length !== newEffects.length) {
+      return false;
+    }
+    // check effects
+    for (let i = 0; i < newEffects.length; i++) {
+      if (newEffects[i].name !== oldEffects[i].name) {
+        return false;
+      }
+      // check effect's params
+      for (let j = 0; j < newEffects[i].params.length; j++) {
+        if (newEffects[i].params[j].value !== oldEffects[i].params[j].value) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   public isTrackRecording(): boolean {
@@ -65,7 +101,7 @@ export class KeyboardComponent {
         this.currentKey.note.bind = event.key;
         this.saveBinds();
       } else {
-        console.warn('already bind');
+        console.warn('Key already bind');
       }
       this.currentKey.binding = false;
       this.currentKey = null;
@@ -100,6 +136,36 @@ export class KeyboardComponent {
       currentKey.binding = true;
       this.currentKey = currentKey;
     }
+  }
+
+  public toggleEffect(effect: Effect): void {
+    effect.active = !effect.active;
+    this.applyEffects();
+  }
+
+  public applyEffects(): void {
+    const newEffects = this.effects.filter(effect => effect.active);
+    if (!this.compareEffects(this.appliedEffects, newEffects)) {
+      this.keys.forEach(key => key.applyEffects(newEffects));
+      this.appliedEffects = newEffects.map(effect => effect.clone);
+      // this.updateKeyEffect(0);
+    } else {
+      console.warn('No new effects applied');
+    }
+  }
+
+  private updateKeyEffect(index: number): void {
+    if (index < this.keys.length) {
+      this.keys[index].applyEffects(this.appliedEffects);
+      setTimeout(() => this.updateKeyEffect(index + 1), 2);
+    } else {
+      console.log('finito');
+    }
+  }
+
+  public resetEffects(): void {
+    this.initEffects();
+    this.applyEffects();
   }
 
   public startTrack(): void {
