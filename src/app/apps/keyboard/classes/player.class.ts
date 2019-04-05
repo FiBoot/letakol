@@ -6,7 +6,7 @@ const MAX_CYCLES = 3000; // 10s of 1ms cycle
 export class Player {
   private playing: boolean = false;
   protected cycle: number;
-  public stops: Subject<boolean> = new Subject<boolean>();
+  public stops: Subject<void> = new Subject();
 
   constructor(private maxCycles: number = MAX_CYCLES) {}
 
@@ -15,20 +15,21 @@ export class Player {
   }
 
   public start(): void {
-    this.startCB();
     this.cycle = 0;
     this.playing = true;
+    this.startCB();
     this.loop();
   }
 
   public stop(): void {
     this.playing = false;
-    this.stops.next(true);
+    this.stopCB();
+    this.stops.next();
   }
 
   private loop(): void {
-    this.loopCB();
     this.cycle += 1;
+    this.loopCB();
     if (this.cycle < this.maxCycles && this.playing) {
       setTimeout(() => this.loop(), TIMESPAN);
     } else {
@@ -38,6 +39,7 @@ export class Player {
     }
   }
 
-  protected startCB() {}
-  protected loopCB() {}
+  protected startCB(): void {}
+  protected stopCB(): void {}
+  protected loopCB(): void {}
 }

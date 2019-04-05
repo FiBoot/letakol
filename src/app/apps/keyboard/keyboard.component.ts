@@ -52,12 +52,18 @@ export class KeyboardComponent {
 
   private endTrack(): void {
     this.tracks.push(this.currentTrack);
-    this.currentTrack = null;
+    setTimeout(() => {
+      document.getElementById(this.currentTrack.uuid).appendChild(this.currentTrack.canvas);
+      this.currentTrack = null;
+    });
   }
 
   private addKeyToTrack(key: Key, pressed: boolean): void {
     if (this.currentTrack) {
-      this.currentTrack.regiserKey(new Key(key.note, this.effects.filter(effect => effect.active)), pressed);
+      this.currentTrack.regiserKey(
+        new Key(key.note, this.effects.filter(effect => effect.active)),
+        pressed
+      );
     }
   }
 
