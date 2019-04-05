@@ -148,18 +148,8 @@ export class KeyboardComponent {
     if (!this.compareEffects(this.appliedEffects, newEffects)) {
       this.keys.forEach(key => key.applyEffects(newEffects));
       this.appliedEffects = newEffects.map(effect => effect.clone);
-      // this.updateKeyEffect(0);
     } else {
       console.warn('No new effects applied');
-    }
-  }
-
-  private updateKeyEffect(index: number): void {
-    if (index < this.keys.length) {
-      this.keys[index].applyEffects(this.appliedEffects);
-      setTimeout(() => this.updateKeyEffect(index + 1), 2);
-    } else {
-      console.log('finito');
     }
   }
 
