@@ -1,32 +1,39 @@
-import { Player } from './player.class';
 import { RecordedKey, Track } from './track.class';
+import { Player } from 'src/app/classes/player.class';
 
 export class TrackPlayer extends Player {
   private tracks: Array<Track>;
+  private maxCycle: number;
   private noteList: Array<RecordedKey>;
   private notePlayed: Array<RecordedKey>;
 
+  constructor() {
+    super();
+    this.stops.subscribe(() => {
+      this._cycle = 0;
+      this.notePlayed.forEach(note => note.key.stop());
+    });
+  }
+
   setTracks(tracks: Array<Track>): void {
+    this.maxCycle = 0;
     this.noteList = new Array<RecordedKey>();
     this.notePlayed = new Array<RecordedKey>();
     tracks.forEach(track => {
       this.noteList = this.noteList.concat(track.recordedKeys);
       track.resetProgress();
+      this.maxCycle = track.cycle > this.maxCycle ? track.cycle : this.maxCycle;
     });
     this.noteList.sort((k1, k2) => k1.start - k2.start);
     this.tracks = tracks;
   }
 
-  startCB() {
-    this.stops.subscribe(() => this.notePlayed.forEach(note => note.key.stop()));
-  }
-
   loopCB() {
-    if (!this.noteList.length && !this.notePlayed.length) {
+    if (this.cycle >= this.maxCycle) {
       return this.stop();
     }
-    this.tracks.forEach(track => track.progress(this.cycle));
-    const notes = this.getCurrentNotes(this.cycle);
+    this.tracks.forEach(track => track.progress(this._cycle));
+    const notes = this.getCurrentNotes(this._cycle);
     if (notes) {
       this.noteList.splice(0, notes.length);
       notes.forEach(note => {
@@ -36,7 +43,7 @@ export class TrackPlayer extends Player {
     }
     const deleteNotes = new Array<RecordedKey>();
     this.notePlayed.forEach(note => {
-      if (note.end === this.cycle) {
+      if (note.end === this._cycle) {
         note.key.stop();
         deleteNotes.push(note);
       }

@@ -88,11 +88,11 @@ export class KeyboardComponent {
   }
 
   public isTrackRecording(): boolean {
-    return this.currentTrack && this.currentTrack.isPlaying();
+    return this.currentTrack && this.currentTrack.playing;
   }
 
   public isPlayerRunning(): boolean {
-    return this.player.isPlaying();
+    return this.player.playing;
   }
 
   public onKey(event: KeyboardEvent, pressed: boolean): void {
