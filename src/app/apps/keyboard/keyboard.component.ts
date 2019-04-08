@@ -53,7 +53,7 @@ export class KeyboardComponent {
   private endTrack(): void {
     this.tracks.push(this.currentTrack);
     setTimeout(() => {
-      document.getElementById(this.currentTrack.uuid).appendChild(this.currentTrack.canvas);
+      document.getElementById(this.currentTrack.uuid).appendChild(this.currentTrack.viewDiv);
       this.currentTrack = null;
     });
   }

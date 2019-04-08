@@ -1,16 +1,20 @@
 import { Player } from './player.class';
 import { RecordedKey, Track } from './track.class';
-import { Utils } from 'src/app/services/utils/utils.service';
 
 export class TrackPlayer extends Player {
+  private tracks: Array<Track>;
   private noteList: Array<RecordedKey>;
   private notePlayed: Array<RecordedKey>;
 
   setTracks(tracks: Array<Track>): void {
     this.noteList = new Array<RecordedKey>();
     this.notePlayed = new Array<RecordedKey>();
-    tracks.forEach(track => (this.noteList = this.noteList.concat(track.recordedKeys)));
+    tracks.forEach(track => {
+      this.noteList = this.noteList.concat(track.recordedKeys);
+      track.resetProgress();
+    });
     this.noteList.sort((k1, k2) => k1.start - k2.start);
+    this.tracks = tracks;
   }
 
   startCB() {
@@ -21,18 +25,35 @@ export class TrackPlayer extends Player {
     if (!this.noteList.length && !this.notePlayed.length) {
       return this.stop();
     }
-    if (this.noteList.length && this.cycle === Utils.first(this.noteList).start) {
-      const note = this.noteList.shift();
-      this.notePlayed.push(note);
-      note.key.play();
+    this.tracks.forEach(track => track.progress(this.cycle));
+    const notes = this.getCurrentNotes(this.cycle);
+    if (notes) {
+      this.noteList.splice(0, notes.length);
+      notes.forEach(note => {
+        this.notePlayed.push(note);
+        note.key.play();
+      });
     }
     const deleteNotes = new Array<RecordedKey>();
     this.notePlayed.forEach(note => {
-      if (this.cycle === note.end) {
+      if (note.end === this.cycle) {
         note.key.stop();
         deleteNotes.push(note);
       }
     });
     deleteNotes.forEach(note => this.notePlayed.splice(this.notePlayed.indexOf(note), 1));
+  }
+
+  private getCurrentNotes(cycle: number): Array<RecordedKey> {
+    const notes: Array<RecordedKey> = [];
+    for (let i = 0; i < this.noteList.length; i++) {
+      if (this.noteList[i].start === cycle) {
+        notes.push(this.noteList[i]);
+      }
+      if (this.noteList[i].start > cycle) {
+        break;
+      }
+    }
+    return notes;
   }
 }

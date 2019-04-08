@@ -17,8 +17,8 @@ export class Track extends Player {
   private keys: Array<RecordedKey>;
   public recordedKeys: Array<RecordedKey>;
 
-  public canvas: HTMLCanvasElement;
-  private ctx: CanvasRenderingContext2D;
+  public viewDiv: HTMLDivElement;
+  private progressDiv: HTMLDivElement;
 
   public startCB(): void {
     this.keys = new Array<RecordedKey>();
@@ -26,23 +26,40 @@ export class Track extends Player {
   }
 
   public stopCB(): void {
+    // wrap
+    this.viewDiv = document.createElement('div');
+    Object.assign(this.viewDiv.style, { position: 'relative' });
+    // progress
+    this.progressDiv = document.createElement('div');
+    Object.assign(this.progressDiv, { id: `progress_${this.uuid}` });
+    Object.assign(this.progressDiv.style, {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '2px',
+      height: `${notes.length * NOTE_HEIGHT}px`,
+      backgroundColor: 'green'
+    });
     // create canvas
-    this.canvas = document.createElement('canvas');
-    Object.assign(this.canvas, { width: this.cycle, height: notes.length * NOTE_HEIGHT });
-    Object.assign(this.canvas.style, { border: '1px solid #111' });
-    this.ctx = this.canvas.getContext('2d');
+    const canvas = document.createElement('canvas');
+    Object.assign(canvas, { width: this.cycle, height: notes.length * NOTE_HEIGHT });
+    Object.assign(canvas.style, { border: '1px solid #111' });
+    const ctx = canvas.getContext('2d');
     // draw notes
-    this.ctx.fillStyle = '#aaa';
-    this.ctx.fillRect(0, 0, this.cycle, notes.length * NOTE_HEIGHT);
+    ctx.fillStyle = '#aaa';
+    ctx.fillRect(0, 0, this.cycle, notes.length * NOTE_HEIGHT);
     this.recordedKeys.forEach(({ key, start, end }) => {
       const noteHeight = notes.findIndex(note => note === key.note) * NOTE_HEIGHT;
-      this.ctx.beginPath();
-      this.ctx.fillStyle = key.sharped ? NOTE_COLORS.BLACK : NOTE_COLORS.WHITE;
-      this.ctx.fillRect(start, noteHeight, end - start, 10);
-      this.ctx.fillStyle = key.sharped ? NOTE_COLORS.WHITE : NOTE_COLORS.BLACK;
-      this.ctx.font = `${NOTE_HEIGHT - 1}px`;
-      this.ctx.fillText(key.note.name, start, noteHeight + NOTE_HEIGHT * 2 - 1);
+      ctx.beginPath();
+      ctx.fillStyle = key.sharped ? NOTE_COLORS.BLACK : NOTE_COLORS.WHITE;
+      ctx.fillRect(start, noteHeight, end - start, 10);
+      ctx.fillStyle = key.sharped ? NOTE_COLORS.WHITE : NOTE_COLORS.BLACK;
+      ctx.font = `${NOTE_HEIGHT - 1}px`;
+      ctx.fillText(key.note.name, start, noteHeight + NOTE_HEIGHT * 2 - 1);
     });
+    // append element
+    this.viewDiv.appendChild(canvas);
+    this.viewDiv.appendChild(this.progressDiv);
   }
 
   public regiserKey(key: Key, pressed: boolean): void {
@@ -58,6 +75,16 @@ export class Track extends Player {
           this.recordedKeys.push(recordedKey);
         }
       }
+    }
+  }
+
+  public resetProgress(): void {
+    Object.assign(this.progressDiv.style, { left: 0 });
+  }
+
+  public progress(cycle: number): void {
+    if (cycle < this.cycle) {
+      Object.assign(this.progressDiv.style, { left: `${cycle}px` });
     }
   }
 }
