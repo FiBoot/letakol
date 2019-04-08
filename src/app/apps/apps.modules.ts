@@ -1,17 +1,18 @@
-import { FormsModule } from '@angular/forms';
-import { CodemirrorModule } from 'ng2-codemirror';
 import { ComponentsModule } from './../components/components.module';
 import { AppsComponent } from './apps.component';
-import { RouterModule } from '@angular/router';
-import { PetComponent } from './pet/pet.component';
-import { MemoryComponent } from './memory/memory.component';
-import { KeyboardComponent } from './keyboard/keyboard.component';
-import { CodewarComponent } from './codewar/codewar.component';
-import { ChatComponent } from './chat/chat.component';
-import { NgModule } from '@angular/core';
-import { SnakeIoComponent } from './snake-io/snake-io.component';
 import { APPS_ROUTES } from './apps.routes';
+import { ChatComponent } from './chat/chat.component';
+import { CodewarComponent } from './codewar/codewar.component';
+import { KeyboardComponent } from './keyboard/keyboard.component';
+import { MemoryComponent } from './memory/memory.component';
+import { PetComponent } from './pet/pet.component';
+import { SnakeIoComponent } from './snake-io/snake-io.component';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CodemirrorModule } from 'ng2-codemirror';
+import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
     CodemirrorModule,
+    Ng5SliderModule,
     ComponentsModule
   ]
 })

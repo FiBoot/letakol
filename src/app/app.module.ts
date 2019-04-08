@@ -66,4 +66,4 @@ import { RouterModule } from '@angular/router';
   providers: [FireStoreService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

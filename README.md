@@ -8,18 +8,19 @@ Using [GitFlow](https://danielkummer.github.io/git-flow-cheatsheet/index.fr_FR.h
 # External
 
 ### [Bootstrap 4](https://getbootstrap.com/)
+![bootstrap](https://www.booglit.com/wp-content/uploads/2018/11/Bootstrap4-min-300x150.jpg)
+
+### [ng5-slider](https://angular-slider.github.io/ng5-slider/)
+![ng5-slider](https://angular-slider.github.io/ng5-slider/assets/logo.png)
 
 ### [CodeMirror](https://codemirror.net/)
+![code-mirror](https://codemirror.net/doc/logo.png)
 
-Apps/codewar
+### [Pizzicato](https://alemangui.github.io/pizzicato/)
+![pizzicato](https://alemangui.github.io/pizzicato/img/logo.svg)
 
-### [Piizicato](https://alemangui.github.io/pizzicato/)
+### [VisJs](http://visjs.org/)
 
-Apps/keyboard
-
-### [Vis](http://visjs.org/)
-
-/timeline
 
 # Git convention
 

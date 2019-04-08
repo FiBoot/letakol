@@ -1,17 +1,59 @@
 <div class="content">
-  <div class="keyboard mb-3">
-    <div
-      *ngFor="let key of keys"
-      class="key"
-      [ngClass]="{ sharped: key.sharped, active: key.active, binding: key.binding }"
-      (click)="bind(key)"
-    >
-      <div class="bind">{{ key.note.bind }}</div>
-      <div class="name">{{ key.note.name }}</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="keyboard mb-3">
+        <div
+          *ngFor="let key of keys"
+          class="key"
+          [ngClass]="{ sharped: key.sharped, active: key.active, binding: key.binding }"
+          (click)="bind(key)"
+        >
+          <div class="bind">{{ key.note.bind }}</div>
+          <div class="name">{{ key.note.name }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-9">
+          <select class="form-control" [(ngModel)]="selectedEffect">
+            <option *ngFor="let effect of effects" [ngValue]="effect">{{ effect.name }}</option>
+          </select>
+        </div>
+        <div class="col-3">
+          <input
+            type="button"
+            class="btn"
+            *ngIf="selectedEffect"
+            [ngClass]="{
+              'btn-success': selectedEffect.active,
+              'btn-danger': !selectedEffect.active
+            }"
+            [value]="selectedEffect.active ? 'ON' : 'OFF'"
+            (click)="toggleEffect(selectedEffect)"
+          />
+        </div>
+      </div>
+      <div *ngIf="selectedEffect" class="mt-2">
+        <div *ngFor="let param of selectedEffect.params" class="mt-2">
+          <label [for]="param.name">{{ param.name }}</label>
+          <ng5-slider
+            [(value)]="param.value"
+            [options]="{ floor: param.min, ceil: param.max, step: param.tick }"
+            (userChangeEnd)="applyEffects()"
+          >
+          </ng5-slider>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <button class="btn btn-secondary" (click)="resetEffects()">Reset</button>
+      </div>
     </div>
   </div>
 
-  <div>
+  <div class="mt-3">
     <button
       type="button"
       class="btn"
@@ -23,7 +65,7 @@
     <button
       *ngIf="tracks?.length"
       type="button"
-      class="btn btn-secondary ml-3"
+      class="btn btn-secondary ml-2"
       [ngClass]="{ 'btn-primary': !isPlayerRunning(), 'btn-secondary': isPlayerRunning() }"
       (click)="startPlayer()"
     >
@@ -34,7 +76,7 @@
       <thead>
         <tr>
           <th scope="col">actions</th>
-          <th scope="col">track?</th>
+          <th scope="col">track</th>
         </tr>
       </thead>
       <tbody>
@@ -48,11 +90,12 @@
               >D
             </span>
           </td>
-          <td>duration: {{ track.cycle }} keys: {{ track.recordedKeys.length }}</td>
+          <td [id]="track.uuid"><!--canvas append here--></td>
         </tr>
         <tr *ngIf="currentTrack">
           <td></td>
           <td>duration: {{ currentTrack.cycle }} keys: {{ currentTrack.recordedKeys.length }}</td>
+          <td></td>
         </tr>
       </tbody>
     </table>

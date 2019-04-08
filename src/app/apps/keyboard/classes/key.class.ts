@@ -1,27 +1,42 @@
+import { Effect } from './effects';
 import { Note } from './notes';
 import * as Pizzicato from 'pizzicato';
 
 export class Key {
-  private _sound: Pizzicato.Sound;
   readonly sharped: boolean;
+
+  private _sound: Pizzicato.Sound;
+  private _appliedEffect: Array<Pizzicato.Effect> = [];
+
   // style states
   active: boolean = false;
   binding: boolean = false;
 
-  constructor(public note: Note) {
+
+  constructor(public note: Note, effects: Array<Effect> = []) {
     this.sharped = Boolean(note.name.search('#') > -1);
     this._sound = new Pizzicato.Sound({
       source: 'wave',
       options: {
         volume: 0.25,
-        frequency: note.frequency
+        frequency: this.note.frequency
       }
     });
-    this._sound.addEffect(
-      new Pizzicato.Effects.Distortion({
-        gain: 0.25
-      })
-    );
+    this.applyEffects(effects);
+  }
+
+  applyEffects(effects: Array<Effect>): void {
+    // remove current effects
+    this._appliedEffect.forEach(effect => this._sound.removeEffect(effect));
+    this._appliedEffect = new Array<Pizzicato.Effect>();
+    // create and add new effects
+    effects.forEach(effect => {
+      const effectOptions = {};
+      effect.params.forEach(param => effectOptions[param.name] = param.value);
+      const pizzicatoEffect = new effect.ref(effectOptions);
+      this._appliedEffect.push(pizzicatoEffect);
+      this._sound.addEffect(pizzicatoEffect);
+    });
   }
 
   play(): void {
@@ -31,4 +46,5 @@ export class Key {
   stop(): void {
     this._sound.stop();
   }
+
 }
