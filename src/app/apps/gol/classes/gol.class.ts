@@ -58,14 +58,14 @@ export class GameOfLife extends Player {
   private getAliveNeighboursCount(index: number): number {
     let aliveNeighbours = 0;
     [
-      -this.cellPerLine - 1,
+      !(index % this.cellPerLine) ? -1 : -this.cellPerLine - 1,
       -this.cellPerLine,
-      -this.cellPerLine + 1,
-      -1,
-      +1,
-      this.cellPerLine - 1,
+      !((index + 1) % this.cellPerLine) ? -(this.cellPerLine * 2) + 1 : -this.cellPerLine + 1,
+      !(index % this.cellPerLine) ? this.cellPerLine - 1 : -1,
+      !((index + 1) % this.cellPerLine) ? 1 - this.cellPerLine : 1,
+      !(index % this.cellPerLine) ? this.cellPerLine * 2 - 1 : this.cellPerLine - 1,
       this.cellPerLine,
-      this.cellPerLine + 1
+      !((index + 1) % this.cellPerLine) ? 1 : this.cellPerLine + 1
     ].forEach(neighbours => (aliveNeighbours += this.lifeArray[index + neighbours] ? 1 : 0));
     return aliveNeighbours;
   }
@@ -87,12 +87,12 @@ export class GameOfLife extends Player {
     return newGen;
   }
 
-  loopCB(): void {
+  protected loopCB(): void {
     this.lifeArray = this.nextGeneration();
     this.drawLifeArray();
   }
 
-  click(event: MouseEvent): void {
+  public click(event: MouseEvent): void {
     const x = Math.floor(event.offsetX / this.cellSize);
     const y = Math.floor(event.offsetY / this.cellSize);
     const arrayPos = y * this.cellPerLine + x;
