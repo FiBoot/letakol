@@ -26,6 +26,7 @@ export class Player {
       this.pause();
     } else {
       if (this._stoped) {
+        this._cycle = 0;
         this.startCB();
       }
       this._playing = true;
@@ -46,7 +47,8 @@ export class Player {
   }
 
   private loop(): void {
-    this.loopCB((this._cycle += 1));
+    this._cycle += 1;
+    this.loopCB();
     if (this.playing) {
       this._interval = setTimeout(() => this.loop(), this._timespan);
     } else {
@@ -55,5 +57,5 @@ export class Player {
   }
 
   protected startCB(): void {}
-  protected loopCB(cycle: number): void {}
+  protected loopCB(): void {}
 }

@@ -1,6 +1,6 @@
-import { Utils } from 'src/app/services/utils/utils.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Utils } from 'src/app/services/utils/utils.service';
 
 class App {
   constructor(readonly path: string, readonly name: string, readonly description: string = '') {}
@@ -23,6 +23,7 @@ export class AppsComponent {
 
     this.apps = [
       new App('keyboard', 'Keyboard', 'Viens tater'),
+      new App('gol', 'Game of Life', ''),
       new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),
       new App('chat', 'Chat'),
       new App('snake', 'Snake', 'c::::::::::::::::<'),
