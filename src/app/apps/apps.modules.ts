@@ -3,6 +3,7 @@ import { AppsComponent } from './apps.component';
 import { APPS_ROUTES } from './apps.routes';
 import { ChatComponent } from './chat/chat.component';
 import { CodewarComponent } from './codewar/codewar.component';
+import { GolComponent } from './gol/gol.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MemoryComponent } from './memory/memory.component';
 import { PetComponent } from './pet/pet.component';
@@ -19,6 +20,7 @@ import { Ng5SliderModule } from 'ng5-slider';
     AppsComponent,
     ChatComponent,
     CodewarComponent,
+    GolComponent,
     KeyboardComponent,
     MemoryComponent,
     PetComponent,
