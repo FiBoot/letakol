@@ -14,7 +14,6 @@ export class GolComponent implements AfterViewInit {
   public gol: Player = new Player();
 
   ngAfterViewInit(): void {
-    this.gol = new GameOfLife(this.canvas.nativeElement.getContext('2d'), 500, 25, 100);
+    this.gol = new GameOfLife(this.canvas.nativeElement.getContext('2d'), this.canvasSize, 25);
   }
-
 }

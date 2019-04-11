@@ -1,58 +1,88 @@
 import { Player } from 'src/app/classes/player.class';
 import { Utils } from 'src/app/services/utils/utils.service';
 
-const DEFAULT_TIMESPAN = 250;
-const LIFE_COLORS = {
-  Alive: '#333',
-  Dead: '#FAFAFA'
-};
+const DEFAULT_TIMESPAN = 100;
+const DEAD_CELL_COLORS = '#FAFAFA';
+const ALIVE_CELL_COLORS = [
+  '#333333',
+  '#800000',
+  '#FF0000',
+  '#FFA500',
+  '#FFFF00',
+  '#808000',
+  '#008000',
+  '#800080',
+  '#FF00FF',
+  '#00FF00',
+  '#008080',
+  '#00FFFF',
+  '#0000FF',
+  '#000080'
+];
+
+class Cell {
+  constructor(public cycle: number = 0) {}
+}
 
 export class GameOfLife extends Player {
-  private lifeArray: Array<boolean>;
-  private cellPerLine: number;
+  private cellArray: Array<Cell>;
+  private cellSize: number;
 
   constructor(
     private render: CanvasRenderingContext2D,
     readonly canvasSize: number,
-    readonly cellSize: number,
+    readonly cellPerLine: number,
     readonly timespan: number = DEFAULT_TIMESPAN
   ) {
     super(timespan);
-    this.cellPerLine = Utils.fixed(canvasSize / cellSize);
+    this.cellSize = Utils.fixed(canvasSize / cellPerLine);
 
     this.stops.subscribe(_ => this.init());
     this.init();
   }
 
-  private newLifeArray(): Array<boolean> {
-    const arr = new Array<boolean>();
+  private newCellArray(): Array<Cell> {
+    const arr = new Array<Cell>();
     for (let i = 0; i < Utils.square(this.cellPerLine); i++) {
-      arr.push(false);
+      arr.push(null);
     }
     return arr;
   }
 
   private init(): void {
-    this.lifeArray = this.newLifeArray();
-    this.drawLifeArray();
+    this.cellArray = this.newCellArray();
+    this.drawCellArray();
   }
 
-  private drawLifeArray(): void {
+  private drawCellArray(): void {
     this.render.clearRect(0, 0, this.canvasSize, this.canvasSize);
-    this.lifeArray.forEach((life, index) => {
-      this.drawLife(index % this.cellPerLine, Math.floor(index / this.cellPerLine), life);
+    this.cellArray.forEach((cell, index) => {
+      this.drawCell(index % this.cellPerLine, Math.floor(index / this.cellPerLine), cell);
     });
   }
 
-  private drawLife(x: number, y: number, life: boolean): void {
+  private drawCell(x: number, y: number, cell: Cell): void {
     const gap = Utils.fixed(this.cellSize / this.cellPerLine, 1);
-    this.render.fillStyle = life ? LIFE_COLORS.Alive : LIFE_COLORS.Dead;
+    this.render.fillStyle = cell
+      ? ALIVE_CELL_COLORS[
+          cell.cycle < ALIVE_CELL_COLORS.length ? cell.cycle : ALIVE_CELL_COLORS.length - 1
+        ]
+      : DEAD_CELL_COLORS;
     this.render.fillRect(
       x * this.cellSize + gap,
       y * this.cellSize + gap,
       this.cellSize - gap * 2,
       this.cellSize - gap * 2
     );
+    if (cell) {
+      const demiCell = this.cellSize / 2;
+      this.render.fillStyle = DEAD_CELL_COLORS;
+      this.render.fillText(
+        cell.cycle.toString(),
+        x * this.cellSize + demiCell,
+        y * this.cellSize + demiCell
+      );
+    }
   }
 
   private getAliveNeighboursCount(index: number): number {
@@ -66,21 +96,26 @@ export class GameOfLife extends Player {
       !(index % this.cellPerLine) ? this.cellPerLine * 2 - 1 : this.cellPerLine - 1,
       this.cellPerLine,
       !((index + 1) % this.cellPerLine) ? 1 : this.cellPerLine + 1
-    ].forEach(neighbours => (aliveNeighbours += this.lifeArray[index + neighbours] ? 1 : 0));
+    ].forEach(neighbours => (aliveNeighbours += this.cellArray[index + neighbours] ? 1 : 0));
     return aliveNeighbours;
   }
 
-  private nextGeneration(): Array<boolean> {
-    const newGen = this.newLifeArray();
-    this.lifeArray.forEach((life, index) => {
+  private increaseCellCycle(cell: Cell): Cell {
+    cell.cycle += 1;
+    return cell;
+  }
+
+  private nextGeneration(): Array<Cell> {
+    const newGen = this.newCellArray();
+    this.cellArray.forEach((cell, index) => {
       switch (this.getAliveNeighboursCount(index)) {
         case 2:
-          if (life) {
-            newGen[index] = true;
+          if (cell) {
+            newGen[index] = this.increaseCellCycle(cell);
           }
           break;
         case 3:
-          newGen[index] = true;
+          newGen[index] = cell ? this.increaseCellCycle(cell) : new Cell();
           break;
       }
     });
@@ -88,14 +123,15 @@ export class GameOfLife extends Player {
   }
 
   protected loopCB(): void {
-    this.lifeArray = this.nextGeneration();
-    this.drawLifeArray();
+    this.cellArray = this.nextGeneration();
+    this.drawCellArray();
   }
 
   public click(event: MouseEvent): void {
     const x = Math.floor(event.offsetX / this.cellSize);
     const y = Math.floor(event.offsetY / this.cellSize);
     const arrayPos = y * this.cellPerLine + x;
-    this.drawLife(x, y, (this.lifeArray[arrayPos] = !this.lifeArray[arrayPos]));
+    this.cellArray[arrayPos] = this.cellArray[arrayPos] ? null : new Cell();
+    this.drawCell(x, y, this.cellArray[arrayPos]);
   }
 }
