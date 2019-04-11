@@ -75,12 +75,11 @@ export class GameOfLife extends Player {
       this.cellSize - gap * 2
     );
     if (cell) {
-      const demiCell = this.cellSize / 2;
       this.render.fillStyle = DEAD_CELL_COLORS;
       this.render.fillText(
         cell.cycle.toString(),
-        x * this.cellSize + demiCell,
-        y * this.cellSize + demiCell
+        x * this.cellSize + this.cellSize / 3,
+        y * this.cellSize + (this.cellSize * 2) / 3
       );
     }
   }
