@@ -1,3 +1,5 @@
+// TOOD: remove from codewar, pet and snake
+// replace with Player class
 
 interface IBaseOptions {
   timeout: number;

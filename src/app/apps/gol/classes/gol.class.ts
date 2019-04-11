@@ -34,7 +34,7 @@ export class GameOfLife extends Player {
     readonly cellPerLine: number,
     readonly timespan: number = DEFAULT_TIMESPAN
   ) {
-    super(timespan);
+    super({ timespan });
     this.cellSize = Utils.fixed(canvasSize / cellPerLine);
 
     this.stops.subscribe(_ => this.init());

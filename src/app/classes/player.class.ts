@@ -2,15 +2,37 @@ import { Subject } from 'rxjs';
 
 const DEFAULT_TIMESPAN = 1; // 1ms
 
+export class IPlayerOption {
+  timespan?: number;
+  preventKeys?: Array<string>;
+}
+
 export class Player {
+  protected _timespan: number;
   protected _playing: boolean = false;
   protected _stoped: boolean = true; // used for startCB
   protected _cycle: number;
   private _interval: any; // NodeJS.Timer;
   readonly stops: Subject<void> = new Subject();
 
-  constructor(protected _timespan: number = DEFAULT_TIMESPAN) {
+  constructor({ timespan = DEFAULT_TIMESPAN, preventKeys = [] }: IPlayerOption = {}) {
+    this._timespan = timespan;
     this._cycle = 0;
+
+    // mapping key callbacks
+    window.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (preventKeys.includes(event.key)) {
+        event.preventDefault();
+      }
+      this.keyCB(event.key, true);
+    });
+    window.addEventListener('keyup', event => {
+      if (preventKeys.includes(event.key)) {
+        event.preventDefault();
+      }
+      this.keyCB(event.key, false);
+    });
+    console.log(this._timespan, preventKeys);
   }
 
   public get playing(): boolean {
@@ -58,4 +80,5 @@ export class Player {
 
   protected startCB(): void {}
   protected loopCB(): void {}
+  protected keyCB(key: string, pressed: boolean) {}
 }
