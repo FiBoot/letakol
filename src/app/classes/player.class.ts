@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 
 const DEFAULT_TIMESPAN = 1; // 1ms
 
-export class IPlayerOption {
+export class IPlayerOptions {
   timespan?: number;
   preventKeys?: Array<string>;
 }
@@ -15,7 +15,7 @@ export class Player {
   private _interval: any; // NodeJS.Timer;
   readonly stops: Subject<void> = new Subject();
 
-  constructor({ timespan = DEFAULT_TIMESPAN, preventKeys = [] }: IPlayerOption = {}) {
+  constructor({ timespan = DEFAULT_TIMESPAN, preventKeys = [] }: IPlayerOptions = {}) {
     this._timespan = timespan;
     this._cycle = 0;
 

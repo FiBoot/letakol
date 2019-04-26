@@ -7,6 +7,7 @@ import { GolComponent } from './gol/gol.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MemoryComponent } from './memory/memory.component';
 import { PetComponent } from './pet/pet.component';
+import { SmwComponent } from './smw/smw.component';
 import { SnakeIoComponent } from './snake-io/snake-io.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,8 @@ import { Ng5SliderModule } from 'ng5-slider';
     KeyboardComponent,
     MemoryComponent,
     PetComponent,
-    SnakeIoComponent
+    SnakeIoComponent,
+    SmwComponent
   ],
   imports: [
     RouterModule.forChild(APPS_ROUTES),
