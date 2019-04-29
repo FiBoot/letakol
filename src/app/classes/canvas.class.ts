@@ -45,11 +45,13 @@ export class Canvas extends Player {
   }
 
   private sizeCanvas(): void {
-    if (this._wrapper.offsetWidth !== this._size) {
-      this._size = this._wrapper.offsetWidth;
+    const floorSize = Math.floor(this._wrapper.offsetWidth);
+    const size = floorSize - (floorSize % this._unitsPerLine);
+    if (size !== this._size) {
+      this._size = size;
       this._unitSize = this._size / this._unitsPerLine;
-      this._canvas.style.width = `${this._size}px`;
-      this._canvas.style.height = `${this._size}px`;
+      this._render.canvas.width = this._size;
+      this._render.canvas.height = this._size;
       this.onResize();
     }
   }
@@ -61,7 +63,7 @@ export class Canvas extends Player {
     return this._size;
   }
   public get unitSize(): number {
-    return this._unitSize
+    return this._unitSize;
   }
   public get render(): CanvasRenderingContext2D {
     return this._render;

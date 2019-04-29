@@ -4,6 +4,7 @@ const DEFAULT_TIMESPAN = 1; // 1ms
 
 export class IPlayerOptions {
   timespan?: number;
+  loopkey?: boolean;
   preventKeys?: Array<string>;
 }
 
@@ -13,12 +14,18 @@ export class Player {
   protected _stoped: boolean = true; // used for startCB
   protected _cycle: number;
   private _interval: any; // NodeJS.Timer;
+  private _loopkey: boolean;
   private _pressedKeys: Array<string>;
   readonly stops: Subject<void> = new Subject();
 
-  constructor({ timespan = DEFAULT_TIMESPAN, preventKeys = [] }: IPlayerOptions = {}) {
-    this._pressedKeys = new Array();
+  constructor({
+    timespan = DEFAULT_TIMESPAN,
+    loopkey = true,
+    preventKeys = []
+  }: IPlayerOptions = {}) {
     this._timespan = timespan;
+    this._loopkey = loopkey;
+    this._pressedKeys = new Array();
     this._cycle = 0;
 
     // mapping key callbacks
@@ -40,7 +47,6 @@ export class Player {
       }
       this.keyCB(event.key, false);
     });
-    console.log(this._timespan, preventKeys);
   }
 
   public get playing(): boolean {
@@ -85,6 +91,9 @@ export class Player {
     this.loopCB();
     if (this.playing) {
       this._interval = setTimeout(() => this.loop(), this._timespan);
+      if (this._loopkey) {
+        this._pressedKeys.forEach(key => this.keyCB(key, true));
+      }
     } else {
       this.stop();
     }
