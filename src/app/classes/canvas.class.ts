@@ -60,6 +60,9 @@ export class Canvas extends Player {
   public get size(): number {
     return this._size;
   }
+  public get unitSize(): number {
+    return this._unitSize
+  }
   public get render(): CanvasRenderingContext2D {
     return this._render;
   }

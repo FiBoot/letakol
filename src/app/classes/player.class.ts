@@ -13,9 +13,11 @@ export class Player {
   protected _stoped: boolean = true; // used for startCB
   protected _cycle: number;
   private _interval: any; // NodeJS.Timer;
+  private _pressedKeys: Array<string>;
   readonly stops: Subject<void> = new Subject();
 
   constructor({ timespan = DEFAULT_TIMESPAN, preventKeys = [] }: IPlayerOptions = {}) {
+    this._pressedKeys = new Array();
     this._timespan = timespan;
     this._cycle = 0;
 
@@ -24,11 +26,17 @@ export class Player {
       if (preventKeys.includes(event.key)) {
         event.preventDefault();
       }
-      this.keyCB(event.key, true);
+      if (!this._pressedKeys.includes(event.key)) {
+        this._pressedKeys.push(event.key);
+        this.keyCB(event.key, true);
+      }
     });
     window.addEventListener('keyup', event => {
       if (preventKeys.includes(event.key)) {
         event.preventDefault();
+      }
+      if (this._pressedKeys.includes(event.key)) {
+        this._pressedKeys.splice(this._pressedKeys.indexOf(event.key), 1);
       }
       this.keyCB(event.key, false);
     });
@@ -41,6 +49,10 @@ export class Player {
 
   public get cycle(): number {
     return this._cycle;
+  }
+
+  public get pressedKeys(): Array<string> {
+    return this._pressedKeys;
   }
 
   public start(): void {
