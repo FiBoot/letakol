@@ -101,5 +101,5 @@ export class Player {
 
   protected startCB(): void {}
   protected loopCB(): void {}
-  protected keyCB(key: string, pressed: boolean) {}
+  protected keyCB(key: string, pressed: boolean): void {}
 }
