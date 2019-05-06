@@ -96,7 +96,7 @@ export class Utils {
    */
   public static contain(num: number, max: number = 0, min: number = 0): number {
     if (min > max) {
-      throw new Error(`Utils.contain error: min (${min}) > max (${max})`)
+      throw new Error(`Utils.contain error: min (${min}) > max (${max})`);
     }
     return num > min ? (max > 0 ? (num < max ? num : max) : num) : min;
   }

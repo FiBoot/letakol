@@ -1,5 +1,7 @@
 import { Utils } from '../services/utils/utils.service';
 
+const PRECISION = 4;
+
 export class Coordinates {
   /**
    *Creates an instance of Coordinates.
@@ -16,11 +18,17 @@ export class Coordinates {
   public get y(): number {
     return this._y;
   }
+  public get fx(): number {
+    return Utils.fixed(this._x);
+  }
+  public get fy(): number {
+    return Utils.fixed(this._y);
+  }
   public set x(x: number) {
-    this._x = Utils.contain(x, this._max);
+    this._x = Utils.contain(Utils.fixed(x, PRECISION), this._max);
   }
   public set y(y: number) {
-    this._y = Utils.contain(y, this._max);
+    this._y = Utils.contain(Utils.fixed(y, PRECISION), this._max);
   }
   public set max(max: number) {
     this._max = Utils.contain(max);

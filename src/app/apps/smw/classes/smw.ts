@@ -9,7 +9,8 @@ const TOTAL_UNITS = UNITS_PER_LINE * LEVEL_COEF;
 
 enum U {
   E = '#EEE', // Empty
-  B = '#333' // Block
+  B = '#333', // Block
+  H = 'lightgreen' // Hero
 }
 
 export class SMW extends Canvas {
@@ -49,7 +50,10 @@ export class SMW extends Canvas {
     this._clipPos = { x, y };
   }
 
-  onClick(x: number, y: number): void {}
+  onClick(x: number, y: number): void {
+    this._level[this._pos.fy + y][this._pos.fx + x] =
+      this._level[this._pos.fy + y][this._pos.fx + x] === U.H ? U.E : U.H;
+  }
 
   onScroll(up: boolean): void {
     this.unitsPerLine = Utils.contain(this.unitsPerLine + (up ? 1 : -1), UNITS_PER_LINE, 1);
@@ -89,13 +93,13 @@ export class SMW extends Canvas {
             this.unitSize
           );
           // text
-          this.render.strokeStyle = 'green';
-          this.render.strokeText(
-            `${y * this.unitsPerLine + x}`,
-            (x - (this._pos.x % 1)) * this.unitSize,
-            (y - (this._pos.y % 1)) * this.unitSize + this.unitSize / 2,
-            this.unitSize
-          );
+          // this.render.strokeStyle = 'green';
+          // this.render.strokeText(
+          //   `${y * this.unitsPerLine + x}`,
+          //   (x - (this._pos.x % 1)) * this.unitSize,
+          //   (y - (this._pos.y % 1)) * this.unitSize + this.unitSize / 2,
+          //   this.unitSize
+          // );
         }
       }
     }
