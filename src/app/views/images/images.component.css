@@ -1,12 +1,11 @@
-
 .image-wrap {
-  position: relative;
   min-height: 320px;
-  padding: 10px 0;
+  padding-top: 10px;
   border-radius: 10px;
   border: 1px solid #aaa;
   background: url(/assets/images/default.jpg) no-repeat center;
   text-align: center;
+  overflow: hidden;
 }
 
 .image-wrap img {
@@ -16,11 +15,8 @@
 }
 
 .image-wrap .title {
-  position: absolute;
   bottom: 0;
   width: 100%;
   border-radius: 0 0 10px 10px;
-  background-color: rgba(51, 51, 51, 0.5);
-  color: #fff;
   text-align: center;
 }
