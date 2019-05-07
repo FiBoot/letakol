@@ -23,6 +23,7 @@ export class AppsComponent {
 
     this.apps = [
       new App('keyboard', 'Keyboard', 'Viens tater'),
+      new App('perlin-terrain', 'Perlain', 'testing perlin noise on terrain'),
       new App('gol', 'Game of Life', ''),
       new App('smw', 'SMW', 'test'),
       new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),

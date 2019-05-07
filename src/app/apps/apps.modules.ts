@@ -6,6 +6,7 @@ import { CodewarComponent } from './codewar/codewar.component';
 import { GolComponent } from './gol/gol.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MemoryComponent } from './memory/memory.component';
+import { PerlinTerrainComponent } from './perlin-terrain/perlin-terrain.component';
 import { PetComponent } from './pet/pet.component';
 import { SmwComponent } from './smw/smw.component';
 import { SnakeIoComponent } from './snake-io/snake-io.component';
@@ -24,9 +25,10 @@ import { Ng5SliderModule } from 'ng5-slider';
     GolComponent,
     KeyboardComponent,
     MemoryComponent,
+    PerlinTerrainComponent,
     PetComponent,
     SnakeIoComponent,
-    SmwComponent
+    SmwComponent,
   ],
   imports: [
     RouterModule.forChild(APPS_ROUTES),
