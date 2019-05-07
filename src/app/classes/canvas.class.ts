@@ -39,28 +39,57 @@ export class Canvas extends Player {
       )
     );
 
+    // on mouse
+    this._canvas.addEventListener('mousedown', (event: MouseEvent) =>
+      this.onMouse(true, event.offsetX, event.offsetY)
+    );
+    this._canvas.addEventListener('mouseup', (event: MouseEvent) =>
+      this.onMouse(false, event.offsetX, event.offsetY)
+    );
+    this._canvas.addEventListener('mouseleave', (event: MouseEvent) =>
+      this.onMouse(false, event.offsetX, event.offsetY)
+    );
+    this._canvas.addEventListener('mousemove', (event: MouseEvent) =>
+      this.onMouseMove(event.offsetX, event.offsetY)
+    );
+
+    // on wheel
+    this._canvas.addEventListener('wheel', (event: WheelEvent) => this.onScroll(event.deltaY > 0));
+
     // on resize
     window.addEventListener('resize', (event: UIEvent) => this.sizeCanvas());
     this.sizeCanvas();
   }
 
   private sizeCanvas(): void {
-    if (this._wrapper.offsetWidth !== this._size) {
-      this._size = this._wrapper.offsetWidth;
-      this._unitSize = this._size / this._unitsPerLine;
-      this._canvas.style.width = `${this._size}px`;
-      this._canvas.style.height = `${this._size}px`;
-      this.onResize();
-    }
+    this._size = Math.floor(this._wrapper.offsetWidth);
+    this._unitSize = this._size / this._unitsPerLine;
+    this._render.canvas.width = this._size;
+    this._render.canvas.height = this._size;
+    this.onResize();
   }
-
-  protected onResize(): void {}
-  protected onClick(x: number, y: number): void {}
 
   public get size(): number {
     return this._size;
   }
+  public get unitSize(): number {
+    return this._unitSize;
+  }
   public get render(): CanvasRenderingContext2D {
     return this._render;
   }
+
+  public get unitsPerLine(): number {
+    return this._unitsPerLine;
+  }
+  public set unitsPerLine(upl: number) {
+    this._unitsPerLine = upl > 0 ? upl : 0;
+    this.sizeCanvas();
+  }
+
+  protected onResize(): void {}
+  protected onClick(x: number, y: number): void {}
+  protected onScroll(up: boolean): void {}
+  protected onMouse(down: boolean, ox: number, oy: number): void {}
+  protected onMouseMove(ox: number, oy: number): void {}
 }

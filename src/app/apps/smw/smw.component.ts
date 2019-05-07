@@ -9,9 +9,6 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 export class SmwComponent implements AfterViewInit {
   @ViewChild('canvasWrap') div: ElementRef<HTMLDivElement>;
 
-  public canvasWidth: number = 400;
-  public canvasHeight: number = 300;
-
   constructor() {}
 
   ngAfterViewInit(): void {
