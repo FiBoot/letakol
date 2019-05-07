@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Utils {
-
   /**
    * Generate a random color
    *
@@ -20,7 +19,15 @@ export class Utils {
   public static generateId(): string {
     let id;
     do {
-      id = [id, parseInt(Math.random().toFixed(10).slice(2, 12), 10).toString(36)].join('');
+      id = [
+        id,
+        parseInt(
+          Math.random()
+            .toFixed(10)
+            .slice(2, 12),
+          10
+        ).toString(36)
+      ].join('');
     } while (id.length < 28);
     return id.slice(0, 28);
   }
@@ -78,6 +85,23 @@ export class Utils {
   }
 
   /**
+   * Return the number between limit 0 - max
+   *
+   * @static
+   * @param {number} num
+   * @param {number} [max=0]
+   * @param {number} [min=0]
+   * @returns {number}
+   * @memberof Utils
+   */
+  public static contain(num: number, max: number = 0, min: number = 0): number {
+    if (min > max) {
+      throw new Error(`Utils.contain error: min (${min}) > max (${max})`);
+    }
+    return num > min ? (max > 0 ? (num < max ? num : max) : num) : min;
+  }
+
+  /**
    * Return the cube of given number
    *
    * @param num given number
@@ -106,5 +130,4 @@ export class Utils {
   public static timestampToLocaleDate(timestamp: number): string {
     return new Date(timestamp).toLocaleString();
   }
-
 }

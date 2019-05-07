@@ -4,6 +4,7 @@ const DEFAULT_TIMESPAN = 1; // 1ms
 
 export class IPlayerOptions {
   timespan?: number;
+  loopkey?: boolean;
   preventKeys?: Array<string>;
 }
 
@@ -13,10 +14,18 @@ export class Player {
   protected _stoped: boolean = true; // used for startCB
   protected _cycle: number;
   private _interval: any; // NodeJS.Timer;
+  private _loopkey: boolean;
+  private _pressedKeys: Array<string>;
   readonly stops: Subject<void> = new Subject();
 
-  constructor({ timespan = DEFAULT_TIMESPAN, preventKeys = [] }: IPlayerOptions = {}) {
+  constructor({
+    timespan = DEFAULT_TIMESPAN,
+    loopkey = true,
+    preventKeys = []
+  }: IPlayerOptions = {}) {
     this._timespan = timespan;
+    this._loopkey = loopkey;
+    this._pressedKeys = new Array();
     this._cycle = 0;
 
     // mapping key callbacks
@@ -24,15 +33,20 @@ export class Player {
       if (preventKeys.includes(event.key)) {
         event.preventDefault();
       }
-      this.keyCB(event.key, true);
+      if (!this._pressedKeys.includes(event.key)) {
+        this._pressedKeys.push(event.key);
+        this.keyCB(event.key, true);
+      }
     });
     window.addEventListener('keyup', event => {
       if (preventKeys.includes(event.key)) {
         event.preventDefault();
       }
+      if (this._pressedKeys.includes(event.key)) {
+        this._pressedKeys.splice(this._pressedKeys.indexOf(event.key), 1);
+      }
       this.keyCB(event.key, false);
     });
-    console.log(this._timespan, preventKeys);
   }
 
   public get playing(): boolean {
@@ -41,6 +55,10 @@ export class Player {
 
   public get cycle(): number {
     return this._cycle;
+  }
+
+  public get pressedKeys(): Array<string> {
+    return this._pressedKeys;
   }
 
   public start(): void {
@@ -73,6 +91,9 @@ export class Player {
     this.loopCB();
     if (this.playing) {
       this._interval = setTimeout(() => this.loop(), this._timespan);
+      if (this._loopkey) {
+        this._pressedKeys.forEach(key => this.keyCB(key, true));
+      }
     } else {
       this.stop();
     }
@@ -80,5 +101,5 @@ export class Player {
 
   protected startCB(): void {}
   protected loopCB(): void {}
-  protected keyCB(key: string, pressed: boolean) {}
+  protected keyCB(key: string, pressed: boolean): void {}
 }
