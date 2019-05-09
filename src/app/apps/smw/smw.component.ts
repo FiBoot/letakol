@@ -1,4 +1,4 @@
-import { SMW } from './classes/smw';
+import { SMW } from './classes/smw.class';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({

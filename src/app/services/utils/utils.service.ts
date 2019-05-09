@@ -85,11 +85,11 @@ export class Utils {
   }
 
   /**
-   * Return the number between limit 0 - max
+   * Return the number between min[0] and max[∞]
    *
    * @static
    * @param {number} num
-   * @param {number} [max=0]
+   * @param {number} [max]
    * @param {number} [min=0]
    * @returns {number}
    * @memberof Utils
