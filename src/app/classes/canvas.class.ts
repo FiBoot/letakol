@@ -35,7 +35,9 @@ export class Canvas extends Player {
     this._canvas.addEventListener('click', (event: MouseEvent) =>
       this.onClick(
         Math.floor(event.offsetX / this._unitSize),
-        Math.floor(event.offsetY / this._unitSize)
+        Math.floor(event.offsetY / this._unitSize),
+        event.offsetX,
+        event.offsetY
       )
     );
 
@@ -58,11 +60,12 @@ export class Canvas extends Player {
 
     // on resize
     window.addEventListener('resize', (event: UIEvent) => this.sizeCanvas());
+
     this.sizeCanvas();
   }
 
   private sizeCanvas(): void {
-    this._size = Math.floor(this._wrapper.offsetWidth);
+    this._size = this._wrapper.offsetWidth;
     this._unitSize = this._size / this._unitsPerLine;
     this._render.canvas.width = this._size;
     this._render.canvas.height = this._size;
@@ -87,8 +90,12 @@ export class Canvas extends Player {
     this.sizeCanvas();
   }
 
+  public us(num: number): number {
+    return num * this.unitSize;
+  }
+
   protected onResize(): void {}
-  protected onClick(x: number, y: number): void {}
+  protected onClick(x: number, y: number, ox: number, oy: number): void {}
   protected onScroll(up: boolean): void {}
   protected onMouse(down: boolean, ox: number, oy: number): void {}
   protected onMouseMove(ox: number, oy: number): void {}
