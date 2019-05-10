@@ -1,5 +1,6 @@
 import { LEVELS } from '../levels/levels';
 import { Block, Empty, Unknow } from './blocks.class';
+import { EDir, Velocity } from './velocity.class';
 import { Canvas } from 'src/app/classes/canvas.class';
 import { Pos } from 'src/app/classes/Pos.class';
 import { Utils } from 'src/app/services/utils/utils.service';
@@ -12,14 +13,14 @@ export class SMW extends Canvas {
   private _level: Array<Array<Block>>;
 
   private _clip: boolean;
-  private _clipPos: Pos;
+  private _clipPos: Pos = new Pos();
+
+  private _vel: Velocity = new Velocity(-1, 1, 0.1);
 
   constructor(wrapper: HTMLDivElement) {
     super({ wrapper, unitsPerLine: SELECTED_LEVEL.length, playerOption: { timespan: TIMESPAN } });
 
     this._pos = new Pos(0, SELECTED_LEVEL[0].length - SELECTED_LEVEL.length);
-    this._clipPos = new Pos();
-
     this._level = this.genereLevel(SELECTED_LEVEL);
 
     this.start();
@@ -48,9 +49,20 @@ export class SMW extends Canvas {
     this.unitsPerLine = Utils.contain(this.unitsPerLine + (up ? 1 : -1), this._level.length, 1);
   }
 
-  keyCB(key: string, pressed: boolean): void {}
+  keyCB(key: string, pressed: boolean): void {
+    if (pressed) {
+      if (['leftArrow', 'a'].includes(key)) {
+        this._vel.increase(EDir.BACKWARD);
+      }
+      if (['rightArrow', 'd'].includes(key)) {
+        this._vel.increase();
+      }
+    }
+  }
 
   loopCB(): void {
+    this._vel.decrease();
+    this._pos.val += this._vel.val;
     this.drawGrid();
   }
 
