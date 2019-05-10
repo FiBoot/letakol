@@ -22,6 +22,15 @@ export class Orb {
     this.y += this.velocity.y;
   }
 
+  public outOfBounds(size: number): boolean {
+    return (
+      this.x < -this.radius ||
+      this.y < -this.radius ||
+      this.x > size + this.radius ||
+      this.y > size + this.radius
+    );
+  }
+
   public toString(): string {
     return `${this.id} [${this.x}, ${this.y}]`;
   }

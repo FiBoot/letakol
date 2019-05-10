@@ -23,8 +23,19 @@ export class Orbs extends Canvas {
 
   loopCB(): void {
     this.clear();
-    this._orbs.forEach(orb => orb.process());
+    const orbsToRemove = new Array<Orb>();
+    // process
+    this._orbs.forEach(orb => {
+      orb.process();
+      if (orb.outOfBounds(this.size)) {
+        orbsToRemove.push(orb);
+      }
+    });
+    // remove oob orbs
+    orbsToRemove.forEach(orb => this._orbs.splice(this._orbs.indexOf(orb), 1));
+    // collisions
     this.checkCollisions();
+    // draw
     this._orbs.forEach(orb => this.drawOrb(orb));
   }
 
@@ -82,13 +93,13 @@ export class Orbs extends Canvas {
 
   private checkCollisions(): void {
     if (this._orbs.length > 1) {
-      for (let i = 0; i < this._orbs.length; i++) {
-        for (let j = 0; j < this._orbs.length; j++) {
-          if (j !== i) {
-            this.checkOrbCollision(this._orbs[i], this._orbs[j]);
+      this._orbs.forEach(orb1 =>
+        this._orbs.forEach(orb2 => {
+          if (orb1 !== orb2) {
+            this.checkOrbCollision(orb1, orb2);
           }
-        }
-      }
+        })
+      );
     }
   }
 }
