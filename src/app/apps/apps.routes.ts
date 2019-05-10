@@ -4,6 +4,7 @@ import { CodewarComponent } from './codewar/codewar.component';
 import { GolComponent } from './gol/gol.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MemoryComponent } from './memory/memory.component';
+import { OrbsComponent } from './orbs/orbs.component';
 import { PetComponent } from './pet/pet.component';
 import { SmwComponent } from './smw/smw.component';
 import { SnakeIoComponent } from './snake-io/snake-io.component';
@@ -15,6 +16,7 @@ export const APPS_ROUTES: Routes = [
     component: AppsComponent,
     children: [
       { path: 'chat', component: ChatComponent },
+      { path: 'orbs', component: OrbsComponent },
       { path: 'codewar', component: CodewarComponent },
       { path: 'gol', component: GolComponent },
       { path: 'keyboard', component: KeyboardComponent },
