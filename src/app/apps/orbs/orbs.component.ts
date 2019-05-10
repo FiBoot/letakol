@@ -1,4 +1,4 @@
-import { Orbs } from './orbs.class';
+import { Orbs } from './classes/orbs.class';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({

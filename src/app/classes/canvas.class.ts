@@ -57,8 +57,12 @@ export class Canvas extends Player {
     window.addEventListener('resize', (event: UIEvent) => this.sizeCanvas());
   }
 
-  public init(): void {
+  startCB() {
     this.sizeCanvas();
+  }
+
+  public clear(): void {
+    this._render.clearRect(0, 0, this._size, this._size);
   }
 
   private sizeCanvas(): void {
