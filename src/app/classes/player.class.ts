@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 
-const DEFAULT_TIMESPAN = 1; // 1ms
+const DEFAULT_TIMESPAN = 100; // 100ms
 
 export class IPlayerOptions {
   timespan?: number;
