@@ -13,10 +13,6 @@ export class Orb {
     public mass: number = 1
   ) {}
 
-  public get diameter(): number {
-    return this.radius * 2;
-  }
-
   public process(): void {
     this.x += this.velocity.x;
     this.y += this.velocity.y;

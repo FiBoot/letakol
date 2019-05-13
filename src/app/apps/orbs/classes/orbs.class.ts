@@ -2,89 +2,91 @@ import { Orb } from './orb.class';
 import { Canvas } from 'src/app/classes/canvas.class';
 import { Utils } from 'src/app/services/utils/utils.service';
 
-const MASSES = ['#eee', '#ccc', '#aaa'];
+const MASSES = ['#eee', '#ccc', '#aaa', '#888', '#666'];
 
 export class Orbs extends Canvas {
   private _orbs: Array<Orb> = new Array<Orb>();
 
   constructor(wrapper: HTMLDivElement) {
-    super({ wrapper });
+    super({ wrapper, playerOption: { timespan: 30 } });
 
     this.start();
   }
 
   onClick(x: number, y: number): void {
     const velocity = {
-      x: (this.size / 2 - x) / 10,
-      y: (this.size / 2 - y) / 10
+      x: Math.random() * (Utils.random(2) ? 1 : -1),
+      y: Math.random() * (Utils.random(2) ? 1 : -1)
     };
     this._orbs.push(new Orb(x, y, velocity, this.unitSize, Utils.random(MASSES.length) + 1));
   }
 
   loopCB(): void {
     this.clear();
-    const orbsToRemove = new Array<Orb>();
-    // process
-    this._orbs.forEach(orb => {
-      orb.process();
-      if (orb.outOfBounds(this.size)) {
-        orbsToRemove.push(orb);
-      }
-    });
-    // remove oob orbs
-    orbsToRemove.forEach(orb => this._orbs.splice(this._orbs.indexOf(orb), 1));
-    // collisions
+    this.drawLimits();
+    this._orbs.forEach(orb => orb.process());
     this.checkCollisions();
-    // draw
     this._orbs.forEach(orb => this.drawOrb(orb));
   }
 
+  private drawLimits(): void {
+    this.render.strokeStyle = '#000';
+    this.render.strokeRect(0, 0, this.size, this.size);
+  }
+
   private drawOrb(orb: Orb): void {
+    // orb
     this.render.fillStyle = MASSES[orb.mass - 1];
     this.render.beginPath();
     this.render.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
     this.render.fill();
-    // texts
-    const texts = [
-      orb.id.slice(0, 5),
-      `${Utils.fixed(orb.x, 2)}, ${Utils.fixed(orb.y, 2)}`,
-      `${Utils.fixed(orb.velocity.x, 2)}, ${Utils.fixed(orb.velocity.y, 2)}`,
-      `${orb.mass}`
-    ];
-    this.render.strokeText(texts[0], orb.x - orb.radius / 2, orb.y - orb.radius / 2, orb.diameter);
-    this.render.strokeText(texts[1], orb.x - orb.radius / 2, orb.y, orb.diameter);
-    this.render.strokeText(texts[2], orb.x - orb.radius / 2, orb.y + orb.radius / 2, orb.diameter);
-    this.render.strokeText(texts[3], orb.x, orb.y + orb.radius, orb.diameter);
+    // velocity
+    this.render.strokeStyle = 'blue';
+    this.render.beginPath();
+    this.render.moveTo(orb.x, orb.y);
+    this.render.lineTo(orb.x + orb.velocity.x * orb.radius, orb.y + orb.velocity.y * orb.radius);
     this.render.stroke();
   }
 
-  private checkOrbCollision(orb1: Orb, orb2: Orb): void {
-    const dx = orb1.x - orb2.x;
-    const dy = orb1.y - orb2.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+  private checkWallCollision(orb: Orb) {
+    if (
+      (orb.x < orb.radius + 1 && orb.velocity.x < 0) ||
+      (orb.x > this.size - orb.radius - 1 && orb.velocity.x > 0)
+    ) {
+      orb.velocity.x *= -1;
+    }
+    if (
+      (orb.y < orb.radius + 1 && orb.velocity.y < 0) ||
+      (orb.y > this.size - orb.radius - 1 && orb.velocity.y > 0)
+    ) {
+      orb.velocity.y *= -1;
+    }
+  }
 
-    if (distance < orb1.radius + orb2.radius) {
+  private checkOrbCollision(orb1: Orb, orb2: Orb): void {
+    const distance = Math.sqrt(Utils.square(orb2.x - orb1.x) + Utils.square(orb2.y - orb1.y));
+
+    if (distance <= orb1.radius + orb2.radius) {
+      console.warn('colision');
       this.assignNewVelocities(orb1, orb2);
     }
   }
 
   private assignNewVelocities(orb1: Orb, orb2: Orb): void {
+    // Find the new velocities
     const vel1 = {
       x:
-        orb1.velocity.x * (orb1.mass - orb2.mass) +
-        (2 * orb2.mass * orb2.velocity.x) / (orb1.mass + orb2.mass),
+        (orb1.velocity.x * (orb1.mass - orb2.mass) + 2 * orb2.mass * orb2.velocity.x) /
+        (orb1.mass + orb2.mass),
       y:
-        orb1.velocity.y * (orb1.mass - orb2.mass) +
-        (2 * orb2.mass * orb2.velocity.y) / (orb1.mass + orb2.mass)
+        (orb1.velocity.y * (orb1.mass - orb2.mass) + 2 * orb2.mass * orb2.velocity.y) /
+        (orb1.mass + orb2.mass)
     };
     const vel2 = {
-      x:
-        orb1.velocity.x * (orb2.mass - orb1.mass) +
-        (2 * orb1.mass * orb1.velocity.x) / (orb1.mass + orb2.mass),
-      y:
-        orb1.velocity.y * (orb2.mass - orb1.mass) +
-        (2 * orb1.mass * orb1.velocity.y) / (orb1.mass + orb2.mass)
+      x: orb1.velocity.x - orb2.velocity.x + vel1.x,
+      y: orb1.velocity.y - orb2.velocity.y + vel1.y
     };
+    // Update the velocities
     orb1.velocity = vel1;
     orb2.velocity = vel2;
     orb1.process();
@@ -93,13 +95,14 @@ export class Orbs extends Canvas {
 
   private checkCollisions(): void {
     if (this._orbs.length > 1) {
-      this._orbs.forEach(orb1 =>
+      this._orbs.forEach(orb1 => {
+        this.checkWallCollision(orb1);
         this._orbs.forEach(orb2 => {
           if (orb1 !== orb2) {
             this.checkOrbCollision(orb1, orb2);
           }
-        })
-      );
+        });
+      });
     }
   }
 }
