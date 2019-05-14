@@ -14,11 +14,16 @@ export class Orbs extends Canvas {
   }
 
   onClick(x: number, y: number): void {
-    const velocity = {
-      x: Math.random() * (Utils.random(2) ? 1 : -1),
-      y: Math.random() * (Utils.random(2) ? 1 : -1)
-    };
-    this._orbs.push(new Orb(x, y, velocity, this.unitSize, Utils.random(MASSES.length) + 1));
+    const orb = this.getOrbAtPos({ x, y });
+    if (orb) {
+      Utils.remove(this._orbs, orb);
+    } else {
+      const velocity = {
+        x: Math.random() * (Utils.random(2) ? 1 : -1),
+        y: Math.random() * (Utils.random(2) ? 1 : -1)
+      };
+      this._orbs.push(new Orb(x, y, velocity, this.unitSize, Utils.random(MASSES.length) + 1));
+    }
   }
 
   loopCB(): void {
@@ -46,6 +51,15 @@ export class Orbs extends Canvas {
     this.render.moveTo(orb.x, orb.y);
     this.render.lineTo(orb.x + orb.velocity.x * orb.radius, orb.y + orb.velocity.y * orb.radius);
     this.render.stroke();
+  }
+
+  private getOrbAtPos(pos: { x: number; y: number }): Orb | null {
+    for (let i = 0; i < this._orbs.length; i++) {
+      if (this._orbs[i].contain(pos.x, pos.y)) {
+        return this._orbs[i];
+      }
+    }
+    return null;
   }
 
   private checkWallCollision(orb: Orb) {

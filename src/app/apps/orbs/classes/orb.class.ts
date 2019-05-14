@@ -18,6 +18,10 @@ export class Orb {
     this.y += this.velocity.y;
   }
 
+  public contain(x: number, y: number): boolean {
+    return Math.sqrt(Utils.square(x - this.x) + Utils.square(y - this.y)) < this.radius
+  }
+
   public toString(): string {
     return `${this.id} [${this.x}, ${this.y}]`;
   }
