@@ -23,6 +23,7 @@ export class AppsComponent {
 
     this.apps = [
       new App('keyboard', 'Keyboard', 'Viens tater'),
+      new App('bomberlan', 'BomberLan', 'blast'),
       new App('orbs', 'Orbs', 'testing collisions'),
       new App('gol', 'Game of Life', ''),
       new App('smw', 'SMW', 'test'),

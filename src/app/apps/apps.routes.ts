@@ -1,4 +1,5 @@
 import { AppsComponent } from './apps.component';
+import { BomberlanComponent } from './bomberlan/bomberlan.component';
 import { ChatComponent } from './chat/chat.component';
 import { CodewarComponent } from './codewar/codewar.component';
 import { GolComponent } from './gol/gol.component';
@@ -15,6 +16,7 @@ export const APPS_ROUTES: Routes = [
     path: 'apps',
     component: AppsComponent,
     children: [
+      { path: 'bomberlan', component: BomberlanComponent },
       { path: 'chat', component: ChatComponent },
       { path: 'orbs', component: OrbsComponent },
       { path: 'codewar', component: CodewarComponent },

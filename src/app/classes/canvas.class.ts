@@ -73,6 +73,10 @@ export class Canvas extends Player {
     this.onResize();
   }
 
+  public u(num: number = 1): number {
+    return num * this.unitSize;
+  }
+
   public get size(): number {
     return this._size;
   }
