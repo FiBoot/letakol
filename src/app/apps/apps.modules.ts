@@ -1,6 +1,7 @@
 import { ComponentsModule } from './../components/components.module';
 import { AppsComponent } from './apps.component';
 import { APPS_ROUTES } from './apps.routes';
+import { CardProbaComponent } from './card-proba/card-proba.component';
 import { ChatComponent } from './chat/chat.component';
 import { CodewarComponent } from './codewar/codewar.component';
 import { GolComponent } from './gol/gol.component';
@@ -28,7 +29,8 @@ import { Ng5SliderModule } from 'ng5-slider';
     PetComponent,
     SnakeIoComponent,
     SmwComponent,
-    OrbsComponent
+    OrbsComponent,
+    CardProbaComponent
   ],
   imports: [
     RouterModule.forChild(APPS_ROUTES),

@@ -1,0 +1,32 @@
+<div class="mt-3">
+  <span *ngFor="let rarity of rarities" class="mr-3">
+    <span [ngStyle]="{ color: rarity.color }">{{ rarity.name }}</span>
+    <span>: {{ rarity.rate }}%</span>
+  </span>
+
+  <div class="mt-3">
+    <button class="btn btn-success default-size" (click)="roll()">Roll</button>
+    <button class="btn btn-outline-success ml-2" (click)="roll10()">x10</button>
+    <button class="btn btn-outline-success ml-2" (click)="roll50()">x50</button>
+    <button class="btn btn-outline-warning ml-3" (click)="reset()">Reset</button>
+  </div>
+
+  <div class="mt-3">
+    <span
+      *ngFor="let card of tirage"
+      class="p-card ml-1"
+      [ngStyle]="{ 'background-color': rarities[card].color }"
+    ></span>
+  </div>
+
+  <div class="mt-3">
+    count: {{ tirageCount }}
+    <div *ngIf="tirageCount > 0">
+      <div *ngFor="let rarity of rarities; let i = index" class="mr-3">
+        <span [ngStyle]="{ color: rarity.color }">{{ rarity.name }}</span>
+        <span>: {{ cardPercentage(i) }}% </span>
+        <span style="color: grey"> ({{ cards[i] }})</span>
+      </div>
+    </div>
+  </div>
+</div>

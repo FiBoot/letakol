@@ -74,7 +74,7 @@ export class Utils {
   }
 
   /**
-   * Format decimal number, work as decimal truncate
+   * Format float number to a fixed decimal, will truncate last digit
    *
    * @param num number to format
    * @param decimal [=0] number of digit after decimal
@@ -129,5 +129,26 @@ export class Utils {
    */
   public static timestampToLocaleDate(timestamp: number): string {
     return new Date(timestamp).toLocaleString();
+  }
+
+  /**
+   * Repeat a given function x times
+   * Return all results in an Array
+   *
+   * @param {() => { any }} func
+   * @param {number} [times=1]
+   * @returns {Array<any>}
+   */
+  public static repeat(func: () => { any }, times: number = 1): Array<any> {
+    if (times < 1) {
+      throw new Error(
+        `Utils.repeat: Can\'t repeat function ${times} times (number must be positive)`
+      );
+    }
+    const results: Array<any> = new Array<any>();
+    for (let i = 0; i < times; i++) {
+      results.push(func());
+    }
+    return results;
   }
 }

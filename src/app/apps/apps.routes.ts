@@ -1,4 +1,5 @@
 import { AppsComponent } from './apps.component';
+import { CardProbaComponent } from './card-proba/card-proba.component';
 import { ChatComponent } from './chat/chat.component';
 import { CodewarComponent } from './codewar/codewar.component';
 import { GolComponent } from './gol/gol.component';
@@ -15,6 +16,7 @@ export const APPS_ROUTES: Routes = [
     path: 'apps',
     component: AppsComponent,
     children: [
+      { path: 'card-proba', component: CardProbaComponent },
       { path: 'chat', component: ChatComponent },
       { path: 'orbs', component: OrbsComponent },
       { path: 'codewar', component: CodewarComponent },
