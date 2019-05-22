@@ -27,7 +27,7 @@ export class CardProbaComponent {
   readonly rarities: Array<Rarity> = [
     new Rarity('normal', 51.69, 'green'),
     new Rarity('rare', 43.7, 'blue'),
-    new Rarity('epic', 4.61, 'magenta'),
+    new Rarity('epic', 4.6, 'magenta'),
     new Rarity('legendary', 0.01, 'gold')
   ];
 
@@ -36,9 +36,9 @@ export class CardProbaComponent {
   }
 
   private pick(): ERarity {
-    const rand = Utils.random(1000) / 10;
+    const rand = (Utils.random(1000) + 1) / 10;
     for (let i = 0, rate = 0; i < this.rarities.length; i++) {
-      if (rand < (rate += this.rarities[i].rate)) {
+      if (rand <= (rate += this.rarities[i].rate)) {
         return Rarities[i];
       }
     }
@@ -62,7 +62,6 @@ export class CardProbaComponent {
   public roll50() {
     Utils.repeat(this.roll.bind(this), 50);
   }
-
 
   public reset() {
     this.tirage = [];
