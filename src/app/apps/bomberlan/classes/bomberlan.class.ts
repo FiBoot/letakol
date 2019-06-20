@@ -19,6 +19,12 @@ export class BomberLan extends Canvas {
     this.drawMap();
   }
 
+  keyCB(key: string, pressed: boolean): void {
+    if (pressed) {
+      console.warn(key);
+    }
+  }
+
   private drawMap(): void {
     this.clear();
     for (let y = 0; y < this._map.length; y++) {
