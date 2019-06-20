@@ -1,4 +1,4 @@
 <button type="submit" class="btn" [ngClass]="btnClass" [disabled]="lock" (click)="onClick()">
-  <span [ngClass]="{'invisible': lock}">{{btnValue}}</span>
-  <div class="loader" [ngClass]="{'invisible': !lock}"></div>
+  <span *ngIf="lock" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+  <span>{{ btnValue }} {{ lock ? '...' : '' }}</span>
 </button>
