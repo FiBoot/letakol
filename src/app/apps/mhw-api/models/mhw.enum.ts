@@ -1,4 +1,13 @@
-enum MHWWeaponType {
+export enum MHWDataType {
+  ARMOR = 'armor',
+  CHARM = 'charm',
+  DECORATION = 'decoration',
+  ITEM = 'item',
+  SKILL = 'skill',
+  WEAPON = 'weapon'
+}
+
+export enum MHWWeaponType {
   GREAT_SWORD = 'great_sword',
   LONG_SWORD = 'long_sword',
   SWORD_AND_SHIELD = 'sword_and-shield',
@@ -15,7 +24,7 @@ enum MHWWeaponType {
   BOW = 'bow'
 }
 
-enum MHWElementType {
+export enum MHWElementType {
   FIRE = 'fire',
   WATER = 'water',
   ICE = 'ice',
@@ -27,7 +36,7 @@ enum MHWElementType {
   PARALYSIS = 'paralysis'
 }
 
-enum MHWArmorType {
+export enum MHWArmorType {
   HEAD = 'head',
   CHEST = 'chest',
   GLOVES = 'gloves',
@@ -35,20 +44,73 @@ enum MHWArmorType {
   LEGS = 'legs'
 }
 
-enum MHWArmorRank {
+export enum MHWArmorRank {
   LOW = 'low',
   HIGHT = 'hight'
 }
 
-enum MHWGender {
+export enum MHWGender {
   MALE = 'male',
   FEMALE = 'female'
 }
 
-module.exports = {
-  MHWWeaponType,
-  MHWElementType,
-  MHWArmorType,
-  MHWArmorRank,
-  MHWGender
-};
+export enum MHWBoostType {
+  SEVER = 'sever',
+  SPEED = 'speed',
+  ELEMENT = 'element',
+  HEALTH = 'health',
+  STAMINA = 'stamina',
+  BLUNT = 'blunt'
+}
+
+export enum MHWBowCoating {
+  CLOSE_RANGE = 'close-range',
+  PARALYSIS = 'paralysis',
+  POISON = 'poison',
+  SLEEP = 'sleep',
+  BLAST = 'blast',
+  POWER = 'power'
+}
+
+export enum MHWBowgunDeviaion {
+  NONE = 'none',
+  LOW = 'low',
+  AVERAGE = 'average',
+  HIGH = 'high'
+}
+
+export enum MHWDamageType {
+  BLUNT = 'blunt',
+  PIERCING = 'piercing',
+  SLASHING = 'slashing'
+}
+
+export enum MHWEldersealType {
+  LOW = 'low',
+  AVERAGE = 'average',
+  HIGH = 'high'
+}
+
+export enum MHWPhialType {
+  IMPACT = 'impact',
+  ELEMENT = 'element',
+  POWER = 'power',
+  POWER_ELEMENT = 'power element',
+  // special type + power (ex: "dragon 300")
+  DRAGON = 'dragon',
+  EXHAUST = 'exhaust',
+  PARA = 'para',
+  POISON = 'poison'
+}
+
+export enum MHWShellingType {
+  NORMAL = 'Normal',
+  Long = 'Long',
+  WIDE = 'Wide'
+}
+
+export enum MHWSpecialAmmoType {
+  WYVERNBLAST = 'wyvernblast',
+  WYVERNHEART = 'wyvernheart',
+  WYVERNSNIPE = 'wyvernsnipe'
+}

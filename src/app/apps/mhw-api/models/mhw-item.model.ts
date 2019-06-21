@@ -1,4 +1,4 @@
-interface MHWItem {
+export interface MHWItem {
   id: number;
   name: string;
   description: string;

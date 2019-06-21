@@ -1,18 +1,21 @@
+import { MHWSkillRank } from './mhw-skill.model';
+import { MHWArmorRank, MHWArmorType, MHWGender } from './mhw.enum';
+import { MHWCraftingCost, MHWDefense, MHWResistances, MHWSetInfo, MHWSlot } from './mhw.model';
 
-interface MHWArmorAssets {
+export interface MHWArmorAssets {
   imageMale: string;
   imageFemale: string;
 }
 
-interface MHWArmorCraftingInfo {
+export interface MHWArmorCraftingInfo {
   materials: Array<MHWCraftingCost>;
 }
 
-interface MHWArmorAttributes {
+export interface MHWArmorAttributes {
   requiredGender: MHWGender;
 }
 
-interface MHWArmor {
+export interface MHWArmor {
   id: number;
   slug: string;
   name: string;

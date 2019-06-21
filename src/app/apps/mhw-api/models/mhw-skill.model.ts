@@ -1,4 +1,4 @@
-interface MHWSkillRankModifier {
+export interface MHWSkillRankModifier {
   affinity: string;
   attack: number;
   damageFire: number;
@@ -17,7 +17,7 @@ interface MHWSkillRankModifier {
   resistDragon: number;
 }
 
-interface MHWSkillRank {
+export interface MHWSkillRank {
   id: number;
   slug: string;
   level: number;
@@ -27,7 +27,7 @@ interface MHWSkillRank {
   modifiers: MHWSkillRankModifier;
 }
 
-interface MHWSkill {
+export interface MHWSkill {
   id: number;
   slug: string;
   name: string;

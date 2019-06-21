@@ -1,6 +1,6 @@
+import { Timer } from './timer.class';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Timer } from './timer.class';
 
 export class Mutex {
   private readonly PROMISE_TIMEOUT = environment.promiseTimeout;
@@ -15,14 +15,18 @@ export class Mutex {
 
   constructor(private timedout: boolean = true) {
     this._lockSubject.next(false);
-    this._lockSubject.subscribe(next => this._lock = next);
-    this._errorSubject.subscribe(next => this._error = next);
+    this._lockSubject.subscribe(next => (this._lock = next));
+    this._errorSubject.subscribe(next => (this._error = next));
   }
 
-  get error(): string { return this._error; }
-  get lock(): boolean { return this._lock; }
+  get error(): string {
+    return this._error;
+  }
+  get lock(): boolean {
+    return this._lock;
+  }
 
-  public exec(req: ((...arg: Array<any>) => Promise<any>), ...arg: Array<any>): Promise<any> {
+  public exec(req: (...arg: Array<any>) => Promise<any>, ...arg: Array<any>): Promise<any> {
     this._errorSubject.next(null);
     this._lockSubject.next(false);
 
@@ -39,11 +43,12 @@ export class Mutex {
         // exec request
         this._lockSubject.next(true);
         this._timer.start();
-        req(arg[0], arg[1], arg[2], arg[3])
+        req(...arg)
           .then(result => {
             this._stopPromise(null, false);
             resolve(result);
-          }).catch(err => {
+          })
+          .catch(err => {
             this._stopPromise(err.message, false);
             console.warn(`[Mutex] Request failed`, err);
             resolve();
@@ -66,5 +71,4 @@ export class Mutex {
     this._timer.stop();
     console.log(this._timer.toString());
   }
-
 }

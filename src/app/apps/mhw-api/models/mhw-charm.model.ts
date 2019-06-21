@@ -1,9 +1,12 @@
-interface MHWCharmRankCrafting {
+import { MHWSkillRank } from './mhw-skill.model';
+import { MHWCraftingCost } from './mhw.model';
+
+export interface MHWCharmRankCrafting {
   craftable: Boolean;
   materials: Array<MHWCraftingCost>;
 }
 
-interface MHWCharmRank {
+export interface MHWCharmRank {
   name: string;
   level: number;
   rarity: number;
@@ -11,7 +14,7 @@ interface MHWCharmRank {
   crafting: MHWCharmRankCrafting;
 }
 
-interface MHWCharm {
+export interface MHWCharm {
   id: number;
   slug: string;
   name: string;

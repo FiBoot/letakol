@@ -1,21 +1,40 @@
-interface MHWBase {
+import { MHWArmor } from './mhw-armor.model';
+import { MHWCharm } from './mhw-charm.model';
+import { MHWDecoration } from './mhw-decoration.model';
+import { MHWItem } from './mhw-item.model';
+import { MHWSkill } from './mhw-skill.model';
+import { MHWWeapon } from './mhw-weapon.model';
+import { MHWArmorRank, MHWDataType } from './mhw.enum';
+
+export type MHWBase = MHWItem | MHWSkill | MHWDecoration | MHWWeapon | MHWCharm | MHWArmor;
+
+export interface MHWIdNameType {
   id: number;
-  slug: string;
   name: string;
+  type: MHWDataType;
 }
 
-interface MHWAttack {
+export interface MHWDataModel {
+  armors: Array<MHWArmor>;
+  charms: Array<MHWCharm>;
+  decorations: Array<MHWDecoration>;
+  items: Array<MHWItem>;
+  skills: Array<MHWSkill>;
+  weapons: Array<MHWWeapon>;
+}
+
+export interface MHWAttack {
   display: number;
   raw: number;
 }
 
-interface MHWDefense {
+export interface MHWDefense {
   base: number;
   max: number;
   augmented: number;
 }
 
-interface MHWResistances {
+export interface MHWResistances {
   fire: number;
   water: number;
   ice: number;
@@ -23,16 +42,16 @@ interface MHWResistances {
   dragon: number;
 }
 
-interface MHWSlot {
+export interface MHWSlot {
   rank: number;
 }
 
-interface MHWCraftingCost {
+export interface MHWCraftingCost {
   quantity: number;
   item: MHWItem;
 }
 
-interface MHWSetInfo {
+export interface MHWSetInfo {
   id: number;
   name: string;
   rank: MHWArmorRank;

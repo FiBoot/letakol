@@ -1,4 +1,6 @@
-interface MHWDecoration {
+import { MHWSkillRank } from './mhw-skill.model';
+
+export interface MHWDecoration {
   id: number;
   slug: string;
   name: string;
