@@ -1,10 +1,15 @@
 import { MHWDataType } from './models/mhw.enum';
-import { MHWBase, MHWDataModel, MHWIdNameType } from './models/mhw.model';
+import { MHWBase, MHWBaseType } from './models/mhw.model';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Mutex } from 'src/app/classes/mutex.class';
 
 const MHW_API = 'https://mhw-db.com';
+
+enum filterKey {
+  SELECT,
+  TEXT
+}
 
 @Component({
   selector: 'app-mhw-api',
@@ -12,95 +17,87 @@ const MHW_API = 'https://mhw-db.com';
   styleUrls: ['./mhw-api.component.css']
 })
 export class MhwApiComponent implements OnInit {
-  readonly types = Object.keys(MHWDataType).map(key => MHWDataType[key]);
   public mutex = new Mutex(false);
-  public datas: MHWDataModel;
-  public items: Array<MHWBase>;
 
-  public viewedItem: {
-    item: MHWBase;
-    type: MHWDataType;
-  };
+  readonly types = Object.keys(MHWDataType).map(key => MHWDataType[key]); // for type select
+  readonly oTypes = Object.assign({}, MHWDataType); // for items templates
+
+  private items: Array<MHWBaseType>;
+  private filters: Array<(item: MHWBaseType) => boolean>;
+  public displayedItems: Array<MHWBaseType>;
+  public paginatedItems: Array<MHWBaseType>;
+  public viewed: MHWBaseType;
 
   constructor(private http: HttpClient) {
-    this.datas = this.dataModel;
+    this.filters = [null, null];
+    const a = {
+      item: {
+        data: 'oui'
+      },
+      type: 'truc'
+    };
   }
 
   ngOnInit(): void {
     this.loadData();
   }
 
-  private get dataModel(): MHWDataModel {
-    return {
-      armors: [],
-      charms: [],
-      decorations: [],
-      items: [],
-      skills: [],
-      weapons: []
-    };
-  }
-
-  private getType(type: string): MHWDataType {
-    switch (type) {
-      case 'armors':
-        return MHWDataType.ARMOR;
-      case 'charms':
-        return MHWDataType.CHARM;
-      case 'decorations':
-        return MHWDataType.DECORATION;
-      case 'items':
-        return MHWDataType.ITEM;
-      case 'skills':
-        return MHWDataType.SKILL;
-      case 'weapons':
-        return MHWDataType.WEAPON;
-      default:
-        throw new Error(`MhwApiComponent getType: Unknow type: ${type}`);
-    }
-  }
-
-  private newBase(item: MHWBase, type: string): MHWIdNameType {
-    return { id: item.id, name: item.name, type: this.getType(type) };
-  }
-
   // fuck you mhw api
   private specialKey(key: string): string {
-    return key === 'armors' ? 'armor' : key;
+    return key === MHWDataType.ARMOR ? key : `${key}s`;
   }
 
-  private loadMHWData(): Promise<MHWDataModel> {
+  private loadMHWData(): Promise<any> {
+    // MHWBaseType
     return Promise.all(
-      Object.keys(this.datas).map(key =>
-        this.http.get(`${MHW_API}/${this.specialKey(key)}`).toPromise()
+      this.types.map(key =>
+        this.http
+          .get(`${MHW_API}/${this.specialKey(key)}`)
+          .toPromise()
+          .then((result: Array<MHWBase>) => {
+            console.log(`${key} loaded`);
+            return result.map(data => ({ base: data, type: key }));
+          })
       )
-    ).then(data => {
-      const ret: MHWDataModel = this.dataModel;
-      Object.keys(this.datas).forEach((key, index) => (ret[key] = data[index]));
-      return ret;
-    });
+    ).then(data => [].concat.apply([], data));
   }
 
   private async loadData() {
-    this.datas = await this.mutex.exec(this.loadMHWData.bind(this));
-    if (this.mutex.error) {
-      return;
+    this.items = await this.mutex.exec(this.loadMHWData.bind(this));
+    this.filterDisplayedData();
+  }
+
+  private filterDisplayedData(): void {
+    let items = this.items;
+    if (this.filters[filterKey.SELECT]) {
+      items = items.filter(this.filters[filterKey.SELECT]);
     }
-    this.items = [].concat.apply(
-      [],
-      Object.keys(this.datas).map(key => this.datas[key].map(data => this.newBase(data, key)))
-    );
-    console.log(this.items);
+    if (this.filters[filterKey.TEXT]) {
+      items = items.filter(this.filters[filterKey.TEXT]);
+    }
+    this.displayedItems = items;
   }
 
   public selectType(type: MHWDataType | '*'): void {
-    console.warn(type);
+    this.filters[filterKey.SELECT] = type !== '*' ? item => item.type === type : null;
+    this.filterDisplayedData();
   }
 
-  public selectItem(item: MHWIdNameType): void {
-    this.viewedItem = {
-      item: this.datas[`${item.type}s`].find(i => i.id === item.id),
-      type: item.type
-    };
+  public onSearchKey(search: string): void {
+    this.filters[filterKey.TEXT] = search
+      ? item =>
+          JSON.stringify(item.base)
+            .toLocaleLowerCase()
+            .search(search.toLocaleLowerCase()) >= 0
+      : null;
+    this.filterDisplayedData();
+  }
+
+  public selectItem(item: MHWBaseType): void {
+    this.viewed = item;
+  }
+
+  public equip(item: MHWBaseType): void {
+    console.log(item.base);
   }
 }

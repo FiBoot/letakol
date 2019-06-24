@@ -8,19 +8,9 @@ import { MHWArmorRank, MHWDataType } from './mhw.enum';
 
 export type MHWBase = MHWItem | MHWSkill | MHWDecoration | MHWWeapon | MHWCharm | MHWArmor;
 
-export interface MHWIdNameType {
-  id: number;
-  name: string;
+export interface MHWBaseType {
+  base: MHWBase;
   type: MHWDataType;
-}
-
-export interface MHWDataModel {
-  armors: Array<MHWArmor>;
-  charms: Array<MHWCharm>;
-  decorations: Array<MHWDecoration>;
-  items: Array<MHWItem>;
-  skills: Array<MHWSkill>;
-  weapons: Array<MHWWeapon>;
 }
 
 export interface MHWAttack {
