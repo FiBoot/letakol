@@ -30,12 +30,6 @@ export class MhwApiComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.filters = [null, null];
-    const a = {
-      item: {
-        data: 'oui'
-      },
-      type: 'truc'
-    };
   }
 
   ngOnInit(): void {
@@ -47,15 +41,14 @@ export class MhwApiComponent implements OnInit {
     return key === MHWDataType.ARMOR ? key : `${key}s`;
   }
 
-  private loadMHWData(): Promise<any> {
-    // MHWBaseType
+  private loadMHWData(): Promise<MHWBaseType> {
     return Promise.all(
       this.types.map(key =>
         this.http
           .get(`${MHW_API}/${this.specialKey(key)}`)
           .toPromise()
           .then((result: Array<MHWBase>) => {
-            console.log(`${key} loaded`);
+            console.log(`${key}s loaded`);
             return result.map(data => ({ base: data, type: key }));
           })
       )
