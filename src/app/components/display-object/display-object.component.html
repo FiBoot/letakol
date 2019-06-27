@@ -1,0 +1,13 @@
+<div class="row" *ngFor="let o of keyObject">
+  <label class="col-md-4 clickable" (click)="o.hidden = !o.hidden"
+    >{{ o.hidden ? '+' : '-' }} {{ o.key }}</label
+  >
+  <div class="col-md-8" [hidden]="o.hidden">
+    <app-display-object
+      *ngIf="o.type === 'object'"
+      [object]="o.value"
+      [hidden]="true"
+    ></app-display-object>
+    <span *ngIf="o.type !== 'object'">{{ o.value }}</span>
+  </div>
+</div>

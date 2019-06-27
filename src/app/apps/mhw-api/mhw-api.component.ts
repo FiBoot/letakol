@@ -49,7 +49,11 @@ export class MhwApiComponent implements OnInit {
           .toPromise()
           .then((result: Array<MHWBase>) => {
             console.log(`${key}s loaded`);
-            return result.map(data => ({ base: data, type: key }));
+            return result.map(data => ({
+              base: data,
+              parsed: JSON.stringify(data).toLocaleLowerCase(),
+              type: key
+            }));
           })
       )
     ).then(data => [].concat.apply([], data));
@@ -77,12 +81,8 @@ export class MhwApiComponent implements OnInit {
   }
 
   public onSearchKey(search: string): void {
-    this.filters[filterKey.TEXT] = search
-      ? item =>
-          JSON.stringify(item.base)
-            .toLocaleLowerCase()
-            .search(search.toLocaleLowerCase()) >= 0
-      : null;
+    search = search.toLocaleLowerCase();
+    this.filters[filterKey.TEXT] = search ? item => item.parsed.search(search) >= 0 : null;
     this.filterDisplayedData();
   }
 

@@ -10,6 +10,7 @@ export type MHWBase = MHWItem | MHWSkill | MHWDecoration | MHWWeapon | MHWCharm 
 
 export interface MHWBaseType {
   base: MHWBase;
+  parsed: string;
   type: MHWDataType;
 }
 

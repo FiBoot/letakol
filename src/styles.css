@@ -1,12 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~bootstrap/dist/css/bootstrap.min.css';
-html, body {
+html,
+body {
   margin: 0;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial,
+    sans-serif;
 }
 
-.ellipsis, .btn {
+label {
+  font-weight: bold;
+}
+
+.ellipsis,
+.btn {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -54,7 +61,7 @@ html, body {
 .btn-outline-orange:hover {
   color: #fff;
   background-color: orange;
-  border-color: orange
+  border-color: orange;
 }
 
 /* MODAL TITLE */

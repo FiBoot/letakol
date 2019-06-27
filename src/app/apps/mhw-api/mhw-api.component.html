@@ -65,33 +65,11 @@
 
     <div class="col-md-6">
       <div *ngIf="viewed">
-        <h3>{{ viewed.base.name }} ({{ viewed.type }})</h3>
-        <span *ngIf="viewed.base.type">({{ viewed.base.type  }})</span>
-        <div
-          *ngIf="
-            [oTypes.WEAPON, oTypes.CHARM, oTypes.ARMOR].includes(viewed.type);
-            else mhwItemJson
-          "
-        >
-          <!-- <div *ngIf="types.includes(viewed.type); else mhwItemJson"> -->
-          <div *ngIf="viewed.type === oTypes.ARMOR">
-            ARMOR {{ viewed | json }}
-            <button type="button" class="btn btn-primary" (click)="equip(viewed)">
-              Equip
-            </button>
-          </div>
-          <div *ngIf="viewed.type === oTypes.CHARM">
-            <button type="button" class="btn btn-primary" (click)="equip(viewed)">
-              Equip
-            </button>
-          </div>
-          <div *ngIf="viewed.type === oTypes.WEAPON">
-            <button type="button" class="btn btn-primary" (click)="equip(viewed)">
-              Equip
-            </button>
-          </div>
+        <div *ngIf="types.includes(viewed.type); else mhwItemJson">
+          <!-- TEMPLATES -->
         </div>
-        <ng-template #mhwItemJson>{{ viewed | json }}</ng-template>
+        <ng-template #mhwItemJson>NO TEMPLATE</ng-template>
+        <app-display-object [object]="viewed.base"></app-display-object>
       </div>
     </div>
   </div>
