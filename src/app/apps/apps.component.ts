@@ -25,6 +25,7 @@ export class AppsComponent {
       new App('keyboard', 'Keyboard', 'Viens tater'),
       new App('orbs', 'Orbs', 'testing collisions'),
       new App('card-proba', 'Card probability', 'lucky?'),
+      new App('mhw-api', 'Monster Hunter World API', 'datas!'),
       new App('gol', 'Game of Life', ''),
       new App('smw', 'SMW', 'test'),
       new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),

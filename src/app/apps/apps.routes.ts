@@ -5,6 +5,7 @@ import { CodewarComponent } from './codewar/codewar.component';
 import { GolComponent } from './gol/gol.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { MemoryComponent } from './memory/memory.component';
+import { MhwApiComponent } from './mhw-api/mhw-api.component';
 import { OrbsComponent } from './orbs/orbs.component';
 import { PetComponent } from './pet/pet.component';
 import { SmwComponent } from './smw/smw.component';
@@ -16,6 +17,7 @@ export const APPS_ROUTES: Routes = [
     path: 'apps',
     component: AppsComponent,
     children: [
+      { path: 'mhw-api', component: MhwApiComponent },
       { path: 'card-proba', component: CardProbaComponent },
       { path: 'chat', component: ChatComponent },
       { path: 'orbs', component: OrbsComponent },
