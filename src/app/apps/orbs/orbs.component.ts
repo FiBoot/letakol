@@ -1,5 +1,5 @@
 import { Orbs } from './classes/orbs.class';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-orbs',
@@ -7,11 +7,9 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
   styleUrls: ['./orbs.component.css']
 })
 export class OrbsComponent implements AfterViewInit {
-
   @ViewChild('orbsWrapper') wrapper: ElementRef;
 
   ngAfterViewInit() {
     new Orbs(this.wrapper.nativeElement);
   }
-
 }

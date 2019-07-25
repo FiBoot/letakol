@@ -1,10 +1,12 @@
 import { Player, IPlayerOptions } from './player.class';
 
 const DEFAULT_UNITS_PER_LINE = 20;
+const DEFAULT_MAX_CANVAS_WIDTH = 600;
 
 export class ICanvasOptions {
   wrapper: HTMLDivElement;
   unitsPerLine?: number;
+  maxWidth?: number;
   playerOption?: IPlayerOptions;
 }
 
@@ -16,15 +18,18 @@ export class Canvas extends Player {
   private _size: number;
   private _unitsPerLine: number;
   private _unitSize: number;
+  private _maxWidth: number;
 
   constructor({
     wrapper,
     unitsPerLine = DEFAULT_UNITS_PER_LINE,
+    maxWidth = DEFAULT_MAX_CANVAS_WIDTH,
     playerOption = {}
   }: ICanvasOptions) {
     super(playerOption);
-    this._unitsPerLine = unitsPerLine;
     this._wrapper = wrapper;
+    this._unitsPerLine = unitsPerLine;
+    this._maxWidth = maxWidth;
 
     // create canvas
     this._canvas = document.createElement('canvas');
@@ -57,6 +62,11 @@ export class Canvas extends Player {
     window.addEventListener('resize', (event: UIEvent) => this.sizeCanvas());
   }
 
+  public destory(): void {
+    this.stop();
+    this._wrapper.removeChild(this._canvas);
+  }
+
   startCB() {
     this.sizeCanvas();
   }
@@ -66,7 +76,8 @@ export class Canvas extends Player {
   }
 
   private sizeCanvas(): void {
-    this._size = Math.floor(this._wrapper.offsetWidth);
+    const size = Math.floor(this._wrapper.offsetWidth);
+    this._size = size < this._maxWidth ? size : this._maxWidth;
     this._unitSize = this._size / this._unitsPerLine;
     this._render.canvas.width = this._size;
     this._render.canvas.height = this._size;

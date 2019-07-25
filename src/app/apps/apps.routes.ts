@@ -10,6 +10,7 @@ import { OrbsComponent } from './orbs/orbs.component';
 import { PetComponent } from './pet/pet.component';
 import { SmwComponent } from './smw/smw.component';
 import { SnakeIoComponent } from './snake-io/snake-io.component';
+import { TilesComponent } from './tiles/tiles.component';
 import { Routes } from '@angular/router';
 
 export const APPS_ROUTES: Routes = [
@@ -17,6 +18,7 @@ export const APPS_ROUTES: Routes = [
     path: 'apps',
     component: AppsComponent,
     children: [
+      { path: 'tiles', component: TilesComponent },
       { path: 'mhw-api', component: MhwApiComponent },
       { path: 'card-proba', component: CardProbaComponent },
       { path: 'chat', component: ChatComponent },

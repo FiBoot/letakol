@@ -24,6 +24,7 @@ export class AppsComponent {
     this.apps = [
       new App('keyboard', 'Keyboard', 'Viens tater'),
       new App('orbs', 'Orbs', 'testing collisions'),
+      new App('tiles', 'Tiles', ''),
       new App('card-proba', 'Card probability', 'lucky?'),
       new App('mhw-api', 'Monster Hunter World API', 'datas!'),
       new App('gol', 'Game of Life', ''),
