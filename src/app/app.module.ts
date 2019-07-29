@@ -28,6 +28,7 @@ import { TimelineComponent } from './views/timeline/timeline.component';
 import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
 import { RouterModule } from '@angular/router';
+import { TilesComponent } from './apps/tiles/tiles.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { RouterModule } from '@angular/router';
     ImagesComponent,
     ImageViewModalComponent,
     ImageUploadModalComponent,
-    TimelineComponent
+    TimelineComponent,
+    TilesComponent
   ],
   imports: [
     BrowserModule,
