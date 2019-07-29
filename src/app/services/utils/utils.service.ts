@@ -3,12 +3,22 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Utils {
   /**
+   * Return random number with Math from 0 to max (excluded)
+   *
+   * @param {number} max max random possible
+   * @returns {number} random number
+   */
+  public static random(max: number): number {
+    return Math.floor(Math.random() * max);
+  }
+
+  /**
    * Generate a random color
    *
    * @returns {string} generated color
    */
   public static generateColor(): string {
-    return `#${Math.random().toString(16)}`;
+    return `#${Utils.repeat(() => Utils.random(16).toString(16), 6).join('')}`;
   }
 
   /**
@@ -79,16 +89,6 @@ export class Utils {
   }
 
   /**
-   * Return random number with Math from 0 to max (excluded)
-   *
-   * @param {number} max max random possible
-   * @returns {number} random number
-   */
-  public static random(max: number): number {
-    return Math.floor(Math.random() * max);
-  }
-
-  /**
    * Format float number to a fixed decimal, will truncate last digit
    *
    * @param {number} num number to format
@@ -155,13 +155,8 @@ export class Utils {
    * @returns {Array<any>}
    */
   public static repeat(func: () => any, times: number = 1): Array<any> {
-    if (times < 1) {
-      throw new Error(
-        `Utils.repeat: Can\'t repeat function ${times} times (number must be positive)`
-      );
-    }
     const results: Array<any> = new Array<any>();
-    for (let i = 0; i < times; i++) {
+    for (; times > 0; times--) {
       results.push(func());
     }
     return results;
