@@ -1,5 +1,5 @@
 export class Note {
-  constructor(readonly name: string, readonly frequency: number, public bind: string) { }
+  constructor(readonly name: string, readonly frequency: number, public bind: string = null) { }
 }
 
 const smallKeyboard = [
@@ -18,11 +18,11 @@ const smallKeyboard = [
 ];
 
 const longKeyboard = [
-  new Note('F3', 174.614, ''),
-  new Note('F3#', 184.997, ''),
-  new Note('G3', 195.998, ''),
-  new Note('G3#', 207.652, ''),
-  new Note('A3', 220, ''),
+  new Note('F3', 174.614),
+  new Note('F3#', 184.997),
+  new Note('G3', 195.998),
+  new Note('G3#', 207.652),
+  new Note('A3', 220),
   new Note('A3#', 233.082, '1'),
   new Note('B3', 246.942, 'q'),
   new Note('C4', 261.626, 'w'),
@@ -43,12 +43,12 @@ const longKeyboard = [
   new Note('D5#', 622.254, '-'),
   new Note('E5', 659.255, '['),
   new Note('F5', 698.456, ']'),
-  new Note('F5#', 739.989, ''),
-  new Note('G5', 783.991, ''),
-  new Note('G5#', 830.609, ''),
-  new Note('A5', 880, ''),
-  new Note('A5#', 932.328, ''),
-  new Note('B5', 987.767, '')
+  new Note('F5#', 739.989),
+  new Note('G5', 783.991),
+  new Note('G5#', 830.609),
+  new Note('A5', 880),
+  new Note('A5#', 932.328),
+  new Note('B5', 987.767)
 ];
 
-export const notes = smallKeyboard;
+export const notes = longKeyboard;

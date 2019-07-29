@@ -14,7 +14,7 @@ export class Utils {
   /**
    * Return a random string id
    *
-   * @returns generated id
+   * @returns {string} generated id
    */
   public static generateId(): string {
     let id;
@@ -130,7 +130,7 @@ export class Utils {
    * Return sign of given number
    *
    * @param {number} num given number
-   * @returns {1 | -1 | 0} 1, -1 or 0
+   * @returns {1 | -1 | 0} 1 positive, -1 negative, or 0
    */
   public static sign(num: number): 1 | -1 | 0 {
     return num > 0 ? 1 : num < 0 ? -1 : 0;
@@ -150,11 +150,11 @@ export class Utils {
    * Repeat a given function x times
    * Return all results in an Array
    *
-   * @param {() => { any }} func
-   * @param {number} [times=1]
+   * @param {() => any} func given function
+   * @param {number} [times=1] number of repetition
    * @returns {Array<any>}
    */
-  public static repeat(func: () => { any }, times: number = 1): Array<any> {
+  public static repeat(func: () => any, times: number = 1): Array<any> {
     if (times < 1) {
       throw new Error(
         `Utils.repeat: Can\'t repeat function ${times} times (number must be positive)`
