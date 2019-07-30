@@ -91,11 +91,74 @@ describe('UtilsService', () => {
       expect(result).toEqual(null);
     });
   });
-  
-  describe('fixed', () => {});
-  describe('contain', () => {});
-  describe('square', () => {});
-  describe('sign', () => {});
-  describe('timestampToLocaleDate', () => {});
-  describe('repeat', () => {});
+
+  describe('fixed', () => {
+    it('should \'fix\' number', () => {
+      let result = Utils.fixed(124.6589, 2);
+      expect(result).toEqual(124.66);
+      result = Utils.fixed(124.6589, 0);
+      expect(result).toEqual(125);
+    });
+  });
+
+  describe('reduce', () => {
+    it('should reduce overhead value', () => {
+      const result = Utils.reduce(123, 100, 0);
+      expect(result).toEqual(100);
+    });
+    it('should reduce lowerhead value', () => {
+      const result = Utils.reduce(123, 1001, 999);
+      expect(result).toEqual(999);
+    });
+    it('should throw error when min > max', () => {
+      try {
+        Utils.reduce(100, 10, 50);
+      } catch (e) {
+        expect(e.message).toEqual(`Utils.contain error: min (50) > max (10)`);
+      }
+    });
+  });
+
+  describe('square', () => {
+    it('should square given number', () => {
+      const result = Utils.square(4);
+      expect(result).toEqual(16);
+    });
+    it('should square negative number', () => {
+      const result = Utils.square(-128);
+      expect(result).toEqual(16384);
+    });
+  });
+
+  describe('sign', () => {
+    it('should return 1 to positive number', () => {
+      const result = Utils.sign(465);
+      expect(result).toEqual(1);
+    });
+    it('should return -1 to negative number', () => {
+      const result = Utils.sign(-33);
+      expect(result).toEqual(-1);
+    });
+    it('should return 0 to zero number', () => {
+      const result = Utils.sign(0);
+      expect(result).toEqual(0);
+    });
+  });
+
+  describe('timestampToLocaleDate', () => {
+    it('should return local date from timestamp', () => {
+      const result = Utils.timestampToLocaleDate(1600000000000);
+      expect(result).toEqual('13/09/2020 à 14:26:40');
+    });
+  });
+
+  describe('repeat', () => {
+    it('should repeat x times given function', () => {
+      let count = 0;
+      const func = () => (count += 1);
+      const result = Utils.repeat(func, 10);
+      expect(count).toEqual(10);
+      expect(result).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    });
+  });
 });

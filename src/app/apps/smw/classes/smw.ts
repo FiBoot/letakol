@@ -56,7 +56,7 @@ export class SMW extends Canvas {
   }
 
   onScroll(up: boolean): void {
-    this.unitsPerLine = Utils.contain(this.unitsPerLine + (up ? 1 : -1), UNITS_PER_LINE, 1);
+    this.unitsPerLine = Utils.reduce(this.unitsPerLine + (up ? 1 : -1), UNITS_PER_LINE, 1);
   }
 
   keyCB(key: string, pressed: boolean): void {}

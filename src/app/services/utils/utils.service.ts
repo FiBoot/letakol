@@ -89,14 +89,14 @@ export class Utils {
   }
 
   /**
-   * Format float number to a fixed decimal, will truncate last digit
+   * Format float number to a fixed decimal, rounded
    *
    * @param {number} num number to format
    * @param {number} decimal [=0] number of digit after decimal
    * @returns {number} rounded number
    */
   public static fixed(num: number, decimal: number = 0): number {
-    return parseFloat(num.toFixed(decimal));
+    return parseFloat(num.toFixed(Utils.reduce(decimal, 100, 0)));
   }
 
   /**
@@ -109,7 +109,7 @@ export class Utils {
    * @returns {number}
    * @memberof Utils
    */
-  public static contain(num: number, max: number = 0, min: number = 0): number {
+  public static reduce(num: number, max: number = 0, min: number = 0): number {
     if (min > max) {
       throw new Error(`Utils.contain error: min (${min}) > max (${max})`);
     }

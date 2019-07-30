@@ -25,13 +25,13 @@ export class Coordinates {
     return Utils.fixed(this._y);
   }
   public set x(x: number) {
-    this._x = Utils.contain(Utils.fixed(x, PRECISION), this._max);
+    this._x = Utils.reduce(Utils.fixed(x, PRECISION), this._max);
   }
   public set y(y: number) {
-    this._y = Utils.contain(Utils.fixed(y, PRECISION), this._max);
+    this._y = Utils.reduce(Utils.fixed(y, PRECISION), this._max);
   }
   public set max(max: number) {
-    this._max = Utils.contain(max);
+    this._max = Utils.reduce(max);
     this.set(this.x, this.y);
   }
 
