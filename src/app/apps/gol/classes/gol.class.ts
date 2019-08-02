@@ -43,7 +43,7 @@ export class GameOfLife extends Player {
 
   private newCellArray(): Array<Cell> {
     const arr = new Array<Cell>();
-    for (let i = 0; i < Utils.square(this.cellPerLine); i++) {
+    for (let i = 0; i < Math.pow(this.cellPerLine, 2); i++) {
       arr.push(null);
     }
     return arr;

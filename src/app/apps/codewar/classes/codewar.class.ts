@@ -1,13 +1,13 @@
-import { CodewarAI } from '../models/codewar-ai.class';
-import { Context } from './codewar-context.class';
 import { Action, ACTION } from '../models/codewar-action.class';
-import { Logs, LOG_LEVEL } from 'src/app/classes/logs.class';
-import { Utils } from 'src/app/services/utils/utils.service';
+import { CodewarAI } from '../models/codewar-ai.class';
 import { DIR } from '../models/codewar-context.interface';
-import { EventEmitter } from '@angular/core';
 import { CodewarConfig } from '../models/codewar.configuration';
-import { Space, Empty, Ally, Enemy } from '../models/coreware-space.class';
 import { CodewarData } from '../models/codewar.data.class';
+import { Ally, Empty, Enemy, Space } from '../models/coreware-space.class';
+import { Context } from './codewar-context.class';
+import { EventEmitter } from '@angular/core';
+import { LOG_LEVEL, Logs } from 'src/app/classes/logs.class';
+import { Utils } from 'src/app/services/utils/utils.service';
 
 const TEAM_COLORS = ['#00bfff', '#ed143d', '#3cb371', '#ffa500', '#ff69b4'];
 
@@ -38,7 +38,7 @@ export class Codewar {
   public addAI(intel: Function, team: number = 0): void {
     let randPos, tries = 0;
     do {
-      randPos = Utils.random(Utils.square(CodewarConfig.MAP_LENGTH));
+      randPos = Utils.random(Math.pow(CodewarConfig.MAP_LENGTH, 2));
     } while (tries++ < CodewarConfig.MAX_ADDIA_TRY && this.getUnitInPosition(randPos));
     if (tries === CodewarConfig.MAX_ADDIA_TRY) {
       return this.Logs.addLogMessage(`Couldn't place AI on board after ${tries} tries`, LOG_LEVEL.ERROR);
@@ -127,14 +127,14 @@ export class Codewar {
       case DIR.RIGHT: next = (position + 1) % CodewarConfig.MAP_LENGTH === 0
         ? (position + 1) - CodewarConfig.MAP_LENGTH : position + 1;
         break;
-      case DIR.DOWN: next = position + CodewarConfig.MAP_LENGTH > Utils.square(CodewarConfig.MAP_LENGTH)
+      case DIR.DOWN: next = position + CodewarConfig.MAP_LENGTH > Math.pow(CodewarConfig.MAP_LENGTH, 2)
         ? position % CodewarConfig.MAP_LENGTH : position + CodewarConfig.MAP_LENGTH;
         break;
       case DIR.LEFT: next = position % CodewarConfig.MAP_LENGTH === 0
         ? (position - 1) + CodewarConfig.MAP_LENGTH : position - 1;
         break;
       case DIR.UP: next = position - CodewarConfig.MAP_LENGTH < 0
-        ? (position - CodewarConfig.MAP_LENGTH) + Utils.square(CodewarConfig.MAP_LENGTH) : position - CodewarConfig.MAP_LENGTH;
+        ? (position - CodewarConfig.MAP_LENGTH) + Math.pow(CodewarConfig.MAP_LENGTH, 2) : position - CodewarConfig.MAP_LENGTH;
         break;
     }
     return next;

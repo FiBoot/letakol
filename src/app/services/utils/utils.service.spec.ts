@@ -119,17 +119,6 @@ describe('UtilsService', () => {
     });
   });
 
-  describe('square', () => {
-    it('should square given number', () => {
-      const result = Utils.square(4);
-      expect(result).toEqual(16);
-    });
-    it('should square negative number', () => {
-      const result = Utils.square(-128);
-      expect(result).toEqual(16384);
-    });
-  });
-
   describe('sign', () => {
     it('should return 1 to positive number', () => {
       const result = Utils.sign(465);

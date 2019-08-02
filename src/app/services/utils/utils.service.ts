@@ -117,16 +117,6 @@ export class Utils {
   }
 
   /**
-   * Return the cube of given number
-   *
-   * @param {number} num given number
-   * @returns {number} cube of given number
-   */
-  public static square(num: number): number {
-    return Math.pow(num, 2);
-  }
-
-  /**
    * Return sign of given number
    *
    * @param {number} num given number

@@ -78,7 +78,7 @@ export class Orbs extends Canvas {
   }
 
   private checkOrbCollision(orb1: Orb, orb2: Orb): void {
-    const distance = Math.sqrt(Utils.square(orb2.x - orb1.x) + Utils.square(orb2.y - orb1.y));
+    const distance = Math.sqrt(Math.pow(orb2.x - orb1.x, 2) + Math.pow(orb2.y - orb1.y, 2));
 
     if (distance <= orb1.radius + orb2.radius) {
       console.warn('colision');

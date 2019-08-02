@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { IFireBaseItem, EItemType } from 'src/app/models/firebaseItem.model';
-import { IImage, IImageData } from 'src/app/models/image.model';
-import { IUser, IUserData } from 'src/app/models/user.model';
-import { ITimelineEventData, ITimelineEvent } from 'src/app/models/timelineevent.model';
-import { Utils } from '../utils/utils.service';
 import { UserStaticService } from '../user/user.static-service';
+import { Injectable } from '@angular/core';
+import { EItemType, IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { IImage, IImageData } from 'src/app/models/image.model';
+import { ITimelineEvent, ITimelineEventData } from 'src/app/models/timelineevent.model';
+import { IUser, IUserData } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'

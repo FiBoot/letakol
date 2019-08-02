@@ -19,7 +19,7 @@ export class Orb {
   }
 
   public contain(x: number, y: number): boolean {
-    return Math.sqrt(Utils.square(x - this.x) + Utils.square(y - this.y)) < this.radius
+    return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2)) < this.radius
   }
 
   public toString(): string {

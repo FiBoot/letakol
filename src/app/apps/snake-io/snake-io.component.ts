@@ -77,7 +77,7 @@ export class SnakeIoComponent {
 
   private genereGrid(): void {
     const arr = new Array<Case>();
-    for (let i = 0; i < Utils.square(BOARD_SIZE); i++) {
+    for (let i = 0; i < Math.pow(BOARD_SIZE, 2); i++) {
       arr.push(new Case);
     }
     delete this.grid;
