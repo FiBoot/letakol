@@ -1,4 +1,5 @@
 import { AppsComponent } from './apps.component';
+import { ArchitectsLogoComponent } from './architects-logo/architects-logo.component';
 import { CardProbaComponent } from './card-proba/card-proba.component';
 import { ChatComponent } from './chat/chat.component';
 import { CodewarComponent } from './codewar/codewar.component';
@@ -18,6 +19,7 @@ export const APPS_ROUTES: Routes = [
     path: 'apps',
     component: AppsComponent,
     children: [
+      { path: 'architects-logo', component: ArchitectsLogoComponent },
       { path: 'tiles', component: TilesComponent },
       { path: 'mhw-api', component: MhwApiComponent },
       { path: 'card-proba', component: CardProbaComponent },

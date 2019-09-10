@@ -22,6 +22,7 @@ export class AppsComponent {
     });
 
     this.apps = [
+      new App('architects-logo', 'Architects logo', 'BLEGH'),
       new App('keyboard', 'Keyboard', 'Viens tater'),
       new App('orbs', 'Orbs', 'testing collisions'),
       new App('tiles', 'Tiles', ''),

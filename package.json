@@ -32,6 +32,7 @@
     "ng5-slider": "^1.1.13",
     "ngx-file-drop": "^5.0.1",
     "ngx-vis": "^2.0.1",
+    "open-simplex-noise": "^1.6.0",
     "pizzicato": "^0.6.4",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"

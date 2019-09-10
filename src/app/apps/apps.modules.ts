@@ -1,6 +1,7 @@
 import { ComponentsModule } from './../components/components.module';
 import { AppsComponent } from './apps.component';
 import { APPS_ROUTES } from './apps.routes';
+import { ArchitectsLogoComponent } from './architects-logo/architects-logo.component';
 import { CardProbaComponent } from './card-proba/card-proba.component';
 import { ChatComponent } from './chat/chat.component';
 import { CodewarComponent } from './codewar/codewar.component';
@@ -24,6 +25,7 @@ import { Ng5SliderModule } from 'ng5-slider';
 @NgModule({
   declarations: [
     AppsComponent,
+    ArchitectsLogoComponent,
     ChatComponent,
     CodewarComponent,
     GolComponent,

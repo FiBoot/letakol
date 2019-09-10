@@ -28,12 +28,12 @@ export class Effect {
 export const effects = [
   new Effect('Delay', Pizzicato.Effects.Delay, [
     new Percent('feedback', .5),
-    new Variation('time', 0, 5, .5),
+    new Variation('time', 0, 1, .1),
     new Percent('mix', .5)
   ]),
   new Effect('Ping-pong delay', Pizzicato.Effects.PingPongDelay, [
     new Percent('feedback', .5),
-    new Variation('time', 0, 5, .5),
+    new Variation('time', 0, 1, .1),
     new Percent('mix', .5)
   ]),
   new Effect('Dub delay', Pizzicato.Effects.DubDelay, [
