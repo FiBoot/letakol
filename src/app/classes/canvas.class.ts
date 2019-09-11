@@ -72,12 +72,14 @@ export class Canvas extends Player {
   }
 
   private sizeCanvas(): void {
-    const size = Math.floor(this._wrapper.offsetWidth);
-    this._size = size < this._maxWidth ? size : this._maxWidth;
-    this._unitSize = this._size / this._unitsPerLine;
-    this._render.canvas.width = this._size;
-    this._render.canvas.height = this._size;
-    this.onResize();
+    const size = Utils.reduce(Math.floor(this._wrapper.offsetWidth), this._maxWidth);
+    if (size != this._size) {
+      this._size = size;
+      this._unitSize = this._size / this._unitsPerLine;
+      this._render.canvas.width = this._size;
+      this._render.canvas.height = this._size;
+      this.onResize();
+    }
   }
 
   public get render(): CanvasRenderingContext2D {
