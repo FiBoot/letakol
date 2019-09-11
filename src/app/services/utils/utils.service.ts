@@ -127,6 +127,20 @@ export class Utils {
   }
 
   /**
+   * Return if the given point is in circle
+   *
+   * @param {number} xp x coordinate of point
+   * @param {number} yp y coordinate of point
+   * @param {number} xc x coordinate of circle
+   * @param {number} yc y coordinate of circle
+   * @param {number} cs circle size
+   * @returns {boolean} in circle
+   */
+  public static isInCircle(xp: number, yp: number, xc: number, yc: number, cs: number): boolean {
+    return Math.sqrt(Math.pow(Math.abs(xp - xc), 2) + Math.pow(Math.abs(yp - yc), 2)) < cs;
+  }
+
+  /**
    * Return locale date string of a timestamp
    *
    * @param {number} timestamp date timestamp

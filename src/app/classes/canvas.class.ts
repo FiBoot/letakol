@@ -1,3 +1,5 @@
+import { Logger } from '../services/logger/logger.service';
+import { Utils } from '../services/utils/utils.service';
 import { Player, IPlayerOptions } from './player.class';
 
 const DEFAULT_UNITS_PER_LINE = 20;
@@ -31,29 +33,23 @@ export class Canvas extends Player {
     this._unitsPerLine = unitsPerLine;
     this._maxWidth = maxWidth;
 
+    Logger.log(`Canvas initialized with ${Utils.fixed(1000 / this._timespan, 2)} frames per second`);
+
     // create canvas
     this._canvas = document.createElement('canvas');
     this._render = this._canvas.getContext('2d');
     this._wrapper.append(this._canvas);
 
     // on click
-    this._canvas.addEventListener('click', (event: MouseEvent) =>
-      this.onClick(event.offsetX, event.offsetY)
-    );
+    this._canvas.addEventListener('click', (event: MouseEvent) => this.onClick(event.offsetX, event.offsetY));
 
     // on mouse
-    this._canvas.addEventListener('mousedown', (event: MouseEvent) =>
-      this.onMouse(true, event.offsetX, event.offsetY)
-    );
-    this._canvas.addEventListener('mouseup', (event: MouseEvent) =>
-      this.onMouse(false, event.offsetX, event.offsetY)
-    );
+    this._canvas.addEventListener('mousedown', (event: MouseEvent) => this.onMouse(true, event.offsetX, event.offsetY));
+    this._canvas.addEventListener('mouseup', (event: MouseEvent) => this.onMouse(false, event.offsetX, event.offsetY));
     this._canvas.addEventListener('mouseleave', (event: MouseEvent) =>
       this.onMouse(false, event.offsetX, event.offsetY)
     );
-    this._canvas.addEventListener('mousemove', (event: MouseEvent) =>
-      this.onMouseMove(event.offsetX, event.offsetY)
-    );
+    this._canvas.addEventListener('mousemove', (event: MouseEvent) => this.onMouseMove(event.offsetX, event.offsetY));
 
     // on wheel
     this._canvas.addEventListener('wheel', (event: WheelEvent) => this.onScroll(event.deltaY > 0));
@@ -84,19 +80,25 @@ export class Canvas extends Player {
     this.onResize();
   }
 
+  public get render(): CanvasRenderingContext2D {
+    return this._render;
+  }
   public get size(): number {
     return this._size;
+  }
+  public get halfSize(): number {
+    return this.size / 2;
+  }
+  public get powSize(): number {
+    return Math.pow(this.size, 2);
   }
   public get unitSize(): number {
     return this._unitSize;
   }
-  public get render(): CanvasRenderingContext2D {
-    return this._render;
-  }
-
   public get unitsPerLine(): number {
     return this._unitsPerLine;
   }
+
   public set unitsPerLine(upl: number) {
     this._unitsPerLine = upl > 0 ? upl : 0;
     this.sizeCanvas();

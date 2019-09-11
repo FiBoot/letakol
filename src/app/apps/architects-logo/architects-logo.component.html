@@ -1,1 +1,6 @@
 <div class="mt-3" #logoWrapper></div>
+
+<div *ngIf="app" style="max-width: 600px;">
+  <label>Terrain threshold</label>
+  <ng5-slider [(value)]="app.terraformThreshold" [options]="{ floor: 1, ceil: 7, step: 1 }"> </ng5-slider>
+</div>

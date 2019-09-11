@@ -9,10 +9,12 @@ import { Canvas } from 'src/app/classes/canvas.class';
 })
 export class ArchitectsLogoComponent implements AfterViewInit, OnDestroy {
   @ViewChild('logoWrapper') wrapper: ElementRef;
-  app: Canvas;
+  public app: Canvas;
 
   ngAfterViewInit() {
-    this.app = new ArchitectsLogo(this.wrapper.nativeElement);
+    setTimeout(() => {
+      this.app = new ArchitectsLogo(this.wrapper.nativeElement);
+    });
   }
 
   ngOnDestroy(): void {

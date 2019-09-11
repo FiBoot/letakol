@@ -134,6 +134,17 @@ describe('UtilsService', () => {
     });
   });
 
+  describe('isInCircle', () => {
+    it('should be inside circle', () => {
+      const result = Utils.isInCircle(5, 1, 4, 2, 2);
+      expect(result).toBeTruthy();
+    });
+    it('should not be inside circle', () => {
+      const result = Utils.isInCircle(5, 1, 2, 4, 3);
+      expect(result).toBeFalsy();
+    });
+  });
+
   describe('timestampToLocaleDate', () => {
     it('should return local date from timestamp', () => {
       const result = Utils.timestampToLocaleDate(1600000000000);
