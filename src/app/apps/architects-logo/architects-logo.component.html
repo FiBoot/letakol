@@ -1,6 +1,8 @@
 <div class="mt-3" #logoWrapper></div>
 
 <div *ngIf="app" style="max-width: 600px;">
+  <ng5-slider [(value)]="app.terraformThreshold" [options]="{ floor: 1, ceil: 7, step: 1, showTicks: true }"> </ng5-slider>
   <label>Terrain threshold</label>
-  <ng5-slider [(value)]="app.terraformThreshold" [options]="{ floor: 1, ceil: 7, step: 1 }"> </ng5-slider>
+  <ng5-slider [(value)]="app.noiseSpeed" [options]="{ floor: 1, ceil: 10, step: 1, showTicks: true }"> </ng5-slider>
+  <label>Noise speed</label>
 </div>

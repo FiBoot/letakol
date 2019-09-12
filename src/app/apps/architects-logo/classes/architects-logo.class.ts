@@ -9,10 +9,13 @@ export class ArchitectsLogo extends Canvas {
 
   private openSimplex: OpenSimplexNoise = new OpenSimplexNoise(Date.now());
   private zNoiseOffset: number = 0;
+
   public terraformThreshold: number = 3;
+  public noiseSpeed: number = 4;
 
   constructor(wrapper: HTMLDivElement) {
-    super({ wrapper, playerOption: { timespan: 40 } });
+    super({ wrapper, playerOption: { timespan: 30 } });
+    
     this.start();
   }
 
@@ -62,7 +65,7 @@ export class ArchitectsLogo extends Canvas {
           this.fillPixel(imageData.data, i, r);
         }
       }
-      this.zNoiseOffset += 1;
+      this.zNoiseOffset += this.noiseSpeed;
       this.render.putImageData(imageData, 0, 0);
       // to smooth circle outline
       this.drawCircle();
