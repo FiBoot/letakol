@@ -1,7 +1,7 @@
 import { RecordedKey, Track } from './track.class';
-import { Player } from 'src/app/classes/player.class';
+import { Looper } from 'src/app/classes/looper.class';
 
-export class TrackPlayer extends Player {
+export class TrackPlayer extends Looper {
   private tracks: Array<Track>;
   private maxCycle: number;
   private noteList: Array<RecordedKey>;

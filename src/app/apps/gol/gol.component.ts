@@ -1,6 +1,6 @@
 import { GameOfLife } from './classes/gol.class';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Player } from 'src/app/classes/player.class';
+import { Looper } from 'src/app/classes/looper.class';
 
 @Component({
   selector: 'app-gol',
@@ -11,7 +11,7 @@ export class GolComponent implements AfterViewInit {
   @ViewChild('golCanvas') canvas: ElementRef<HTMLCanvasElement>;
 
   public canvasSize: number = 500;
-  public gol: Player = new Player();
+  public gol: Looper = new Looper();
 
   ngAfterViewInit(): void {
     this.gol = new GameOfLife(this.canvas.nativeElement.getContext('2d'), this.canvasSize, 25);

@@ -28,7 +28,7 @@ import { TimelineComponent } from './views/timeline/timeline.component';
 import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
 import { RouterModule } from '@angular/router';
-import { TilesComponent } from './apps/tiles/tiles.component';
+import { VoidStonesComponent } from './apps/void-stones/void-stones.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,7 @@ import { TilesComponent } from './apps/tiles/tiles.component';
     ImageViewModalComponent,
     ImageUploadModalComponent,
     TimelineComponent,
-    TilesComponent
+    VoidStonesComponent
   ],
   imports: [
     BrowserModule,

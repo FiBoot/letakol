@@ -14,7 +14,7 @@ export class ArchitectsLogo extends Canvas {
   public noiseSpeed: number = 4;
 
   constructor(wrapper: HTMLDivElement) {
-    super({ wrapper, playerOption: { timespan: 30 } });
+    super({ wrapper, looperOption: { timespan: 30 } });
     
     this.start();
   }
@@ -36,12 +36,12 @@ export class ArchitectsLogo extends Canvas {
 
   genereNoiseColor(x: number, y: number): number {
     // do not calculate if number is in inner circle
-    if (Utils.isInCircle(x, y, this.halfSize, this.halfSize, this.size * this.CIRCLE_SIZE_RATIO)) {
+    if (Utils.isInCircle(x, y, this.hs, this.hs, this.size * this.CIRCLE_SIZE_RATIO)) {
       return 0;
     }
     // else do the maths
-    const xratio = (Math.abs(this.halfSize - x) / this.halfSize) * this.CIRCLE_ALPHA_RATIO;
-    const yratio = (Math.abs(this.halfSize - y) / this.halfSize) * this.CIRCLE_ALPHA_RATIO;
+    const xratio = (Math.abs(this.hs - x) / this.hs) * this.CIRCLE_ALPHA_RATIO;
+    const yratio = (Math.abs(this.hs - y) / this.hs) * this.CIRCLE_ALPHA_RATIO;
     const noise = this.noise(x, y, this.zNoiseOffset) * (this.MAX_ALPHA - this.CIRCLE_ALPHA_RATIO * 2);
     const alpha = Math.round(noise + xratio + yratio);
     return this.MAX_ALPHA - (alpha - (alpha % Math.pow(2, this.terraformThreshold)));
@@ -51,7 +51,7 @@ export class ArchitectsLogo extends Canvas {
     this.render.beginPath();
     this.render.lineWidth = this.size / 100;
     this.render.strokeStyle = '#111';
-    this.render.arc(this.halfSize, this.halfSize, this.size * this.CIRCLE_SIZE_RATIO, 0, 2 * Math.PI);
+    this.render.arc(this.hs, this.hs, this.size * this.CIRCLE_SIZE_RATIO, 0, 2 * Math.PI);
     this.render.stroke();
   }
 

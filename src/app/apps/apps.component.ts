@@ -22,19 +22,13 @@ export class AppsComponent {
     });
 
     this.apps = [
+      new App('void-stones', 'Void Stones RP', 'map for atrophag'),
       new App('architects-logo', 'Architects logo', 'BLEGH'),
       new App('keyboard', 'Keyboard', 'Viens tater'),
-      new App('orbs', 'Orbs', 'testing collisions'),
-      new App('tiles', 'Tiles', ''),
-      new App('card-proba', 'Card probability', 'lucky?'),
-      new App('mhw-api', 'Monster Hunter World API', 'datas!'),
       new App('gol', 'Game of Life', ''),
-      new App('smw', 'SMW', 'test'),
       new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),
       new App('chat', 'Chat'),
       new App('snake', 'Snake', 'c::::::::::::::::<'),
-      new App('memory', 'Memory game', 'Une tortue à atteint l\'océan'),
-      new App('pet', 'Pet test')
     ];
   }
 

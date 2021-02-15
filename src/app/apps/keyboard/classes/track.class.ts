@@ -1,7 +1,7 @@
 import { Key } from './key.class';
 import { notes } from './notes';
 import { UUID } from 'angular2-uuid';
-import { Player } from 'src/app/classes/player.class';
+import { Looper } from 'src/app/classes/looper.class';
 import { Utils } from 'src/app/services/utils/utils.service';
 
 export class RecordedKey {
@@ -11,7 +11,7 @@ export class RecordedKey {
 const NOTE_HEIGHT = 5;
 const NOTE_COLORS = { WHITE: '#fff', BLACK: '#333' };
 
-export class Track extends Player {
+export class Track extends Looper {
   readonly uuid: string = UUID.UUID();
 
   private keys: Array<RecordedKey>;

@@ -1,8 +1,0 @@
-<button class="btn btn-secondary" (click)="reset()">Reset</button>
-<span class="ml-3"><label>Moves: </label> {{moves}}</span>
-
-<div class="app mt-3">
-  <div class="tile" *ngFor="let card of cards" [ngClass]="{'confirmed': card.confirmed}" (click)="checkCard(card)">
-    <span *ngIf="card.show || card.confirmed">{{card.type}}</span>
-  </div>
-</div>

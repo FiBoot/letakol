@@ -1,4 +1,4 @@
-import { Player } from 'src/app/classes/player.class';
+import { Looper } from 'src/app/classes/looper.class';
 import { Utils } from 'src/app/services/utils/utils.service';
 
 const DEFAULT_TIMESPAN = 100;
@@ -24,7 +24,7 @@ class Cell {
   constructor(public cycle: number = 0) {}
 }
 
-export class GameOfLife extends Player {
+export class GameOfLife extends Looper {
   private cellArray: Array<Cell>;
   private cellSize: number;
 

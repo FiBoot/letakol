@@ -1,0 +1,21 @@
+
+.map {
+  width: 100%;
+  position: relative;
+}
+
+.map .square {
+  width: 48px;
+  height: 48px;
+  background-color: #CCC;
+  margin: 1px;
+}
+
+.map .token {
+  position: absolute;
+  width: 47px;
+  height: 47px;
+  border: 1px solid #333;
+  border-radius: 24px;
+  background-color: red;
+}

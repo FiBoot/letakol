@@ -1,53 +1,17 @@
-import { Utils } from '../services/utils/utils.service';
+export class Coord {
+  constructor(public x: number, public y: number, public z: number = null) { }
 
-const PRECISION = 4;
-
-export class Coordinates {
-  /**
-   *Creates an instance of Coordinates.
-   * @param {number} [x=0]
-   * @param {number} [y=0]
-   * @param {number} [_max=0]
-   * @memberof Coordinates
-   */
-  constructor(private _x: number = 0, private _y: number = 0, private _max: number = 0) {}
-
-  public get x(): number {
-    return this._x;
-  }
-  public get y(): number {
-    return this._y;
-  }
-  public get fx(): number {
-    return Utils.fixed(this._x);
-  }
-  public get fy(): number {
-    return Utils.fixed(this._y);
-  }
-  public set x(x: number) {
-    this._x = Utils.reduce(Utils.fixed(x, PRECISION), this._max);
-  }
-  public set y(y: number) {
-    this._y = Utils.reduce(Utils.fixed(y, PRECISION), this._max);
-  }
-  public set max(max: number) {
-    this._max = Utils.reduce(max);
-    this.set(this.x, this.y);
+  public set(x: number, y: number, z = this.z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
   }
 
-  /**
-   * Set both of x and y
-   *
-   * @param {number} x
-   * @param {number} y
-   * @memberof Coordinates
-   */
-  public set(x: number, y: number): void {
-    this._x = x;
-    this._y = y;
+  public add(coord: Coord): Coord {
+    return new Coord(this.x + coord.x, this.y + coord.y, this.z + coord.z);
   }
 
-  public toString(): string {
-    return `${this.x}, ${this.y}`;
+  public toString = (): string => {
+    return `${this.x}, ${this.y}${this.z !== null ? `, ${this.z}` : ''}`;
   }
 }

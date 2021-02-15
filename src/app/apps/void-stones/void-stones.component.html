@@ -1,0 +1,171 @@
+<div class="mt-3">
+  <button class="btn btn-success" (click)="board.newToken()">New token</button>
+  <button class="btn btn-outline-primary ml-3" (click)="board.nextTurn()">Next turn</button>
+
+  <div class="row mt-3">
+    <div class="col-lg-8">
+      <div #mapCanvas></div>
+    </div>
+
+    <div class="col-lg-4">
+      <form *ngIf="selectedToken">
+        <div class="form-group row">
+          <div class="col-8">{{ selectedToken.id }}</div>
+          <div class="col-4">
+            <button class="btn btn-danger" (click)="board.removeToken(selectedToken)">Remove</button>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="tokenName" class="col-2 mt-1">Name</label>
+          <div class="col-10">
+            <input
+              type="text"
+              id="tokenName"
+              name="tokenName"
+              class="form-control"
+              [(ngModel)]="selectedToken.name"
+              (ngModelChange)="board.draw()"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="tokenCurrentHp" class="col-2 mt-1">HP</label>
+          <div class="input-group col-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text">cur</span>
+            </div>
+            <input
+              type="number"
+              id="tokenCurrentHp"
+              name="tokenCurrentHp"
+              class="form-control"
+              [(ngModel)]="selectedToken.currentHp"
+              (ngModelChange)="board.draw()"
+            />
+          </div>
+          <div class="input-group col-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text">max</span>
+            </div>
+            <input
+              type="number"
+              id="tokenMaxHp"
+              name="tokenMaxHp"
+              class="form-control"
+              [(ngModel)]="selectedToken.maxHp"
+              (ngModelChange)="board.draw()"
+            />
+          </div>
+        </div>
+
+        <fieldset class="form-group">
+          <div class="row">
+            <legend class="col-form-label col-2">Color</legend>
+            <div class="col-10">
+              <div class="form-check mt-1">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tokenColor"
+                  id="tokenNeutralColor"
+                  [(ngModel)]="selectedToken.color"
+                  [value]="'#333'"
+                  (ngModelChange)="board.draw()"
+                />
+                <label class="form-check-label" for="tokenNeutralColor">Neutral</label>
+              </div>
+              <div class="form-check mt-1">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tokenColor"
+                  id="tokenAllyColor"
+                  [(ngModel)]="selectedToken.color"
+                  [value]="'#5A9'"
+                  (ngModelChange)="board.draw()"
+                />
+                <label class="form-check-label" for="tokenAllyColor">Ally</label>
+              </div>
+              <div class="form-check mt-1">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tokenColor"
+                  id="tokenEnemyColor"
+                  [(ngModel)]="selectedToken.color"
+                  [value]="'#F55'"
+                  (ngModelChange)="board.draw()"
+                />
+                <label class="form-check-label" for="tokenEnemyColor">Enemy</label>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <div class="row mb-2">
+            <legend class="col-form-label col-8">Status</legend>
+            <div class="col-4">
+              <button class="btn btn-outline-success" (click)="selectedToken.addStatus()">Add status</button>
+            </div>
+          </div>
+
+          <div class="mb-2" *ngFor="let status of selectedToken.statusList; let i = index">
+            <div class="form-group row">
+              <label class="col-2 mt-1">Name</label>
+              <div class="col-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="tokenStatusName{{ i }}"
+                  [(ngModel)]="status.name"
+                  (ngModelChange)="board.draw()"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-2 mt-1">Effect</label>
+              <div class="col-10">
+                <input
+                  type="text"
+                  class="form-control"
+                  name="tokenStatusEffect{{ i }}"
+                  [(ngModel)]="status.effect"
+                  (ngModelChange)="board.draw()"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-2 mt-1">Turn</label>
+              <div class="input-group col-10">
+                <div class="input-group-prepend">
+                  <select
+                    class="form-control"
+                    name="tokenStatusDecrease{{ i }}"
+                    [(ngModel)]="status.decrease"
+                    (ngModelChange)="board.draw()"
+                  >
+                    <option [ngValue]="true">down</option>
+                    <option [ngValue]="false">up</option>
+                  </select>
+                </div>
+                <input
+                  type="number"
+                  min="1"
+                  max="999"
+                  class="form-control"
+                  name="tokenStatusTurn{{ i }}"
+                  [(ngModel)]="status.turn"
+                  (ngModelChange)="board.draw()"
+                />
+              </div>
+            </div>
+            <div style="border-bottom: 1px solid #555"></div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>

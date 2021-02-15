@@ -2,13 +2,13 @@ import { Subject } from 'rxjs';
 
 const DEFAULT_TIMESPAN = 100; // 100ms
 
-export class IPlayerOptions {
+export class ILooperOptions {
   timespan?: number;
   loopkey?: boolean;
   preventKeys?: Array<string>;
 }
 
-export class Player {
+export class Looper {
   protected _timespan: number;
   protected _playing: boolean = false;
   protected _stoped: boolean = true; // used for startCB
@@ -22,7 +22,7 @@ export class Player {
     timespan = DEFAULT_TIMESPAN,
     loopkey = true,
     preventKeys = []
-  }: IPlayerOptions = {}) {
+  }: ILooperOptions = {}) {
     this._timespan = timespan;
     this._loopkey = loopkey;
     this._pressedKeys = new Array();
