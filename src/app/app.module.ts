@@ -8,12 +8,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FIREBASE_CONFIG } from 'src/environments/firebase.token';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
-import { FileDropModule } from 'ngx-file-drop';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { NgxFileDropModule } from 'ngx-file-drop';
 
 import { AppComponent } from './app.component';
 import { AppsModule } from './apps/apps.modules';
@@ -24,7 +23,6 @@ import { AdminComponent } from './views/admin/admin.component';
 import { DefaultComponent } from './views/default/default.component';
 import { ImagesComponent } from './views/images/images.component';
 import { ListViewComponent } from './views/list-view/list-view.component';
-import { TimelineComponent } from './views/timeline/timeline.component';
 import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
 import { RouterModule } from '@angular/router';
@@ -41,7 +39,6 @@ import { VoidStonesComponent } from './apps/void-stones/void-stones.component';
     ImagesComponent,
     ImageViewModalComponent,
     ImageUploadModalComponent,
-    TimelineComponent,
     VoidStonesComponent
   ],
   imports: [
@@ -52,10 +49,10 @@ import { VoidStonesComponent } from './apps/void-stones/void-stones.component';
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireDatabaseModule,
+    // AngularFireDatabaseModule,
     AngularFireStorageModule,
     NgbModule,
-    FileDropModule,
+    NgxFileDropModule,
     ComponentsModule,
     AppsModule
   ],

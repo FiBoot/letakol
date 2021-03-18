@@ -4,9 +4,10 @@ import { Codewar } from './classes/codewar.class';
 
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/mode/markdown/markdown.js';
-import { LOG_LEVEL } from 'src/app/classes/logs.class';
+
 import { AIList, AICodeList } from './models/ai-list';
 import { CodewarConfig } from './models/codewar.configuration';
+import { LOG_LEVEL } from './classes/logs.class';
 
 @Component({
   selector: 'app-codewar',

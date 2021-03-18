@@ -6,8 +6,8 @@ import { CodewarData } from '../models/codewar.data.class';
 import { Ally, Empty, Enemy, Space } from '../models/coreware-space.class';
 import { Context } from './codewar-context.class';
 import { EventEmitter } from '@angular/core';
-import { LOG_LEVEL, Logs } from 'src/app/classes/logs.class';
 import { Utils } from 'src/app/services/utils/utils.service';
+import { Logs, LOG_LEVEL } from './logs.class';
 
 const TEAM_COLORS = ['#00bfff', '#ed143d', '#3cb371', '#ffa500', '#ff69b4'];
 

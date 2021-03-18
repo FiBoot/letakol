@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument, QueryFn } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { IFireBaseItem, EItemType } from 'src/app/models/firebaseItem.model';
 import { Utils } from '../utils/utils.service';
 import { UserStaticService } from '../user/user.static-service';
@@ -60,7 +60,7 @@ export class FireStoreService {
   }
 
   public search<T>(table: string, attribute: string, compare: ECompare, value: string | number): Promise<Array<T>> {
-    return this._firestore.collection(table, ref => ref.where(attribute, <firebase.firestore.WhereFilterOp>compare, value))
+    return this._firestore.collection(table, ref => ref.where(attribute, compare, value))
       .get().toPromise().then(querySnapshot => querySnapshot.docs.map(doc => <T>doc.data()));
   }
 

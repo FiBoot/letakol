@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "letakol-62166"
+  },
+  "targets": {
+    "letakol-62166": {
+      "hosting": {
+        "multi-app": [
+          "letakol-62166"
+        ]
+      }
+    }
   }
 }

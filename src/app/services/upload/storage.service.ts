@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FireStoreService } from '../firestore/firestore.service';
-import { AngularFireStorage } from 'angularfire2/storage';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable, Subscriber } from 'rxjs';
 import { ModelFactoryService } from '../model-factory/model-factory.service';
 import { Timer } from 'src/app/classes/timer.class';
 import { Utils } from '../utils/utils.service';
 import { IImage } from 'src/app/models/image.model';
 import { ItemPropertyError } from 'src/app/models/error/item-property-error.error';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 export class UploadStatus {
   inProgress = false;
@@ -48,7 +49,7 @@ export class StorageService {
         this.updateMessage(`Uploading file... (${percent}% ${timer.value}sec)`, observer);
       });
 
-      uploadTask.then((uploadTaskSnapshot: firebase.storage.UploadTaskSnapshot) => {
+      uploadTask.then((uploadTaskSnapshot: UploadTaskSnapshot) => {
 
         this.updateMessage('Updating download url', observer);
         uploadTaskSnapshot.ref.getDownloadURL().then(url => {

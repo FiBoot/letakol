@@ -1,4 +1,4 @@
-import OpenSimplexNoise from 'open-simplex-noise';
+import { makeNoise3D } from "open-simplex-noise";
 import { Canvas } from 'src/app/classes/canvas.class';
 import { Utils } from 'src/app/services/utils/utils.service';
 
@@ -7,7 +7,7 @@ export class ArchitectsLogo extends Canvas {
   readonly CIRCLE_ALPHA_RATIO: number = 100;
   readonly CIRCLE_SIZE_RATIO: number = 1 / 5;
 
-  private openSimplex: OpenSimplexNoise = new OpenSimplexNoise(Date.now());
+  private noise3D = makeNoise3D(Date.now());
   private zNoiseOffset: number = 0;
 
   public terraformThreshold: number = 3;
@@ -27,7 +27,7 @@ export class ArchitectsLogo extends Canvas {
   }
 
   noise(x: number, y: number, z: number): number {
-    return this.openSimplex.noise3D(x / 100, y / 100, z / 100);
+    return this.noise3D(x / 100, y / 100, z / 100);
   }
 
   circleDistance(xp: number, yp: number, xc: number, yc: number) {

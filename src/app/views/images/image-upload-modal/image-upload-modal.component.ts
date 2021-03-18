@@ -1,16 +1,15 @@
-import { Component, Renderer, ViewChild, ElementRef, EventEmitter } from '@angular/core';
+import { Component, Renderer2, ViewChild, ElementRef, EventEmitter } from '@angular/core';
 import { UploadStatus, StorageService } from 'src/app/services/upload/storage.service';
 import { Utils } from 'src/app/services/utils/utils.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UploadEvent, FileSystemFileEntry } from 'ngx-file-drop';
+import { FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 
 @Component({
   selector: 'app-image-upload-modal.component',
   templateUrl: './image-upload-modal.component.html',
-  styleUrls: ['./image-upload-modal.component.css']
+  styleUrls: ['./image-upload-modal.component.css'],
 })
 export class ImageUploadModalComponent {
-
   @ViewChild('imageFileInput') imageFileInput: ElementRef;
 
   readonly DEFAULT_TEXT = 'Drop File';
@@ -21,7 +20,7 @@ export class ImageUploadModalComponent {
   public title: string;
   public status: UploadStatus;
 
-  constructor(private _storage: StorageService, private renderer: Renderer, public modalService: NgbModal) {
+  constructor(private _storage: StorageService, private renderer: Renderer2, public modalService: NgbModal) {
     this.status = new UploadStatus(this.DEFAULT_TEXT);
   }
 
@@ -31,17 +30,20 @@ export class ImageUploadModalComponent {
 
   public fileChange(event: Event): void {
     this.updateFile(Utils.first(Array.from((<HTMLInputElement>event.target).files)));
-
   }
 
-  public fileDropped(event: UploadEvent): void {
-    (<FileSystemFileEntry>Utils.first(event.files).fileEntry).file(file => this.updateFile(file));
+  public fileDropped(files: NgxFileDropEntry[]): void {
+    const droppedFile = Utils.first<NgxFileDropEntry>(files);
+    const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+    if (fileEntry.isFile) {
+      fileEntry.file(this.updateFile.bind(this));
+    }
   }
 
   public filedropClick(): void {
-    this.renderer.invokeElementMethod(
-      this.imageFileInput.nativeElement, 'dispatchEvent', [new MouseEvent('click', { bubbles: true })]
-    );
+    // this.renderer.invokeElementMethod(this.imageFileInput.nativeElement, 'dispatchEvent', [
+    //   new MouseEvent('click', { bubbles: true }),
+    // ]);
   }
 
   public upload(): void {
@@ -49,7 +51,6 @@ export class ImageUploadModalComponent {
     this._file = null;
     this.title = '';
   }
-
 
   private updateFile(file: File): void {
     this._file = file;
@@ -60,21 +61,23 @@ export class ImageUploadModalComponent {
     this.status.message = 'Checking file';
     if (!this.status.inProgress && file && this.EXTENTIONS.includes(file.type)) {
       this.status.message = 'Generating image preview';
-      this.genereImagePreview().then(preview => {
-        this._storage.uploadImage(file, preview, title).subscribe(
-          (newStatus) => this.status = newStatus,
-          (err) => {
-            this.status.inProgress = false;
-            console.warn(err);
-          },
-          () => {
-            this.status.inProgress = false;
-            this.imageUploaded.emit();
-          }
-        );
-      }).catch(err => this.status.message = 'Error while creating preview');
+      this.genereImagePreview()
+        .then((preview) => {
+          this._storage.uploadImage(file, preview, title).subscribe(
+            (newStatus) => (this.status = newStatus),
+            (err) => {
+              this.status.inProgress = false;
+              console.warn(err);
+            },
+            () => {
+              this.status.inProgress = false;
+              this.imageUploaded.emit();
+            }
+          );
+        })
+        .catch((err) => (this.status.message = 'Error while creating preview'));
     } else {
-      const exts = this.EXTENTIONS.map(ext => ext.replace('image/', '.')).join(', ');
+      const exts = this.EXTENTIONS.map((ext) => ext.replace('image/', '.')).join(', ');
       this.status.message = `Error while selecting file (Image must be ${exts})`;
     }
   }
@@ -84,8 +87,12 @@ export class ImageUploadModalComponent {
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageHandle = new Image();
-        imageHandle.onload = () => { resolve(this.resizeWithCanvas(imageHandle)); };
-        imageHandle.onerror = (e) => { reject(e); };
+        imageHandle.onload = () => {
+          resolve(this.resizeWithCanvas(imageHandle));
+        };
+        imageHandle.onerror = (e) => {
+          reject(e);
+        };
         imageHandle.src = (<FileReader>event.target).result.toString();
       };
       reader.readAsDataURL(this._file);
@@ -93,7 +100,8 @@ export class ImageUploadModalComponent {
   }
 
   private resizeWithCanvas(image) {
-    const DWIDTH = 200, DHEIGHT = 300;
+    const DWIDTH = 200,
+      DHEIGHT = 300;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = DWIDTH;
@@ -101,12 +109,18 @@ export class ImageUploadModalComponent {
 
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(image,
-      (image.width - DWIDTH) / 2, (image.height - DHEIGHT) / 2, DWIDTH, DHEIGHT,
-      0, 0, DWIDTH, DHEIGHT,
+    ctx.drawImage(
+      image,
+      (image.width - DWIDTH) / 2,
+      (image.height - DHEIGHT) / 2,
+      DWIDTH,
+      DHEIGHT,
+      0,
+      0,
+      DWIDTH,
+      DHEIGHT
     );
 
     return canvas.toDataURL('image/jpeg');
   }
-
 }
