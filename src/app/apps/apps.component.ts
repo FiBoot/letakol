@@ -27,7 +27,7 @@ export class AppsComponent {
       new App('keyboard', 'Keyboard', 'Viens tater'),
       new App('gol', 'Game of Life', ''),
       new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),
-      new App('chat', 'Chat'),
+      // new App('chat', 'Chat'),
       new App('snake', 'Snake', 'c::::::::::::::::<'),
     ];
   }
