@@ -3,7 +3,7 @@ import { Key } from './classes/key.class';
 import { notes } from './classes/notes';
 import { Track } from './classes/track.class';
 import { TrackPlayer } from './classes/trackPlayer.class';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Utils } from 'src/app/services/utils/utils.service';
 
 const ESCPAE_KEY = 'Escape';
@@ -13,7 +13,7 @@ const ESCPAE_KEY = 'Escape';
   templateUrl: './keyboard.component.html',
   styleUrls: ['./keyboard.component.css']
 })
-export class KeyboardComponent {
+export class KeyboardComponent implements OnDestroy {
   // keys
   keys: Array<Key>;
   currentKey: Key;
@@ -30,10 +30,15 @@ export class KeyboardComponent {
   private player: TrackPlayer = new TrackPlayer();
 
   constructor() {
-    window.addEventListener('keydown', event => this.onKey(event, true));
-    window.addEventListener('keyup', event => this.onKey(event, false));
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
     this.initKeyboard();
     this.initEffects();
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('keydown', this.onKeyDown);
+    window.removeEventListener('keyup', this.onKeyUp);
   }
 
   private initKeyboard(): void {
@@ -95,7 +100,15 @@ export class KeyboardComponent {
     return this.player.playing;
   }
 
-  public onKey(event: KeyboardEvent, pressed: boolean): void {
+  public onKeyDown(event): void {
+    this.onKey(event, true);
+  }
+
+  public onKeyUp(event): void {
+    this.onKey(event, false);
+  }
+
+  private onKey(event: KeyboardEvent, pressed: boolean): void {
     // Escape rules them all
     if (event.key === ESCPAE_KEY) {
       this.keys.map(key => (key.binding = false));

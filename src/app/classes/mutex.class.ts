@@ -30,7 +30,7 @@ export class Mutex {
     this._errorSubject.next(null);
     this._lockSubject.next(false);
 
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       // promise timeout
       setTimeout(() => {
         if (!this.timedout && this._lock) {
