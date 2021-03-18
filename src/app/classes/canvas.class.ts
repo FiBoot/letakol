@@ -62,9 +62,7 @@ export class Canvas extends Looper {
     this._canvas.addEventListener('mousemove', (event: MouseEvent) =>
       cancelEvent(event, this.onMouseMove(event.offsetX, event.offsetY))
     );
-    this._canvas.addEventListener('mouseleave', (event: MouseEvent) =>
-      cancelEvent(event, this.onMouseLeave())
-    );
+    this._canvas.addEventListener('mouseleave', (event: MouseEvent) => cancelEvent(event, this.onMouseLeave()));
     // on wheel
     this._canvas.addEventListener('wheel', (event: WheelEvent) => this.onScroll(event.deltaY > 0));
     // on resize
@@ -105,12 +103,7 @@ export class Canvas extends Looper {
 
   public drawUnit(x: number, y: number, color: string | CanvasGradient | CanvasPattern): void {
     this._render.fillStyle = color;
-    this._render.fillRect(
-      Math.floor(x * this.us),
-      Math.floor(y * this.us),
-      Math.ceil(this.us),
-      Math.ceil(this.us)
-    );
+    this._render.fillRect(Math.floor(x * this.us), Math.floor(y * this.us), Math.ceil(this.us), Math.ceil(this.us));
   }
 
   private sizeCanvas(): void {
@@ -144,10 +137,15 @@ export class Canvas extends Looper {
   }
   /**
    * Unit size
-   *
    */
   public get us(): number {
     return this._unitSize;
+  }
+  /**
+   * Half unist size
+   */
+  public get hus(): number {
+    return this._unitSize / 2;
   }
   /**
    * Unit per lines
