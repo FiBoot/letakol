@@ -18,6 +18,6 @@ export class ArchitectsLogoComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.app.stop();
+    this.app.destroy();
   }
 }

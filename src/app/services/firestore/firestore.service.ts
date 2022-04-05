@@ -4,20 +4,13 @@ import { IFireBaseItem, EItemType } from 'src/app/models/firebaseItem.model';
 import { Utils } from '../utils/utils.service';
 import { UserStaticService } from '../user/user.static-service';
 import { ItemPropertyError } from 'src/app/models/error/item-property-error.error';
-
-export enum ECompare {
-  Equal = '==',
-  Different = '!=',
-  Inferior = '<',
-  Superior = '>',
-  InferiorEqual = '<=',
-  SuperiorEqual = '>='
-}
+import { ETables } from 'src/app/models/enums/firebase-tables.enum';
+import { ECompare } from 'src/app/models/enums/firebase-compare.enum';
 
 @Injectable()
 export class FireStoreService {
 
-  readonly TABLE = 'blob';
+  readonly TABLE = ETables.Blob;
   readonly LIMIT = 1000;
 
   constructor(private _firestore: AngularFirestore) { }

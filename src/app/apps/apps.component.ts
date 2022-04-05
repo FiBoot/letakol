@@ -26,8 +26,6 @@ export class AppsComponent {
       new App('architects-logo', 'Architects logo', 'BLEGH'),
       new App('keyboard', 'Keyboard', 'Viens tater'),
       new App('gol', 'Game of Life', ''),
-      new App('codewar', 'CODEWAR', 'Pas comme le corewar mais en JS'),
-      // new App('chat', 'Chat'),
       new App('snake', 'Snake', 'c::::::::::::::::<'),
     ];
   }

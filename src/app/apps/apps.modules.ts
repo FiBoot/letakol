@@ -4,7 +4,6 @@ import { APPS_ROUTES } from './apps.routes';
 import { ArchitectsLogoComponent } from './architects-logo/architects-logo.component';
 import { ChatComponent } from './chat/chat.component';
 import { CodewarComponent } from './codewar/codewar.component';
-import { GolComponent } from './gol/gol.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { SnakeIoComponent } from './snake-io/snake-io.component';
 import { CommonModule } from '@angular/common';
@@ -13,7 +12,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { CodemirrorModule } from 'ng2-codemirror';
 import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
@@ -22,7 +20,6 @@ import { Ng5SliderModule } from 'ng5-slider';
     ArchitectsLogoComponent,
     ChatComponent,
     CodewarComponent,
-    GolComponent,
     KeyboardComponent,
     SnakeIoComponent,
   ],
@@ -32,7 +29,6 @@ import { Ng5SliderModule } from 'ng5-slider';
     HttpClientModule,
     CommonModule,
     FormsModule,
-    CodemirrorModule,
     Ng5SliderModule,
     ComponentsModule
   ]

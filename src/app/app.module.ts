@@ -22,7 +22,6 @@ import { FireStoreService } from './services/firestore/firestore.service';
 import { AdminComponent } from './views/admin/admin.component';
 import { DefaultComponent } from './views/default/default.component';
 import { ImagesComponent } from './views/images/images.component';
-import { ListViewComponent } from './views/list-view/list-view.component';
 import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
 import { RouterModule } from '@angular/router';
@@ -34,7 +33,6 @@ import { VoidStonesComponent } from './apps/void-stones/void-stones.component';
     DefaultComponent,
     AdminComponent,
     UserViewComponent,
-    ListViewComponent,
     UserEditComponent,
     ImagesComponent,
     ImageViewModalComponent,
