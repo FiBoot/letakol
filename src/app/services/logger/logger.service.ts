@@ -1,13 +1,18 @@
+import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
-export enum LOG_LEVEL { LOG, WARN, ERROR }
+export enum LOG_LEVEL {
+  LOG,
+  WARN,
+  ERROR
+}
 
+@Injectable()
 export class Logger {
-
   private static _log(message: string, level: LOG_LEVEL = LOG_LEVEL.LOG, arg: any = null): void {
     if (!environment.production) {
       const log = `[${['LOG', 'WARN', 'ERROR'][level]}]${message}`;
-      if (arg) { console.log(log, arg); } else { console.log(log); }
+      arg ? console.log(log, arg) : console.log(log);
     }
   }
 

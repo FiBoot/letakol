@@ -14,7 +14,7 @@ export class ArchitectsLogo extends Canvas {
   public noiseSpeed: number = 4;
 
   constructor(wrapper: HTMLDivElement) {
-    super({ wrapper, looperOption: { timespan: 30 } });
+    super({ wrapper, looperOption: { timespan: 100 } });
     
     this.start();
   }

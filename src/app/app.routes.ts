@@ -15,8 +15,8 @@ export const ROUTES: Routes = [
   { path: 'user/:id', component: UserViewComponent },
   { path: 'user-edit', component: UserEditComponent },
 
-  { path: 'images', component: ImagesComponent },
-  { path: 'image/:id', component: ImagesComponent },
+  { path: 'views/images', component: ImagesComponent },
+  { path: 'views/image/:id', component: ImagesComponent },
 
   { path: 'apps', loadChildren: loadAppsRouteModule },
 
