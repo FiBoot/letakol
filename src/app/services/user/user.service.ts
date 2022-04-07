@@ -4,9 +4,8 @@ import { IUserData, IUser } from 'src/app/models/user.model';
 import { FireStoreService } from '../firestore/firestore.service';
 import { ModelFactoryService } from '../model-factory/model-factory.service';
 import { UserStaticService } from './user.static-service';
-import { UnexpectedError } from 'src/app/models/error/unexpected-error.error';
-import { StorageService } from '../upload/storage.service';
 import firebase from 'firebase/app';
+import { UnexpectedError } from 'src/app/models/error/unexpected-error.error';
 import { ECompare } from 'src/app/models/enums/firebase-compare.enum';
 import { ETables } from 'src/app/models/enums/firebase-tables.enum';
 
@@ -25,6 +24,7 @@ interface IProfileForm {
 export class UserService {
 	readonly TABLE_NAME = ETables.User;
 	public userChange = new EventEmitter<IUser | null>();
+	private _userList: Array<IUser> = [];
 
 	constructor(private _fireAuth: AngularFireAuth, private _firestore: FireStoreService) {
 		this._fireAuth.authState.subscribe((firebaseUser) => {
@@ -43,6 +43,19 @@ export class UserService {
 
 	public get user(): IUser {
 		return UserStaticService.user;
+	}
+
+	public getUser(userId: string): Promise<IUser | null> {
+		const user = this._userList.find((u) => u.id === userId);
+		return user
+			? Promise.resolve(user)
+			: this._firestore
+					.getItem<IUser>(ETables.User, userId)
+					.then((user) => {
+						this._userList.push(user);
+						return user;
+					})
+					.catch((reason) => null);
 	}
 
 	public isLoggedIn(): boolean {

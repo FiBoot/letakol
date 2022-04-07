@@ -8,6 +8,7 @@ import { IUser } from 'src/app/models/user.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user/user.service';
 import { Utils } from 'src/app/services/utils/utils.service';
+import { ETables } from 'src/app/models/enums/firebase-tables.enum';
 
 @Component({
   selector: 'app-image-view-modal',
@@ -28,7 +29,7 @@ export class ImageViewModalComponent extends ViewComponent {
 
   public setImage(image: IImage): void {
     this.image = image;
-    this._firestore.getItem<IUser>('users', image.uid).then(user => this.user = user);
+    this._firestore.getItem<IUser>(ETables.User, image.uid).then(user => this.user = user);
   }
 
   public convertDate(image: IImage): string {

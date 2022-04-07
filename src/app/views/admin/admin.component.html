@@ -1,62 +1,94 @@
 <div *ngIf="currentUser && currentUser.admin" class="container">
+	<div class="form-group">
+		<div class="alert alert-danger" *ngIf="mutex.error">{{ mutex.error }}</div>
+	</div>
 
-  <div class="form-group">
-    <div class="alert alert-danger" *ngIf="mutex.error">{{mutex.error}}</div>
-  </div>
+	<app-pagination [items]="items" [perPage]="10" (displayedItemsChange)="displayedItems = $event"></app-pagination>
 
-  <app-pagination [items]="items" [perPage]="10" (displayedItemsChange)="displayedItems = $event"></app-pagination>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">
-          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'uid'}"
-            (click)="sort('uid')"><b>uid</b></button>
-        </th>
-        <th scope="col">
-          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'name'}"
-            (click)="sort('name')"><b>name</b></button>
-        </th>
-        <th scope="col">
-          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'type'}"
-            (click)="sort('type')"><b>type</b></button>
-        </th>
-        <!-- <th scope="col">data</th> -->
-        <th scope="col">
-          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'cd'}"
-            (click)="sort('cd')"><b>creationDate</b></button>
-        </th>
-        <th scope="col">
-          <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': sortBy === 'lud'}"
-            (click)="sort('lud')"><b>lastUpdateDate</b></button>
-        </th>
-        <th scope="col">public</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of displayedItems">
-        <td>
-          <app-user-link [userId]="(item.type === 'user') ? item.id : item.uid"></app-user-link>
-        </td>
-        <td>
-          <div class="cell">{{item.name}}</div>
-        </td>
-        <td>{{item.type}}</td>
-        <!-- <td>{{item.data}}</td> -->
-        <td>
-          <app-item-date [date]="item.creationDate"></app-item-date>
-        </td>
-        <td>
-          <app-item-date [date]="item.lastUpdateDate"></app-item-date>
-        </td>
-        <td>{{item.public}}</td>
-        <td>
-          <app-mutex-button [lock]="mutex.lock" [btnClass]="'btn-outline-info'"
-            [btnValue]="'Link'" (click)="goTo(item)"></app-mutex-button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">
+					<button
+						type="button"
+						class="btn btn-light"
+						[ngClass]="{ 'btn-dark': sortBy === sortTypes.Uid }"
+						(click)="sort(sortTypes.Uid)"
+					>
+						<b>uid</b>
+					</button>
+				</th>
+				<th scope="col">
+					<button
+						type="button"
+						class="btn btn-light"
+						[ngClass]="{ 'btn-dark': sortBy === sortTypes.Name }"
+						(click)="sort(sortTypes.Name)"
+					>
+						<b>name</b>
+					</button>
+				</th>
+				<th scope="col">
+					<button
+						type="button"
+						class="btn btn-light"
+						[ngClass]="{ 'btn-dark': sortBy === sortTypes.Type }"
+						(click)="sort(sortTypes.Type)"
+					>
+						<b>type</b>
+					</button>
+				</th>
+				<!-- <th scope="col">data</th> -->
+				<th scope="col">
+					<button
+						type="button"
+						class="btn btn-light"
+						[ngClass]="{ 'btn-dark': sortBy === sortTypes.CreationDate }"
+						(click)="sort(sortTypes.CreationDate)"
+					>
+						<b>creationDate</b>
+					</button>
+				</th>
+				<th scope="col">
+					<button
+						type="button"
+						class="btn btn-light"
+						[ngClass]="{ 'btn-dark': sortBy === sortTypes.LastUpdate }"
+						(click)="sort(sortTypes.LastUpdate)"
+					>
+						<b>lastUpdateDate</b>
+					</button>
+				</th>
+				<th scope="col">public</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of displayedItems">
+				<td>
+					<app-user-link [userId]="item.type === 'user' ? item.id : item.uid"></app-user-link>
+				</td>
+				<td>
+					<div class="cell">{{ item.name }}</div>
+				</td>
+				<td>{{ item.type }}</td>
+				<!-- <td>{{item.data}}</td> -->
+				<td>
+					<app-item-date [date]="item.creationDate"></app-item-date>
+				</td>
+				<td>
+					<app-item-date [date]="item.lastUpdateDate"></app-item-date>
+				</td>
+				<td>{{ item.public }}</td>
+				<td>
+					<app-mutex-button
+						[lock]="mutex.lock"
+						[btnClass]="'btn-outline-info'"
+						[btnValue]="'Link'"
+						(click)="goTo(item)"
+					></app-mutex-button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
