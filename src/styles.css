@@ -8,6 +8,10 @@ body {
     sans-serif;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 label {
   font-weight: bold;
 }

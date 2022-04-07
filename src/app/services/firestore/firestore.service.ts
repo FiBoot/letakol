@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { IFireBaseItem, EItemType } from 'src/app/models/firebaseItem.model';
+import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
 import { Utils } from '../utils/utils.service';
 import { UserStaticService } from '../user/user.static-service';
 import { ItemPropertyError } from 'src/app/models/error/item-property-error.error';
 import { ETables } from 'src/app/models/enums/firebase-tables.enum';
 import { ECompare } from 'src/app/models/enums/firebase-compare.enum';
+import { EItemTypes } from 'src/app/models/enums/firebase-item-types.enum';
 
 @Injectable()
 export class FireStoreService {
@@ -74,9 +75,9 @@ export class FireStoreService {
   }
 
   public add(item: IFireBaseItem): Promise<IFireBaseItem> {
-    if (item.type !== EItemType.User && !UserStaticService.user) { return Promise.reject(new ItemPropertyError); }
+    if (item.type !== EItemTypes.User && !UserStaticService.user) { return Promise.reject(new ItemPropertyError); }
     item.id = Utils.generateId();
-    item.uid = (item.type === EItemType.User) ? item.id : UserStaticService.user.id;
+    item.uid = (item.type === EItemTypes.User) ? item.id : UserStaticService.user.id;
     item.creationDate = Date.now();
     item.lastUpdateDate = item.creationDate;
     return Promise.all([
@@ -86,7 +87,7 @@ export class FireStoreService {
   }
 
   public update(item: IFireBaseItem): Promise<IFireBaseItem> {
-    if (!this.checkItemProperty(item, item.type === EItemType.User)) { return Promise.reject(new ItemPropertyError); }
+    if (!this.checkItemProperty(item, item.type === EItemTypes.User)) { return Promise.reject(new ItemPropertyError); }
     item.lastUpdateDate = Date.now();
     return Promise.all([
       this.getDoc(this.itemTable(item), item.id).then(doc => doc.update(this.format(item))),

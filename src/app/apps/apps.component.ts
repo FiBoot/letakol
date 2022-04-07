@@ -2,23 +2,19 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Utils } from 'src/app/services/utils/utils.service';
 
-const enum EAppType {
-	Game = 'apps',
-	View = 'views',
-}
 class App {
-	constructor(readonly path: string, readonly type: EAppType, readonly name: string, readonly description: string = '') {}
+	constructor(readonly path: Array<string>, readonly name: string, readonly description: string = '') {}
 }
 
 class Game extends App {
-	constructor(readonly path: string, readonly name: string, readonly description: string = '') {
-		super(path, EAppType.Game, name, description);
+	constructor(path: string, name: string, description: string = '') {
+		super(['/', 'apps', path], name, description);
 	}
 }
 
 class View extends App {
-	constructor(readonly path: string, readonly name: string, readonly description: string = '') {
-		super(path, EAppType.View, name, description);
+	constructor(path: string, name: string, description: string = '') {
+		super(['/', path], name, description);
 	}
 }
 
@@ -40,6 +36,7 @@ export class AppsComponent {
 		this.apps = [
 			new View('', 'Last entries'),
 			new View('images', 'Gallerie'),
+			new Game('pixel-war', 'Pixel War', 'Général'),
 			// new Game('void-stones', 'Void Stones RP', 'map for atrophag'),
 			new Game('architects-logo', 'Architects logo', 'BLEGH'),
 			new Game('keyboard', 'Keyboard', 'musicaly'),
@@ -49,6 +46,6 @@ export class AppsComponent {
 	}
 
 	public click(app: App): void {
-		this._router.navigate(['/', app.type, app.path]);
+		this._router.navigate(app.path);
 	}
 }

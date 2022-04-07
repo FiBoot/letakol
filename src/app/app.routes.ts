@@ -11,12 +11,11 @@ import { loadAppsRouteModule } from './apps/apps.modules';
 export const ROUTES: Routes = [
   { path: '', component: DefaultComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'user', component: UserViewComponent },
   { path: 'user/:id', component: UserViewComponent },
   { path: 'user-edit', component: UserEditComponent },
 
-  { path: 'views/images', component: ImagesComponent },
-  { path: 'views/image/:id', component: ImagesComponent },
+  { path: 'images', component: ImagesComponent },
+  { path: 'image/:id', component: ImagesComponent },
 
   { path: 'apps', loadChildren: loadAppsRouteModule },
 

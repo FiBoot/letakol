@@ -1,10 +1,11 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { IFireBaseItem, EItemType } from 'src/app/models/firebaseItem.model';
+import { Component } from '@angular/core';
+import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
 import { Mutex } from 'src/app/classes/mutex.class';
 import { ViewComponent } from '../view.component';
 import { UserService } from 'src/app/services/user/user.service';
 import { FireStoreService } from 'src/app/services/firestore/firestore.service';
 import { Router } from '@angular/router';
+import { EItemTypes } from 'src/app/models/enums/firebase-item-types.enum';
 
 @Component({
   selector: 'app-admin',
@@ -34,7 +35,7 @@ export class AdminComponent extends ViewComponent {
     const items = this.items.slice();
     this.sortBy = by;
     switch (by) {
-      case 'uid': items.sort((a, b) => (a.type === EItemType.User ? a.id.localeCompare(b.id) : a.uid.localeCompare(b.uid))); break;
+      case 'uid': items.sort((a, b) => (a.type === EItemTypes.User ? a.id.localeCompare(b.id) : a.uid.localeCompare(b.uid))); break;
       case 'name': items.sort((a, b) => a.name.localeCompare(b.name)); break;
       case 'type': items.sort((a, b) => a.type.localeCompare(b.type)); break;
       case 'cd': items.sort((a, b) => a.creationDate - b.creationDate); break;

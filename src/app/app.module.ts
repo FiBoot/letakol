@@ -26,6 +26,7 @@ import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { UserViewComponent } from './views/user-view/user-view.component';
 import { RouterModule } from '@angular/router';
 import { VoidStonesComponent } from './apps/void-stones/void-stones.component';
+import { PixelWarComponent } from './apps/pixel-war/pixel-war.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { VoidStonesComponent } from './apps/void-stones/void-stones.component';
     ImagesComponent,
     ImageViewModalComponent,
     ImageUploadModalComponent,
-    VoidStonesComponent
+    VoidStonesComponent,
+    PixelWarComponent
   ],
   imports: [
     BrowserModule,

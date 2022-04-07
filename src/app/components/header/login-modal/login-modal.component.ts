@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 	styleUrls: ['./login-modal.component.css'],
 })
 export class LoginModalComponent implements OnDestroy {
-  private _userChangeEmitter: Subscription;
+	private _userChangeEmitter: Subscription;
 	public loginForm = new FormGroup({
 		email: new FormControl('', Validators.required),
 		password: new FormControl('', Validators.required),
@@ -20,7 +20,6 @@ export class LoginModalComponent implements OnDestroy {
 
 	constructor(private _userService: UserService, private _modalService: NgbModal) {
 		this._userChangeEmitter = this._userService.userChange.subscribe((user) => {
-      console.warn(user)
 			if (user) {
 				this._modalService.dismissAll();
 			}
@@ -28,7 +27,7 @@ export class LoginModalComponent implements OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-    this._userChangeEmitter.unsubscribe();
+		this._userChangeEmitter.unsubscribe();
 	}
 
 	public register(form): void {

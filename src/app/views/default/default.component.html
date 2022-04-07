@@ -5,7 +5,7 @@
       <h4>Latest items:</h4>
     </div>
     <div class="col-sm-6">
-      <app-input-form class="float-right" (keyPress)="search($event)" [inputPlaceholder]="'Search'" [submitBtnValue]="'X'"></app-input-form>
+      <app-input-form class="float-right" (keyPress)="searchDebouncer.exec($event)" [inputPlaceholder]="'Search'" [submitBtnValue]="'X'"></app-input-form>
     </div>
   </div>
 
