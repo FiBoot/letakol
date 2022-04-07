@@ -3,7 +3,7 @@ import { IUser } from '../models/user.model';
 
 export class ViewComponent {
 
-  private _currentUser: IUser = null;
+  protected _currentUser: IUser = null;
 
   constructor(userService: UserService) {
     this._currentUser = userService.user;

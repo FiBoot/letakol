@@ -60,7 +60,8 @@
 					</button>
 				</th>
 				<th scope="col">public</th>
-				<th scope="col"></th>
+				<th scope="col">link</th>
+				<th scope="col">delete</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -81,11 +82,14 @@
 				</td>
 				<td>{{ item.public }}</td>
 				<td>
+					<app-mutex-button [btnClass]="'btn-outline-info'" [btnValue]="'Link'" (click)="goTo(item)"></app-mutex-button>
+				</td>
+				<td>
 					<app-mutex-button
 						[lock]="mutex.lock"
-						[btnClass]="'btn-outline-info'"
-						[btnValue]="'Link'"
-						(click)="goTo(item)"
+						[btnClass]="'btn-danger'"
+						[btnValue]="'Delete'"
+						(click)="delete(item)"
 					></app-mutex-button>
 				</td>
 			</tr>

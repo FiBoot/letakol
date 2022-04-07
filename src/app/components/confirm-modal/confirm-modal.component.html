@@ -1,15 +1,15 @@
 <div class="modal-header">
-  <h3 class="modal-title" id="modal-basic-title">{{title}}</h3>
-  <button class="btn btn-outline-dark float-right" (click)="closeModal()">Close</button>
+	<h3 class="modal-title" id="modal-basic-title">{{ title }}</h3>
+	<button class="btn btn-outline-dark float-right" (click)="closeModal()">X</button>
 </div>
 
-<div class="modal-body ellipsis">{{content}}</div>
+<div class="modal-body ellipsis">{{ content }}</div>
 
 <div *ngIf="alert" class="modal-body">
-  <div class="alert alert-warning">{{alert}}</div>
+	<div class="alert alert-warning">{{ alert }}</div>
 </div>
 
 <div class="modal-footer">
-  <app-mutex-button [lock]="lock" [btnClass]="btnClass" [btnValue]="'Confirm'" (clicked)="onConfirm()">
-  </app-mutex-button>
+	<app-mutex-button [lock]="lock" [btnClass]="btnClass" [btnValue]="'Confirm'" (clicked)="onConfirm()">
+	</app-mutex-button>
 </div>

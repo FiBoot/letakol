@@ -11,7 +11,7 @@ export class ConfirmModalComponent {
   @Input() title = 'Confirmation modal';
   @Input() content = '';
   @Input() alert: string;
-  @Input() btnClass = 'btn-danger';
+  @Input() btnClass = 'btn-outline-danger';
   @Input() lock: boolean;
 
   @Output() confirm = new EventEmitter();
