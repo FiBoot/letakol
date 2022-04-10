@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { IFireBaseItem } from 'src/app/models/firebase-item.model';
 import { Router } from '@angular/router';
 
 @Component({

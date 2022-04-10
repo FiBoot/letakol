@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Debouncer } from 'src/app/classes/debouncer.class';
 import { EItemTypes } from 'src/app/models/enums/firebase-item-types.enum';
 import { EPixelColors } from 'src/app/models/enums/pixel-war-colors.enum';
-import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { IFireBaseItem } from 'src/app/models/firebase-item.model';
 import { IPixel } from 'src/app/models/pixel.model';
 import { FireStoreService } from 'src/app/services/firestore/firestore.service';
 

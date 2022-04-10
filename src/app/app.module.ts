@@ -27,6 +27,7 @@ import { UserViewComponent } from './views/user-view/user-view.component';
 import { RouterModule } from '@angular/router';
 import { VoidStonesComponent } from './apps/void-stones/void-stones.component';
 import { PixelWarComponent } from './apps/pixel-war/pixel-war.component';
+import { RealtimeFirebaseService } from './services/firestore/realtime-firebase.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { PixelWarComponent } from './apps/pixel-war/pixel-war.component';
     ImageViewModalComponent,
     ImageUploadModalComponent
   ],
-  providers: [FireStoreService],
+  providers: [FireStoreService, RealtimeFirebaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

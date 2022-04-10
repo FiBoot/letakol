@@ -29,7 +29,7 @@ export class ImageViewModalComponent extends ViewComponent {
 
   public setImage(image: IImage): void {
     this.image = image;
-    this._firestore.getItem<IUser>(ETables.User, image.uid).then(user => this.user = user);
+    this._firestore.getItem<IUser>(ETables.Users, image.uid).then(user => this.user = user);
   }
 
   public convertDate(image: IImage): string {

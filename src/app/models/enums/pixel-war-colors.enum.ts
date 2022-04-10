@@ -1,4 +1,4 @@
-export const enum EPixelColors {
+export enum EPixelColors {
     Black = '#111',
     VeryDarkGrey = '#333',
     DarkGrey = '#666',

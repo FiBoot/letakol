@@ -1,4 +1,4 @@
-import { IFireBaseItem } from './firebaseItem.model';
+import { IFireBaseItem } from './firebase-item.model';
 
 export interface IImageData {
   url: string;

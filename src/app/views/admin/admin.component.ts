@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { IFireBaseItem } from 'src/app/models/firebase-item.model';
 import { Mutex } from 'src/app/classes/mutex.class';
 import { ViewComponent } from '../view.component';
 import { UserService } from 'src/app/services/user/user.service';

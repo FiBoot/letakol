@@ -55,7 +55,7 @@ export class StorageService {
         uploadTaskSnapshot.ref.getDownloadURL().then(url => {
 
           this.updateMessage('Creating base entry', observer);
-          const item = ModelFactoryService.genereImage({
+          const item = ModelFactoryService.generateImage({
             fileId: fileId,
             url: url,
             preview: preview

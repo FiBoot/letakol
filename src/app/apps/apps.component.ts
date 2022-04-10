@@ -34,9 +34,8 @@ export class AppsComponent {
 		});
 
 		this.apps = [
-			new View('', 'Last entries'),
+			new Game('pixels', 'Pixel War', 'Général'),
 			new View('images', 'Gallerie'),
-			new Game('pixel-war', 'Pixel War', 'Général'),
 			// new Game('void-stones', 'Void Stones RP', 'map for atrophag'),
 			new Game('architects-logo', 'Architects logo', 'BLEGH'),
 			new Game('keyboard', 'Keyboard', 'musicaly'),

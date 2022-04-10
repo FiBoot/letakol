@@ -1,1 +1,18 @@
+<app-mutex-button
+	[lock]="mutex.lock"
+	[btnClass]="'btn-info'"
+	[btnValue]="'Create'"
+	(clicked)="create()"
+></app-mutex-button>
+
+<ul class="list-group">
+	<li class="list-group-item" *ngFor="let pixel of pixels">
+		<span class="mr-2"><b>{{ pixel.id }}</b></span>
+		<span>{{ pixel.data.color }}</span>
+		<div class="text-right">
+			<span class="badge text-right">{{ pixel.data.posX }}, {{ pixel.data.posY }}</span>
+		</div>
+	</li>
+</ul>
+
 <div #pixelWarWrapper></div>

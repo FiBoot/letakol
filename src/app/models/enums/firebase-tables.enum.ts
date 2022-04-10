@@ -1,6 +1,7 @@
 export const enum ETables {
 	Blob = 'blob',
-	User = 'users',
-	Image = 'images',
-	Timeline = 'timeline-events',
+	Users = 'users',
+	Images = 'images',
+	TimeEvents = 'timeline-events',
+	Pixels = 'pixels',
 }

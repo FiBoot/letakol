@@ -22,7 +22,7 @@ interface IProfileForm {
 	providedIn: 'root',
 })
 export class UserService {
-	readonly TABLE_NAME = ETables.User;
+	readonly TABLE_NAME = ETables.Users;
 	public userChange = new EventEmitter<IUser | null>();
 	private _userList: Array<IUser> = [];
 
@@ -50,7 +50,7 @@ export class UserService {
 		return user
 			? Promise.resolve(user)
 			: this._firestore
-					.getItem<IUser>(ETables.User, userId)
+					.getItem<IUser>(ETables.Users, userId)
 					.then((user) => {
 						this._userList.push(user);
 						return user;

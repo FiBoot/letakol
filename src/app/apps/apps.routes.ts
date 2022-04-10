@@ -1,7 +1,5 @@
 import { AppsComponent } from './apps.component';
 import { ArchitectsLogoComponent } from './architects-logo/architects-logo.component';
-import { ChatComponent } from './chat/chat.component';
-import { CodewarComponent } from './codewar/codewar.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { SnakeIoComponent } from './snake-io/snake-io.component';
 import { Routes } from '@angular/router';
@@ -15,9 +13,7 @@ export const APPS_ROUTES: Routes = [
 		children: [
 			{ path: 'void-stones', component: VoidStonesComponent },
 			{ path: 'architects-logo', component: ArchitectsLogoComponent },
-			// { path: 'chat', component: ChatComponent },
-			// { path: 'codewar', component: CodewarComponent },
-			{ path: 'pixel-war', component: PixelWarComponent },
+			{ path: 'pixels', component: PixelWarComponent },
 			{ path: 'keyboard', component: KeyboardComponent },
 			{ path: 'snake', component: SnakeIoComponent },
 			{ path: '**', redirectTo: '' },

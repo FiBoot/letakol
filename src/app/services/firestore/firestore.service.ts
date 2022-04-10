@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { IFireBaseItem } from 'src/app/models/firebase-item.model';
 import { Utils } from '../utils/utils.service';
 import { UserStaticService } from '../user/user.static-service';
 import { ItemPropertyError } from 'src/app/models/error/item-property-error.error';

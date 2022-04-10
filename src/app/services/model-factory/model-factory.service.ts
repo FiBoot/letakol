@@ -1,15 +1,16 @@
 import { UserStaticService } from '../user/user.static-service';
 import { Injectable } from '@angular/core';
-import { IFireBaseItem } from 'src/app/models/firebaseItem.model';
+import { IFireBaseItem } from 'src/app/models/firebase-item.model';
 import { IImage, IImageData } from 'src/app/models/image.model';
 import { IUser, IUserData } from 'src/app/models/user.model';
 import { EItemTypes } from 'src/app/models/enums/firebase-item-types.enum';
+import { IPixel, IPixelData } from 'src/app/models/pixel.model';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ModelFactoryService {
-	private static genereItem(name: string, data: Object, type: EItemTypes): IFireBaseItem {
+	private static generateItem(name: string, data: Object, type: EItemTypes, isPublic: boolean = true): IFireBaseItem {
 		const date = Date.now();
 		return <IFireBaseItem>{
 			uid: UserStaticService.uid,
@@ -18,15 +19,22 @@ export class ModelFactoryService {
 			type: type,
 			creationDate: date,
 			lastUpdateDate: date,
-			public: true,
+			public: isPublic,
 		};
 	}
 
 	public static generateUser(data: IUserData): IUser {
-		return <IUser>this.genereItem(data.email, data, EItemTypes.User);
+		return {
+			admin: false,
+			...this.generateItem(data.email, data, EItemTypes.User),
+		};
 	}
 
-	public static genereImage(data: IImageData, name: string = ''): IImage {
-		return <IImage>this.genereItem(name, data, EItemTypes.Image);
+	public static generateImage(data: IImageData, name: string = ''): IImage {
+		return this.generateItem(name, data, EItemTypes.Image);
+	}
+
+	public static generatePixel(data: IPixelData, name: string = ''): IPixel {
+		return this.generateItem(name, data, EItemTypes.Pixel);
 	}
 }
